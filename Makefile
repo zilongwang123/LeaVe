@@ -1,4 +1,4 @@
-# Run 'make; sudo make install' in 'yosys'
+# Run 'make' in 'yosys'
 
 # Run 'make' in 'yosys/manual/verification/addmodule', which will generate a new pass 'addmodule.so' in main folder
 
