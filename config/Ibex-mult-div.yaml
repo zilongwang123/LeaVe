@@ -1,5 +1,5 @@
 # input/output information
-codeFolder: "../benchmarks/Ibex-mult-div" # folder with Verilog sources
+codeFolder: "benchmarks/Ibex-mult-div" # folder with Verilog sources
 outFolder: "testOut/Ibex-mult-div" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
@@ -18,7 +18,7 @@ yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
 prefixCheck: "True"
-yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"]
 
 # Output
 outputformat: "brief"

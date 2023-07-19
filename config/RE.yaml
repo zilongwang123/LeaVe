@@ -1,5 +1,5 @@
 # input/output information
-codeFolder: "../benchmarks/RE" # folder with Verilog sources
+codeFolder: "benchmarks/RE" # folder with Verilog sources
 outFolder: "testOut/RE" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk'
@@ -18,7 +18,7 @@ inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
 directlycheckyosysBMCBound: "10"
 prefixCheck: "True"
-yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"]
 
 # Outpute
 outputformat: "brief"

@@ -1,5 +1,5 @@
 # input/output information
-codeFolder: "../benchmarks/DarkRISCV-2" # folder with Verilog sources
+codeFolder: "benchmarks/DarkRISCV-2" # folder with Verilog sources
 outFolder: "testOut/DarkRISCV-2" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'XCLK'
@@ -18,7 +18,7 @@ yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
 prefixCheck: "True"
-yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"]
 
 # Output
 outputformat: "brief"

@@ -20,7 +20,7 @@ yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "5"
 prefixCheck: "True"
-yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"]
 
 
 # Output
