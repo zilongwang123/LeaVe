@@ -1,0 +1,10 @@
+1. run "make" to compile the my_cmd.cc, which will generate "my_cmd.so"
+
+2. run "yosys -m my_cmd.so" to active a yosys with command 'addobs'
+
+3. run addobs.script with "script addobs.script", which will generate the "pipeline_mul_obs/pipeline_mul.v"
+
+4. Verification
+    '''
+        python3 avr_pr.py -o foo -n bar ../secretyosys/manual/PRESENTATION_Prog/pipeline_mul_obs/prod.v
+    '''
