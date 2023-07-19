@@ -1,0 +1,341 @@
+# input/output information
+codeFolder: "../benchmarks/DarkRISCV-2" # folder with Verilog sources
+outFolder: "testOut/DarkRISCV-2" # target folder for intermediate data
+prodCircuitTemplate: "prod.v"
+clockInput: 'XCLK'
+initRegister: 'init'
+cycleDelayed: "2" # greater than 1
+
+
+# main module under analysis
+module: "darksocv_2stages" 
+moduleFile: "darksocv_2stages.v"
+memoryList: ["RAM","ROM"]
+
+# Verilog frontend
+yosysPath: "yosys/yosys"
+yosysBMCPath: "yosys-smtbmc"
+inductiveyosysBMCBound: "2"
+checkyosysBMCBound: "20"
+prefixCheck: "True"
+yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+
+# Output
+outputformat: "brief"
+
+
+# iVerilog
+iverilogPath: "iverilog"
+vvpPath: "vvp"
+
+# Analysis backend
+avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
+
+
+### SOURCE
+srcObservations:
+######################
+# seq-arch
+######################
+  # program counter
+  - {id: "PC", cond: "1", attrs: [{value: "\\core0.PC_retire", width: 32}]}
+  # When the instruction is a load, we attach the data address
+  # - {id: "LOAD", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
+  # When the instruction is a write, we attach the data address
+  # - {id: "STORE", cond: "\\core0.SCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
+  # When the instruction is a load, we need the data loaded to the registers are the same
+  # - {id: "DATAI", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.LDATA_CTR", width: 32}]} 
+  # Indicates that the instruction on fly of the two runs are the same
+  - {id: "INSTR", cond: "1", attrs: [ {value: "\\core0.INSTR_CTR", width: 32}]}
+
+
+######################
+# seq-ct  
+######################
+  # program counter
+  # - {id: "PC", cond: "\\core0.retire", attrs: [{value: "\\core0.PC_retire", width: 32}]}
+  # # When the instruction is a load, we attach the data address
+  # - {id: "LOAD", cond: "\\core0.retire && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayDADDR", width: 32}]} 
+  # # When the instruction is a write, we attach the data address
+  # - {id: "STORE", cond: "\\core0.retire && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayDADDR", width: 32}]} 
+  # - {id: "BCC", cond: "\\core0.retire && \\core0.DelayBCC", attrs: [ {value: "\\core0.DelayU1REG", width: 32},{value: "\\core0.DelayU2REG", width: 32}]}
+  # - {id: "JALR", cond: "\\core0.retire && \\core0.DelayJALR", attrs: [ {value: "\\core0.DelayU1REG", width: 32}]}
+  # - {id: "INSTR", cond: "\\core0.retire", attrs: [ {value: "\\core0.DelayXIDATA_next", width: 32}]}
+
+
+
+
+### FILTERED SOURCE
+filteredSrcObservations:
+######################
+# seq-arch
+######################
+  #  - {id: "PCs", cond: " \\core0.filter_pc_reg ", attrs: [{value: "\\core0.PC", width: 32}]} #,{value: "\\core0.NXPC", width: 32}]}
+  #  - {id: "LOAD", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a LOAD whenever we have a memory load. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO 
+  #  - {id: "STORE", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a STORE whenever we have a memory store. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO  
+  #  - {id: "\\core0.DATAI", cond: "\\core0.writeback_reg && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayLDATA", width: 32}]} # disclose a LOAD and the data write to the register at write back stage
+  #  - {id: "\\core0.DATAO", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DATAO", width: 32}]}
+  #  - {id: "\\core0.XIDATA_next", cond: "\\core0.decode_reg ", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
+
+   
+######################
+# seq-ct  
+######################
+   - {id: "PCs", cond: " \\core0.filter_pc_reg ", attrs: [{value: "\\core0.PC", width: 32}]}
+  #  - {id: "LOAD", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a LOAD whenever we have a memory load. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO 
+  #  - {id: "STORE", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a STORE whenever we have a memory store. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO  
+  #  - {id: "BCC", cond: "\\core0.decode_reg && \\core0.BCC", attrs: [ {value: "\\core0.U1REG", width: 32},{value: "\\core0.U2REG", width: 32}]}
+  #  - {id: "JALR", cond: "\\core0.decode_reg && \\core0.JALR", attrs: [ {value: "\\core0.U1REG", width: 32}]}
+   - {id: "\\core0.XIDATA_next", cond: "\\core0.decode_reg ", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
+
+
+### Predicates
+# Retire predicates
+predicateRetire:
+ - {id: "Retire", cond: "1", attrs: [{value: "\\core0.retire", width: 1}]}
+
+# Pipeline predicates for seq-arch
+predicatePI:
+ - {id: "WRITEBACK", cond: "1", attrs: [{value: "\\core0.writeback", width: 1}]}
+ - {id: "DECODE", cond: "1", attrs: [{value: "\\core0.decode", width: 1}]}
+ - {id: "FILTER_PC", cond: "1", attrs: [{value: "\\core0.filter_pc", width: 1}]}
+
+
+
+
+### TARGET
+trgObservations: []
+# # signal for instr/data buses
+#  - {id: "\\core0.IADDR", cond: "1", attrs: [ {value: "\\core0.IADDR", width: 32} ] } 
+#  - {id: "\\core0.DADDR", cond: "1", attrs: [ {value: "\\core0.DADDR", width: 32} ] }
+# # control signals for memory
+#  - {id: "MEM_CTR", cond: "1", attrs: [{value: "\\core0.WR"}, {value: "\\core0.RD"}] } #  {value: "BE", width: 4}
+# # program counters
+#  - {id: "PCs", cond: "1", attrs: [{value: "\\core0.PC", width: 32}, {value: "\\core0.NXPC", width: 32}]}
+# # signal for halting the pipeline (e.g., if waiting for data from memory)
+#  - {id: "\\core0.HLT", cond: "1", attrs: [{ value: "\\core0.HLT"}]} 
+# # # reset logic
+#  - {id: "\\core0.XRES", cond: "1", attrs: [{ value: "\\core0.XRES", width: 8}]}
+# # # register controlling pipeline flushes
+#  - {id: "\\core0.FLUSH", cond: "1", attrs: [ {value: "\\core0.FLUSH", width: 2}] }
+
+stateInvariant: # if init is "1", it will only be assumed in cycle 0 
+  - {id: "OprInvs", cond: "1", attrs: [ { value: "(((\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) )", width: 1} ]} # (!XLUI ) && (!XAUIPC ) && (!XJAL ) && (!XJALR ) && (!XBCC ) && (!XLCC ) && (!XSCC ) && (!XMCC ) && (!XRCC ) && (!XMAC )
+  - {id: "IRESInvs", cond: "1", attrs: [ { value: "IRES==0", width: 1}] }  
+  - {id: "IDATAInvs", cond: "1", attrs: [ { value: " ( \\core0.IDATA == 0 ) == 0 ", width: 1}] }  
+  - {id: "XRESInvs", cond: "1", attrs: [ { value: "\\core0.XRES == 0", width: 1}] }
+  - {id: "reg1Invs", cond: "1", attrs: [ { value: "\\core0.REG1_0 == 0", width: 1}] }
+  - {id: "reg2Invs", cond: "1", attrs: [ { value: "\\core0.REG2_0 == 0", width: 1}] }
+  - {id: "PC_NXPC", cond: "1", attrs: [ {value: " ( ! ( \\core0.decode_reg && ( ! \\core0.FLUSH ) && ( \\core0.JAL || \\core0.JALR ) ) ) || ( \\core0.NXPC == \\core0.PC + 4 ) ", width: 1}]}
+  - {id: "HLTInvs", cond: "1", attrs: [ { value: "DACK == 0 || IHITACK == 1", width: 1}] }
+  - {id: "INSTR_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || INSTR_PC == \\core0.XIDATA", width: 1}] }
+  - {id: "LDATA_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 && \\core0.writeback && \\core0.LCC ) ) || \\core0.LDATA_PC == \\core0.LDATA", width: 1}] }
+  - {id: "LCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.LCC_PC == \\core0.LCC", width: 1}] }
+  - {id: "MCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.MCC_PC == \\core0.MCC", width: 1}] }
+  - {id: "RCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.RCC_PC == \\core0.RCC", width: 1}] }
+
+invariant: 
+  - {id: "PCs_inv1_1", cond: " ! \\core0.FLUSH ", attrs: [ {value: "\\core0.PC", width: 32}]}
+  - {id: "PCs_inv1_2", cond: " ! \\core0.FLUSH ", attrs: [ {value: "\\core0.NXPC", width: 32}]}
+  - {id: "PCs_inv2_1", cond: " \\core0.decode_reg && ! \\core0.FLUSH ", attrs: [ {value: "\\core0.PC", width: 32}]}
+  - {id: "PCs_inv2_2", cond: " \\core0.decode_reg && ! \\core0.FLUSH ", attrs: [ {value: "\\core0.NXPC", width: 32}]}
+  - {id: "HLT_FLUSH_inv", cond: " \\core0.HLT ", attrs: [ {value: "\\core0.FLUSH", width: 32}]}
+  - {id: "HLT_inv", cond: "\\core0.decode ", attrs: [ {value: "\\core0.HLT", width: 32}]}
+  - {id: "FLUSH_inv", cond: "\\core0.decode ", attrs: [ {value: "\\core0.FLUSH", width: 32}]}
+  - {id: "BCC_EXECUTE", cond: "\\core0.BCC", attrs: [ {value: "\\core0.U1REG", width: 32},{value: "\\core0.U2REG", width: 32}]}
+  - {id: "JALR_EXECUTE", cond: "\\core0.JALR", attrs: [ {value: "\\core0.U1REG", width: 32}]}
+  - {id: "LCC_ADDR", cond: "\\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}
+  - {id: "LCC_EXECUTE5", cond: " (\\core0.MCC || \\core0.RCC )", attrs: [ {value: "\\core0.RMDATA", width: 32}]}
+  - {id: "LCC_EXECUTE4", cond: " \\core0.LCC ", attrs: [ {value: "\\core0.LDATA", width: 32}]}
+  - {id: "LCC_EXECUTE1", cond: " \\core0.AUIPC ", attrs: [ {value: "\\core0.PCSIMM", width: 32}]}
+  - {id: "LCC_EXECUTE2", cond: " (\\core0.JAL || \\core0.JALR )", attrs: [ {value: "\\core0.NXPC", width: 32}]}
+  - {id: "LCC_EXECUTE3", cond: " \\core0.LUI ", attrs: [ {value: "\\core0.SIMM", width: 32}]}
+  - {id: "LCC_EXECUTE5_1", cond: " \\core0.writeback && (\\core0.MCC || \\core0.RCC )", attrs: [ {value: "\\core0.RMDATA", width: 32}]}
+  - {id: "LCC_EXECUTE4_1", cond: " \\core0.writeback && \\core0.LCC ", attrs: [ {value: "\\core0.LDATA", width: 32}]}
+  - {id: "LCC_EXECUTE1_1", cond: " \\core0.writeback && \\core0.AUIPC ", attrs: [ {value: "\\core0.PCSIMM", width: 32}]}
+  - {id: "LCC_EXECUTE2_1", cond: " \\core0.writeback && (\\core0.JAL || \\core0.JALR )", attrs: [ {value: "\\core0.NXPC", width: 32}]}
+  - {id: "LCC_EXECUTE3_1", cond: " \\core0.writeback && \\core0.LUI ", attrs: [ {value: "\\core0.SIMM", width: 32}]}
+  - {id: "SCC_EXECUTE", cond: "\\core0.SCC", attrs: [ {value: "\\core0.U2REG", width: 32}]}
+  # program counter
+  - {id: "PC", cond: "\\core0.decode", attrs: [{value: "\\core0.PC_flush", width: 32}]}
+  # When the instruction is a load, we attach the data address
+  - {id: "LOAD", cond: "\\core0.decode && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  # When the instruction is a write, we attach the data address
+  - {id: "STORE", cond: "\\core0.decode && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  # When the instruction is a load, we need the data loaded to the registers are the same
+  - {id: "DATAIinv", cond: "\\core0.decode && \\core0.LCC", attrs: [ {value: "\\core0.LDATA", width: 32}]} 
+  # Indicates that the instruction on fly of the two runs are the same
+  - {id: "INSTRinv2", cond: "\\core0.decode", attrs: [ {value: "\\core0.XIDATA_wire", width: 32}]}
+    # program counter
+  - {id: "PC1", cond: "\\core0.decode_reg", attrs: [{value: "\\core0.PC_flush", width: 32}]}
+  # When the instruction is a load, we attach the data address
+  - {id: "LOAD1", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  # When the instruction is a write, we attach the data address
+  - {id: "STORE1", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  # When the instruction is a load, we need the data loaded to the registers are the same
+  - {id: "DATAIinv1", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.LDATA", width: 32}]} 
+  # Indicates that the instruction on fly of the two runs are the same
+  - {id: "INSTRinv3", cond: "\\core0.decode_reg", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
+
+
+
+
+
+state: 
+  #- {id: "ROM_state", expr: "ROM", width: 32768} # instruction
+  # - {id: "RAM_state", expr: "RAM", width: 32768 , val : 0} # data
+  - {id: "\\core0.REG1", expr: "\\core0.REG1", width: 512 , val : 0}
+  - {id: "\\core0.REG2", expr: "\\core0.REG2", width: 512 , val : 0}
+  #1 rst signals 
+  - {id: "\\core0.XRES", expr: "\\core0.XRES", width: 1 , val : 0}
+  - {id: "\\core0.FLUSH", expr: "\\core0.FLUSH", width: 2 , val : 0} 
+  - {id: "\\core0.RESMODE", expr: "\\core0.RESMODE", width: 4 , val : 0}
+  # PCs signals
+  - {id: "\\core0.NXPC", expr: "\\core0.NXPC", width: 32, val : 0}
+  - {id: "\\core0.PC", expr: "\\core0.PC", width: 32, val : 0}
+  # 3 Internal control signals
+  - {id: "\\core0.XLUI", expr: "\\core0.XLUI", width: 1 , val : 0}
+  - {id: "\\core0.XAUIPC", expr: "\\core0.XAUIPC", width: 1 , val : 0}
+  - {id: "\\core0.XJAL", expr: "\\core0.XJAL", width: 1 , val : 0}
+  - {id: "\\core0.XJALR", expr: "\\core0.XJALR", width: 1 , val : 0}
+  - {id: "\\core0.XBCC", expr: "\\core0.XBCC", width: 1 , val : 0}
+  - {id: "\\core0.XLCC", expr: "\\core0.XLCC", width: 1 , val : 0}
+  - {id: "\\core0.XSCC", expr: "\\core0.XSCC", width: 1 , val : 0}
+  - {id: "\\core0.XMCC", expr: "\\core0.XMCC", width: 1 , val : 0}
+  - {id: "\\core0.XRCC", expr: "\\core0.XRCC", width: 1 , val : 0}
+  - {id: "\\core0.XMAC", expr: "\\core0.XMAC", width: 1 , val : 0}
+  #4 Internal data signals
+  - {id: "\\core0.XIDATA", expr: "\\core0.XIDATA", width: 32, val : 0}
+  - {id: "\\core0.XSIMM", expr: "\\core0.XSIMM", width: 32, val : 0}
+  - {id: "\\core0.XUIMM", expr: "\\core0.XUIMM", width: 32, val : 0}
+  # 5 UART signals
+  - {id: "\\uart0.UART_RFIFO", expr: "\\uart0.UART_RFIFO", width: 8 , val : 0}
+  - {id: "\\uart0.UART_RREQ", expr: "\\uart0.UART_RREQ", width: 1 , val : 0}
+  - {id: "\\uart0.UART_RBAUD", expr: "\\uart0.UART_RBAUD", width: 16 , val : 0}
+  - {id: "\\uart0.UART_RSTATE", expr: "\\uart0.UART_RSTATE", width: 4 , val : 0}
+  - {id: "\\uart0.UART_RXDFF", expr: "\\uart0.UART_RXDFF", width: 3 , val : 0}
+  - {id: "\\uart0.UART_XACK", expr: "\\uart0.UART_XACK", width: 1 , val : 0}
+  - {id: "\\uart0.UART_XBAUD", expr: "\\uart0.UART_XBAUD", width: 16 , val : 0}
+  - {id: "\\uart0.UART_XSTATE", expr: "\\uart0.UART_XSTATE", width: 4 , val : 0}
+  - {id: "\\uart0.UART_XFIFO", expr: "\\uart0.UART_XFIFO", width: 8 , val : 0}
+  - {id: "\\uart0.UART_XREQ", expr: "\\uart0.UART_XREQ", width: 1 , val : 0}
+  - {id: "\\uart0.UART_RACK", expr: "\\uart0.UART_RACK", width: 1 , val : 0}
+  - {id: "\\uart0.UART_STATEFF", expr: "\\uart0.UART_STATEFF", width: 8 , val : 0}
+  #6 external signals
+  - {id: "GPIOFF", expr: "GPIOFF", width: 16 , val : 0}
+  - {id: "LEDFF", expr: "LEDFF", width: 16 , val : 0}
+  - {id: "IREQ", expr: "IREQ", width: 8 , val : 0}
+  - {id: "IACK", expr: "IACK", width: 8 , val : 0}
+  - {id: "TIMERFF", expr: "TIMERFF", width: 32 , val : 0}
+  - {id: "TIMER", expr: "TIMER", width: 32 , val : 0}
+  - {id: "XTIMER", expr: "XTIMER", width: 1 , val : 0}
+  - {id: "IOMUXFF", expr: "IOMUXFF", width: 32 , val : 0}
+  - {id: "XADDR", expr: "XADDR", width: 32 , val : 0}
+  - {id: "RAMFF", expr: "RAMFF", width: 32, val : 0}
+  - {id: "DACK", expr: "DACK", width: 1 , val : 0}
+  - {id: "ROMFF", expr: "ROMFF", width: 32, val : 0}
+  - {id: "IHITACK", expr: "IHITACK", width: 1 , val : 0}
+  - {id: "IRES", expr: "IRES", width: 8 , val : 0}
+  # For contract
+  - {id: "\\core0.retire", expr: "\\core0.retire", width: 1 , val : 0}
+  - {id: "\\core0.PC_retire", expr: "\\core0.PC_retire", width: 32 , val : 0}
+  - {id: "\\core0.DelayLDATA", expr: "\\core0.DelayLDATA", width: 32 , val : 0}
+  - {id: "\\core0.DelayLCC", expr: "\\core0.DelayLCC", width: 1 , val : 0}
+  - {id: "\\core0.DelayDADDR", expr: "\\core0.DelayDADDR", width: 32 , val : 0}
+  - {id: "\\core0.DelaySCC", expr: "\\core0.DelaySCC", width: 1 , val : 0}
+  - {id: "\\core0.DelayXIDATA_next", expr: "\\core0.DelayXIDATA_next", width: 32 , val : 0}
+  - {id: "\\core0.DelayBCC", expr: "\\core0.DelayBCC", width: 1 , val : 0}
+  - {id: "\\core0.DelayU1REG", expr: "\\core0.DelayU1REG", width: 32 , val : 0}
+  - {id: "\\core0.DelayJALR", expr: "\\core0.DelayJALR", width: 1 , val : 0}
+  - {id: "\\core0.DelayU2REG", expr: "\\core0.DelayU2REG", width: 32 , val : 0}
+  # predicates
+  - {id: "\\core0.writeback_reg", expr: "\\core0.writeback_reg", width: 1 , val : 0}
+  - {id: "\\core0.decode_reg", expr: "\\core0.decode_reg", width: 1 , val : 0}
+
+inputs:
+  - {id: "XCLK", valueLeft: "XCLK", valueRight: "XCLK"}
+  - {id: "XRES", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "UART_RXD", valueLeft: "UART_RXDLeft", valueRight: "UART_RXDRight"}
+  - {id: "UART_TXD", valueLeft: "UART_TXDLeft", valueRight: "UART_TXDRight"}
+  - {id: "LED", valueLeft: "LEDLeft", valueRight: "LEDRight"}
+  - {id: "DEBUG", valueLeft: "DEBUGLeft", valueRight: "DEBUGRight"}
+  - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
+  
+expandArrays:
+ - {filename: "darksocv_2stages.v", array: "ROM", i: "32", j: "1024", var: "ROM_flat", flatten: "True"}
+ - {filename: "darksocv_2stages.v", array: "RAM", i: "32", j: "1024", var: "RAM_flat", flatten: "True"}
+ - {filename: "darkriscv_2stages.v", array: "REG1", i: "32", j: "16", var: "REG1_flat", flatten: "True"}
+ - {filename: "darkriscv_2stages.v", array: "REG2", i: "32", j: "16", var: "REG2_flat", flatten: "True"}
+
+  
+
+auxiliaryVariables:
+  - {id: "\\core0.BE", value: "\\core0.BE", width: 4}
+  - {id: "\\core0.DATAO", value: "\\core0.DATAO", width: 32}
+  - {id: "\\core0.DATAI", value: "\\core0.DATAI", width: 32}
+  - {id: "\\core0.DADDR", value: "\\core0.DADDR", width: 32}
+  - {id: "\\core0.IADDR", value: "\\core0.IADDR", width: 32}
+#  - {id: "ROM", width: 32768, value: "ROM_flat"}
+#  - {id: "RAM", width: 32768, value: "RAM_flat"}
+  - {id: "\\core0.REG1", width: 512, value: "\\core0.REG1_flat"}
+  - {id: "\\core0.REG2", width: 512, value: "\\core0.REG2_flat"}
+  - {id: "ROMFF", value: "ROMFF", width: 32}
+  - {id: "RAMFF", value: "RAMFF", width: 32}
+  - {id: "\\core0.XIDATA", value: "\\core0.XIDATA", width: 32}
+  - {id: "\\core0.XSIMM", value: "\\core0.XSIMM", width: 32}
+  - {id: "\\core0.XUIMM", value: "\\core0.XUIMM", width: 32}
+  - {id: "\\core0.NXPC", value: "\\core0.NXPC", width: 32}
+  - {id: "\\core0.PC", value: "\\core0.PC", width: 32}
+  - {id: "\\core0.JAL", value: "\\core0.JAL", width: 1}
+  - {id: "\\core0.JALR", value: "\\core0.JALR", width: 1}
+  - {id: "\\core0.BMUX", value: "\\core0.BMUX", width: 1}
+  - {id: "\\core0.JREQ", value: "\\core0.JREQ", width: 1}
+  - {id: "\\core0.FCT3", value: "\\core0.FCT3", width: 3}
+  - {id: "\\core0.U1REG", value: "\\core0.U1REG", width: 32}
+  - {id: "\\core0.U2REG", value: "\\core0.U2REG", width: 32}
+  - {id: "\\core0.BCC", value: "\\core0.BCC", width: 1}
+  - {id: "\\core0.FLUSH", value: "\\core0.FLUSH", width: 2}
+  - {id: "\\core0.WR", value: "\\core0.WR"}
+  - {id: "\\core0.RD", value: "\\core0.RD"}
+  - {id: "\\core0.HTL", value: "\\core0.HLT"}
+  - {id: "IRES", value: "IRES", width: 8}
+  - {id: "\\core0.XRES", value: "\\core0.XRES", width: 1 }
+  - {id: "\\core0.RESMODE", value: "\\core0.RESMODE", width: 4 }
+  - {id: "\\core0.XLUI", value: "\\core0.XLUI", width: 1 }
+  - {id: "\\core0.XAUIPC", value: "\\core0.XAUIPC", width: 1 }
+  - {id: "\\core0.XJAL", value: "\\core0.XJAL", width: 1 }
+  - {id: "\\core0.XJALR", value: "\\core0.XJALR", width: 1 }
+  - {id: "\\core0.XBCC", value: "\\core0.XBCC", width: 1 }
+  - {id: "\\core0.XLCC", value: "\\core0.XLCC", width: 1 }
+  - {id: "\\core0.XSCC", value: "\\core0.XSCC", width: 1 }
+  - {id: "\\core0.XMCC", value: "\\core0.XMCC", width: 1 }
+  - {id: "\\core0.XRCC", value: "\\core0.XRCC", width: 1 }
+  - {id: "\\core0.XMAC", value: "\\core0.XMAC", width: 1 }
+  - {id: "\\uart0UART_RFIFO", value: "\\uart0.UART_RFIFO", width: 8 }
+  - {id: "\\uart0UART_RREQ", value: "\\uart0.UART_RREQ", width: 1 }
+  - {id: "\\uart0UART_RBAUD", value: "\\uart0.UART_RBAUD", width: 16 }
+  - {id: "\\uart0UART_RSTATE", value: "\\uart0.UART_RSTATE", width: 4 }
+  - {id: "\\uart0UART_RXDFF", value: "\\uart0.UART_RXDFF", width: 3 }
+  - {id: "\\uart0UART_XACK", value: "\\uart0.UART_XACK", width: 1 }
+  - {id: "\\uart0UART_XBAUD", value: "\\uart0.UART_XBAUD", width: 16 }
+  - {id: "\\uart0UART_XSTATE", value: "\\uart0.UART_XSTATE", width: 4 }
+  - {id: "\\uart0UART_XFIFO", value: "\\uart0.UART_XFIFO", width: 8 }
+  - {id: "\\uart0UART_XREQ", value: "\\uart0.UART_XREQ", width: 1 }
+  - {id: "\\uart0UART_RACK", value: "\\uart0.UART_RACK", width: 1 }
+  - {id: "\\uart0UART_STATEFF", value: "\\uart0.UART_STATEFF", width: 8 }
+  - {id: "GPIOFF", value: "GPIOFF", width: 16 }
+  - {id: "LEDFF", value: "LEDFF", width: 16 }
+  - {id: "IREQ", value: "IREQ", width: 8 }
+  - {id: "IACK", value: "IACK", width: 8 }
+  - {id: "TIMERFF", value: "TIMERFF", width: 32 }
+  - {id: "TIMER", value: "TIMER", width: 32 }
+  - {id: "XTIMER", value: "XTIMER", width: 1 }
+  - {id: "IOMUXFF", value: "IOMUXFF", width: 32 }
+  - {id: "XADDR", value: "XADDR", width: 32 } 
+  - {id: "RAMFF", value: "RAMFF", width: 32 }
+  - {id: "DACK", value: "DACK", width: 2 }
+  - {id: "ROMFF", value: "ROMFF", width: 32 }
+  - {id: "HLT2", value: "HLT2", width: 1 }
+  - {id: "IHITACK", value: "IHITACK", width: 2 }
+  - {id: "XATAI", value: "XATAI", width: 32 }
+  - {id: "XATAO", value: "XATAO", width: 32 }

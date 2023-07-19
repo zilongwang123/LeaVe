@@ -1,0 +1,390 @@
+# input/output information
+codeFolder: "../benchmarks/Ibex-small" # folder with Verilog sources
+outFolder: "testOut/Ibex-small" # target folder for intermediate data
+prodCircuitTemplate: "prod.v"
+clockInput: 'clk_i'
+initRegister: 'init'
+cycleDelayed: "3" # greater than 1
+
+
+# main module under analysis
+module: "ibex_top" 
+moduleFile: "ibex_top.v"
+memoryList: ["ibex_imem.imem","ibex_dmem.dmem"]
+
+# Verilog frontend
+yosysPath: "yosys/yosys"
+yosysBMCPath: "yosys-smtbmc"
+inductiveyosysBMCBound: "2"
+checkyosysBMCBound: "20"
+prefixCheck: "True"
+yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+
+# Output
+outputformat: "brief"
+
+
+# iVerilog
+iverilogPath: "iverilog"
+vvpPath: "vvp"
+
+# Analysis backend
+avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
+
+
+### SOURCE
+srcObservations: 
+######################
+# seq-arch
+######################
+  # program counter
+  - {id: "PC", cond: "1", attrs: [{value: "\\ibex_core.pc_ctr", width: 32}]}
+  # When the instruction is a load, we attach the data address
+  # - {id: "LOAD", cond: " \\ibex_core.load_ctr ", attrs: [ {value: "\\ibex_core.lsu_addr_ctr", width: 32}]} 
+  # When the instruction is a write, we attach the data address
+  # - {id: "STORE", cond: " \\ibex_core.store_ctr ", attrs: [ {value: "\\ibex_core.lsu_addr_ctr", width: 32}]} 
+  # When the instruction is a load, we need the data loaded to the registers are the same
+  # - {id: "DATAI", cond: " \\ibex_core.load_ctr", attrs: [ {value: "\\ibex_dmem.load_data_ctr", width: 32}]}
+  # Indicates that the instruction on fly of the two runs are the same
+  - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
+  - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
+
+
+######################
+# seq-ct  
+######################
+  # program counter
+  # - {id: "PC", cond: "\\core0.retire", attrs: [{value: "\\core0.PC_retire", width: 32}]}
+  # # When the instruction is a load, we attach the data address
+  # - {id: "LOAD", cond: "\\core0.retire && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayDADDR", width: 32}]} 
+  # # When the instruction is a write, we attach the data address
+  # - {id: "STORE", cond: "\\core0.retire && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayDADDR", width: 32}]} 
+  # - {id: "BCC", cond: "\\core0.retire && \\core0.DelayBCC", attrs: [ {value: "\\core0.DelayU1REG", width: 32},{value: "\\core0.DelayU2REG", width: 32}]}
+  # - {id: "JALR", cond: "\\core0.retire && \\core0.DelayJALR", attrs: [ {value: "\\core0.DelayU1REG", width: 32}]}
+  # - {id: "INSTR", cond: "\\core0.retire", attrs: [ {value: "\\core0.DelayXIDATA_next", width: 32}]}
+
+
+
+
+### FILTERED SOURCE
+filteredSrcObservations: []
+######################
+# seq-arch
+######################
+  #  - {id: "PCs", cond: " \\core0.filter_pc_reg ", attrs: [{value: "\\core0.PC", width: 32}]} #,{value: "\\core0.NXPC", width: 32}]}
+  #  - {id: "LOAD", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a LOAD whenever we have a memory load. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO 
+  #  - {id: "STORE", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a STORE whenever we have a memory store. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO  
+  #  - {id: "\\core0.DATAI", cond: "\\core0.writeback_reg && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayLDATA", width: 32}]} # disclose a LOAD and the data write to the register at write back stage
+  #  - {id: "\\core0.DATAO", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DATAO", width: 32}]}
+  #  - {id: "\\core0.XIDATA_next", cond: "\\core0.decode_reg ", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
+
+   
+######################
+# seq-ct  
+######################
+  #  - {id: "PCs", cond: " \\core0.filter_pc_reg ", attrs: [{value: "\\core0.PC", width: 32}]}
+  # #  - {id: "LOAD", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a LOAD whenever we have a memory load. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO 
+  # #  - {id: "STORE", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a STORE whenever we have a memory store. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO  
+  # #  - {id: "BCC", cond: "\\core0.decode_reg && \\core0.BCC", attrs: [ {value: "\\core0.U1REG", width: 32},{value: "\\core0.U2REG", width: 32}]}
+  # #  - {id: "JALR", cond: "\\core0.decode_reg && \\core0.JALR", attrs: [ {value: "\\core0.U1REG", width: 32}]}
+  #  - {id: "\\core0.XIDATA_next", cond: "\\core0.decode_reg ", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
+
+
+### Predicates
+# Retire predicates
+predicateRetire: 
+ - {id: "Retire", cond: "1", attrs: [{value: "\\ibex_core.retire ", width: 1}]}
+
+# Pipeline predicates for seq-arch
+predicatePI: []
+#  - {id: "WRITEBACK", cond: "1", attrs: [{value: "\\core0.writeback", width: 1}]}
+#  - {id: "DECODE", cond: "1", attrs: [{value: "\\core0.decode", width: 1}]}
+#  - {id: "FILTER_PC", cond: "1", attrs: [{value: "\\core0.filter_pc", width: 1}]}
+
+
+
+
+### TARGET
+trgObservations: []
+# # signal for instr/data buses
+#  - {id: "\\core0.IADDR", cond: "1", attrs: [ {value: "\\core0.IADDR", width: 32} ] } 
+#  - {id: "\\core0.DADDR", cond: "1", attrs: [ {value: "\\core0.DADDR", width: 32} ] }
+# # control signals for memory
+#  - {id: "MEM_CTR", cond: "1", attrs: [{value: "\\core0.WR"}, {value: "\\core0.RD"}] } #  {value: "BE", width: 4}
+# # program counters
+#  - {id: "PCs", cond: "1", attrs: [{value: "\\core0.PC", width: 32}, {value: "\\core0.NXPC", width: 32}]}
+# # signal for halting the pipeline (e.g., if waiting for data from memory)
+#  - {id: "\\core0.HLT", cond: "1", attrs: [{ value: "\\core0.HLT"}]} 
+# # # reset logic
+#  - {id: "\\core0.XRES", cond: "1", attrs: [{ value: "\\core0.XRES", width: 8}]}
+# # # register controlling pipeline flushes
+#  - {id: "\\core0.FLUSH", cond: "1", attrs: [ {value: "\\core0.FLUSH", width: 2}] }
+
+stateInvariant: # if init is "1", it will only be assumed in cycle 0 
+# configration of RV32I Base Instruction Set with out fence, ecall, ebreak. The memory instructions are constrained with word_size only. 
+  - {id: "NODIV", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.div_en_o == 0", width: 1}] }
+  - {id: "NOMUL", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.mult_en_o == 0", width: 1}] }
+  - {id: "no_instr_is_compressed1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.instr_is_compressed == 0 ", width: 1}] }
+  - {id: "no_instr_is_compressed2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.instr_is_compressed_id_o == 0 ", width: 1}] }
+  - {id: "no_instr_is_compressed3", cond: "1", attrs: [ { value: "  \\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.aligned_is_compressed == 0 ", width: 1}] }
+  - {id: "no_instr_is_compressed4", cond: "1", attrs: [ { value: "  \\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.unaligned_is_compressed == 0 ", width: 1}] }
+  - {id: "no_instr_is_compressed5", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.out_addr_o[1] == 0 ", width: 1}] }
+  - {id: "no_illegal_insn1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.illegal_c_insn == 0", width: 1}] }
+  - {id: "no_illegal_insn2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.illegal_c_insn_id_o == 0 ", width: 1}] }
+  - {id: "no_illegal_insn3", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_decoder.illegal_insn == 0 ", width: 1}] }
+  - {id: "no_debug_mode", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_controller.enter_debug_mode == 0 ", width: 1}] }
+  - {id: "no_ebrk_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.ebrk_insn_o == 0", width: 1}] }
+  - {id: "no_mret_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.mret_insn_o == 0", width: 1}] }
+  - {id: "no_dret_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.dret_insn_o == 0", width: 1}] }
+  - {id: "no_ecall_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.ecall_insn_o == 0", width: 1}] }
+  - {id: "no_csr_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.csr_access_o == 0", width: 1}] }
+  - {id: "no_wfi_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.wfi_insn_o == 0", width: 1}] }
+  - {id: "no_fence", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_decoder.opcode !== 7'h0f )", width: 1}] }
+  - {id: "ls_word", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_be == 4'b1111 ", width: 1}] }
+# memory systems
+  - {id: "imem_rvalid", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 1 || \\ibex_imem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
+  - {id: "imem_gnt", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 0 || \\ibex_imem.sram_gnt == 0 ", width: 1}] } # When req be 0, gnt should also be 0
+  - {id: "dmem_req_ls", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 1 || \\ibex_core.ibex_id_stage.ibex_decoder.data_req_o == 1 ", width: 1}] } # When req be 1, the instr in id stage should be load/store 
+  - {id: "dmem_rvalid_ls", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_rvalid !== 1 || \\ibex_core.ibex_id_stage.ibex_decoder.data_req_o == 1 ", width: 1}] } # When req be 1, the instr in id stage should be load/store 
+  - {id: "dmem_rvalid", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 1 || \\ibex_dmem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
+  # - {id: "dmem_rvalid_2", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_rvalid !== 1 || \\ibex_dmem.sram_req == 0 ", width: 1}] } # When req be 1, rvalid should be 0
+  - {id: "dmem_gnt", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 0 || \\ibex_dmem.sram_gnt == 0 ", width: 1}] } # When req be 0, gnt should also be 0
+  - {id: "dmem_gnt_first_cycle1", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.instr_first_cycle !== 1 || ( \\ibex_dmem.sram_gnt == 0 && \\ibex_dmem.sram_rvalid == 0 )", width: 1}] } # When it's the first cycle of decode stage, gnt should also be 0
+  - {id: "dmem_gnt_first_cycle2", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.instr_first_cycle == 0 && \\ibex_dmem.sram_req == 1 ) ) || ( \\ibex_dmem.sram_rvalid == 0 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] } # when it's not the first cycle of decode stage and the instr is a memory access, the gnt should be 1
+# For multicycle instructions, if it's not the first cycle of the instr, the ctl signals set in the first cycle should be hold
+  # - {id: "JAL", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode == 7'h6f ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.rf_we == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.jump_set_o == 1'b1 ) ", width: 1}] } 
+  # - {id: "JALR", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode == 7'h67 ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.rf_we == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.jump_set_o == 1'b1 ) ", width: 1}] } # 
+  # - {id: "JAL_alu", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode_alu == 7'h6f ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.alu_op_a_mux_sel_o == 2'd2 && \\ibex_core.ibex_id_stage.ibex_decoder.alu_op_b_mux_sel_o == 1'd1 && \\ibex_core.ibex_id_stage.ibex_decoder.imm_b_mux_sel_o == 3'd4 && \\ibex_core.ibex_id_stage.ibex_decoder.alu_operator_o == 7'd0 ) ", width: 1}] } # 
+  # - {id: "JALR_alu", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode_alu == 7'h67 ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.alu_op_a_mux_sel_o == 2'd0 && \\ibex_core.ibex_id_stage.ibex_decoder.alu_op_b_mux_sel_o == 1'd1 && \\ibex_core.ibex_id_stage.ibex_decoder.imm_b_mux_sel_o == 3'd0 && \\ibex_core.ibex_id_stage.ibex_decoder.alu_operator_o == 7'd0 ) ", width: 1}] } # 
+  # - {id: "BRANCH_alu", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode_alu == 7'h63 ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.alu_op_a_mux_sel_o == 2'd0 && \\ibex_core.ibex_id_stage.ibex_decoder.alu_op_b_mux_sel_o == 1'd0 ) ", width: 1}] } # 
+# no pmp and memory errors
+  - {id: "pc_legal", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.out_addr_o[1] == 0 ", width: 1}] }
+  - {id: "no_pmp_error1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.pmp_err_q == 0 ", width: 1}] }  
+  - {id: "no_pmp_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.pmp_err_d == 0 ", width: 1}] }  
+  - {id: "no_lsu_error1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_q == 0 ", width: 1}] }  
+  - {id: "no_lsu_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_d == 0 ", width: 1}] }  
+# no branch predictor
+  - {id: "no_branch_predictor", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.nt_branch_mispredict_i == 0 ", width: 1}] }
+# ls done => instruction done
+  - {id: "multicycle_instruction", cond: "1", attrs: [ { value: " ( ! ( \\ibex_core.ibex_id_stage.lsu_req_dec == 1 && \\ibex_core.ibex_id_stage.multicycle_done == 1 ) ) || \\ibex_core.ibex_id_stage.instr_done == 1 ", width: 1}] }
+# If there is no valid instruction, the ID fsm should in state 0
+  - {id: "id_no_valid_instr", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.instr_valid_i == 1 || \\ibex_core.ibex_id_stage.id_fsm_q == 0 ", width: 1}] }
+# The ID stage FSM start from state 0
+  # - {id: "start_from_beginning1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.instr_first_cycle == 1 ", width: 1, init: "1"}] }
+  # - {id: "start_from_beginning2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.id_fsm_q == 0 ", width: 1, init: "1"}] }
+  - {id: "id_fsm_0", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.id_fsm_q !== 1'd0 ) || ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs == 3'd0 && \\ibex_core.ibex_ex_block.ibex_multdiv_fast.mult_state_q == 2'd0 ) ", width: 1 }] }
+  - {id: "id_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.id_fsm_q !== 1'd1 ) || ( \\ibex_core.ibex_id_stage.instr_first_cycle == 0 && ( \\ibex_core.ibex_id_stage.lsu_req_dec || \\ibex_core.ibex_id_stage.multdiv_en_dec || \\ibex_core.ibex_id_stage.branch_in_dec || \\ibex_core.ibex_id_stage.jump_in_dec || \\ibex_core.ibex_id_stage.alu_multicycle_dec ) )", width: 1 }] }
+# The LOAD-STORE FSM
+  # - {id: "start_from_beginning3", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.ls_fsm_cs == 0 ", width: 1, init: "1"}] }
+  - {id: "split_misaligned_access", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.split_misaligned_access == 0 )", width: 1}] }
+  - {id: "ls_fsm_0", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd0 ) || ( \\ibex_dmem.sram_gnt == 0 )", width: 1}] }
+  - {id: "ls_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd1 ) ", width: 1}] }
+  - {id: "ls_fsm_2", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd2 ) ", width: 1}] }
+  - {id: "ls_fsm_3", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd3 ) || ( \\ibex_dmem.sram_req == 1 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] }
+  - {id: "ls_fsm_4", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd4 ) ", width: 1}] }
+# The controller FSM start from state 5 (controller running)
+  - {id: "start_from_beginning4", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs == 4'd5 ", width: 1, init: "1"}] }
+  # - {id: "ctrl_fsm_0", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd0 || \\ibex_core.ibex_id_stage.id_fsm_q == 0 ", width: 1}] }
+  # - {id: "ctrl_fsm_1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd1 || \\ibex_core.ibex_id_stage.id_fsm_q == 0 ", width: 1}] }
+  # - {id: "ctrl_fsm_2", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd2 ) ", width: 1}] }
+  # - {id: "ctrl_fsm_3", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd3 ) ", width: 1}] }
+  # - {id: "ctrl_fsm_4", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd4 || \\ibex_core.ibex_id_stage.id_fsm_q == 0 ", width: 1}] }
+  # - {id: "ctrl_fsm_5", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.id_fsm_q == 0 || \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs == 4'd5 ", width: 1}] }
+  # - {id: "ctrl_fsm_6", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd6 ) ", width: 1}] }
+  # - {id: "ctrl_fsm_7", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd7 ) ", width: 1}] }
+  # - {id: "ctrl_fsm_8", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd8 ) ", width: 1}] }
+  # - {id: "ctrl_fsm_9", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd9 ) ", width: 1}] }
+# instr_id = imem [pc_id]
+  - {id: "instr_id", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.instr_rdata_i == \\ibex_imem.instr_id ) ", width: 1}] }
+# load_data_id = dmem [f(pc_id)]
+  - {id: "load_data_id", cond: "1", attrs: [ { value: " ( ! ( \\ibex_core.en_wb  && \\ibex_core.rf_we_lsu ) ) || ( \\ibex_core.rf_wdata_lsu == \\ibex_dmem.load_data_id ) ", width: 1}] }
+# branch target should not be exe_pc + 4
+  # - {id: "no_branch_plus4", cond: "1", attrs: [ { value: " ( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.branch_in_dec_o == 1 ) ) || ( \\ibex_core.ibex_if_stage.branch_target_ex_i != \\ibex_core.ibex_id_stage.pc_id_i + 4 ) ", width: 1}] }
+
+
+
+
+
+
+invariant:
+  - {id: "DATA_LOAD_lsu", cond: " \\ibex_dmem.sram_rvalid_t ", attrs: [ {value: "\\ibex_dmem.sram_rdata", width: 32}]}
+  - {id: "DATA_LOAD_ls1", cond: " \\ibex_core.rf_we_lsu ", attrs: [ {value: "\\ibex_core.rf_waddr_wb", width: 5}]}
+  - {id: "DATA_LOAD_ls2", cond: " \\ibex_core.rf_we_lsu ", attrs: [ {value: "\\ibex_core.rf_wdata_lsu", width: 32}]}
+  - {id: "DATA_LOAD_id", cond: " \\ibex_core.rf_we_id ", attrs: [ {value: "\\ibex_core.rf_wdata_id", width: 32}]}
+  - {id: "INSTR_id", cond: " \\ibex_core.ibex_id_stage.instr_valid_i ", attrs: [ {value: " \\ibex_core.ibex_id_stage.instr_rdata_i ", width: 32}]}
+  - {id: "INSTR_id2", cond: " \\ibex_core.ibex_id_stage.instr_first_cycle ", attrs: [ {value: " \\ibex_core.ibex_id_stage.instr_rdata_i ", width: 32}]}
+# from contract
+  - {id: "PC_inv", cond: "\\ibex_core.en_wb", attrs: [{value: "\\ibex_core.pc_id", width: 32}]}
+  - {id: "LOAD_inv", cond: "\\ibex_core.en_wb && \\ibex_core.rf_we_lsu ", attrs: [ {value: "\\ibex_core.lsu_addr_last", width: 32}]} 
+  - {id: "STORE_inv", cond: "\\ibex_core.en_wb &&  \\ibex_core.perf_store ", attrs: [ {value: "\\ibex_core.lsu_addr_last", width: 32}]} 
+  - {id: "DATAI_inv", cond: "\\ibex_core.en_wb && \\ibex_core.rf_we_lsu", attrs: [ {value: "\\ibex_core.rf_wdata_lsu", width: 32}]} 
+  - {id: "INSTR_inv", cond: "\\ibex_core.en_wb", attrs: [ {value: "\\ibex_core.instr_rdata_id", width: 32}]}
+  - {id: "BRANCH_inv", cond: "\\ibex_core.ibex_id_stage.instr_first_cycle", attrs: [ {value: "\\ibex_core.branch_decision", width: 1}]}
+
+
+
+
+state:
+  - {id: "\\ibex_core.ibex_cs_registers.pmp_addr_rdata_flat", expr: "\\ibex_core.ibex_cs_registers.pmp_addr_rdata_flat", width: 512 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.mhpmevent_flat", expr: "\\ibex_core.ibex_cs_registers.mhpmevent_flat", width: 1024 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.mcountinhibit_q", expr: "\\ibex_core.ibex_cs_registers.mcountinhibit_q", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.priv_lvl_q", expr: "\\ibex_core.ibex_cs_registers.priv_lvl_q", width: 2 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.mcycle_counter_i.counter_q", expr: "\\ibex_core.ibex_cs_registers.mcycle_counter_i.counter_q", width: 64 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.minstret_counter_i.counter_q", expr: "\\ibex_core.ibex_cs_registers.minstret_counter_i.counter_q", width: 64 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_cpuctrlsts_part_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_cpuctrlsts_part_csr.rdata_q", width: 8 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_dcsr_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_dcsr_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_depc_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_depc_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_dscratch0_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_dscratch0_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_dscratch1_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_dscratch1_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mcause_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mcause_csr.rdata_q", width: 7 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mepc_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mepc_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mie_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mie_csr.rdata_q", width: 18 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mscratch_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mscratch_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mstack_cause_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mstack_cause_csr.rdata_q", width: 7 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mstack_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mstack_csr.rdata_q", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mstack_epc_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mstack_epc_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mstatus_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mstatus_csr.rdata_q", width: 6 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mtval_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mtval_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_cs_registers.u_mtvec_csr.rdata_q", expr: "\\ibex_core.ibex_cs_registers.u_mtvec_csr.rdata_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.mult_state_q", expr: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.mult_state_q", width: 2 , val : 0}
+  - {id: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.op_numerator_q", expr: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.op_numerator_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.op_quotient_q", expr: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.op_quotient_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.div_counter_q", expr: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.div_counter_q", width: 5 , val : 0}
+  - {id: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.div_by_zero_q", expr: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.div_by_zero_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.md_state_q", expr: "\\ibex_core.ibex_ex_block.ibex_multdiv_fast.md_state_q", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.id_fsm_q", expr: "\\ibex_core.ibex_id_stage.id_fsm_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.branch_jump_set_done_q", expr: "\\ibex_core.ibex_id_stage.branch_jump_set_done_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.branch_set_raw_q", expr: "\\ibex_core.ibex_id_stage.branch_set_raw_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs", expr: "\\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs", width: 4 , val : 5}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.nmi_mode_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.nmi_mode_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.debug_mode_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.debug_mode_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.load_err_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.load_err_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.store_err_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.store_err_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.exc_req_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.exc_req_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.illegal_insn_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.illegal_insn_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.do_single_step_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.do_single_step_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.enter_debug_mode_prio_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.enter_debug_mode_prio_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_id_stage.ibex_controller.debug_cause_q", expr: "\\ibex_core.ibex_id_stage.ibex_controller.debug_cause_q", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_rdata_id_o", expr: "\\ibex_core.ibex_if_stage.instr_rdata_id_o", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_rdata_alu_id_o", expr: "\\ibex_core.ibex_if_stage.instr_rdata_alu_id_o", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_rdata_c_id_o", expr: "\\ibex_core.ibex_if_stage.instr_rdata_c_id_o", width: 16 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_is_compressed_id_o", expr: "\\ibex_core.ibex_if_stage.instr_is_compressed_id_o", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_fetch_err_o", expr: "\\ibex_core.ibex_if_stage.instr_fetch_err_o", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_fetch_err_plus2_o", expr: "\\ibex_core.ibex_if_stage.instr_fetch_err_plus2_o", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.illegal_c_insn_id_o", expr: "\\ibex_core.ibex_if_stage.illegal_c_insn_id_o", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.pc_id_o", expr: "\\ibex_core.ibex_if_stage.pc_id_o", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_valid_id_q", expr: "\\ibex_core.ibex_if_stage.instr_valid_id_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.instr_new_id_q", expr: "\\ibex_core.ibex_if_stage.instr_new_id_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.valid_req_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.valid_req_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.discard_req_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.discard_req_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.rdata_outstanding_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.rdata_outstanding_q", width: 2 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.branch_discard_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.branch_discard_q", width: 2 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fetch_addr_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fetch_addr_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.stored_addr_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.stored_addr_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.valid_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.valid_q", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.instr_addr_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.instr_addr_q", width: 31 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.rdata_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.rdata_q", width: 96 , val : 0}
+  - {id: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.err_q", expr: "\\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.err_q", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.handle_misaligned_q", expr: "\\ibex_core.ibex_load_store_unit.handle_misaligned_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.pmp_err_q", expr: "\\ibex_core.ibex_load_store_unit.pmp_err_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.lsu_err_q", expr: "\\ibex_core.ibex_load_store_unit.lsu_err_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.ls_fsm_cs", expr: "\\ibex_core.ibex_load_store_unit.ls_fsm_cs", width: 3 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.addr_last_q", expr: "\\ibex_core.ibex_load_store_unit.addr_last_q", width: 32 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.rdata_offset_q", expr: "\\ibex_core.ibex_load_store_unit.rdata_offset_q", width: 2 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.data_type_q", expr: "\\ibex_core.ibex_load_store_unit.data_type_q", width: 2 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.data_sign_ext_q", expr: "\\ibex_core.ibex_load_store_unit.data_sign_ext_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.data_we_q", expr: "\\ibex_core.ibex_load_store_unit.data_we_q", width: 1 , val : 0}
+  - {id: "\\ibex_core.ibex_load_store_unit.rdata_q", expr: "\\ibex_core.ibex_load_store_unit.rdata_q", width: 24 , val : 0}
+  - {id: "\\ibex_dmem.sram_rdata_t", expr: "\\ibex_dmem.sram_rdata_t", width: 32 , val : 0}
+  - {id: "\\ibex_dmem.sram_gnt_t", expr: "\\ibex_dmem.sram_gnt_t", width: 1 , val : 0}
+  - {id: "\\ibex_dmem.sram_rvalid_t", expr: "\\ibex_dmem.sram_rvalid_t", width: 1 , val : 0}
+  - {id: "\\ibex_imem.sram_rdata_t", expr: "\\ibex_imem.sram_rdata_t", width: 32 , val : 0}
+  - {id: "\\ibex_imem.sram_gnt_t", expr: "\\ibex_imem.sram_gnt_t", width: 1 , val : 0}
+  - {id: "\\ibex_imem.sram_rvalid_t", expr: "\\ibex_imem.sram_rvalid_t", width: 1 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[31].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[31].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[30].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[30].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[29].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[29].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[28].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[28].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[27].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[27].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[26].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[26].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[25].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[25].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[24].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[24].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[23].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[23].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[22].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[22].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[21].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[21].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[20].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[20].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[19].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[19].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[18].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[18].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[17].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[17].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[16].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[16].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[15].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[15].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[14].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[14].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[13].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[13].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[12].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[12].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[11].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[11].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[10].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[10].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[9].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[9].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[8].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[8].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[7].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[7].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[6].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[6].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[5].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[5].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[4].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[4].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[3].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[3].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[2].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[2].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\ibex_register_file_ff.g_rf_flops[1].rf_reg_q", expr: "\\ibex_register_file_ff.g_rf_flops[1].rf_reg_q", width: 32 , val : 0}
+  - {id: "\\prim_clock_gating.en_latch", expr: "\\prim_clock_gating.en_latch", width: 1 , val : 0}
+  - {id: "core_busy_q", expr: "core_busy_q", width: 4 , val : 0}
+#  for contract
+  - {id: "\\ibex_core.retire", expr: "\\ibex_core.retire", width: 1 , val : 0}
+  - {id: "\\ibex_core.pc_retire", expr: "\\ibex_core.pc_retire", width: 32 , val : 0}
+  - {id: "\\ibex_core.rf_we_lsu_retire", expr: "\\ibex_core.rf_we_lsu_retire", width: 1 , val : 0}
+  - {id: "\\ibex_core.perf_store_retire", expr: "\\ibex_core.perf_store_retire", width: 1 , val : 0}
+  - {id: "\\ibex_core.instr_rdata_id_retire", expr: "\\ibex_core.instr_rdata_id_retire", width: 32 , val : 0}
+  - {id: "\\ibex_core.rf_wdata_lsu_retire", expr: "\\ibex_core.rf_wdata_lsu_retire", width: 32 , val : 0}
+  - {id: "\\ibex_core.lsu_addr_last_retire", expr: "\\ibex_core.lsu_addr_last_retire", width: 32 , val : 0}
+
+inputs: 
+  - {id: "clk_i", valueLeft: "clk_i", valueRight: "clk_i"}
+  - {id: "rst_ni", valueLeft: "1'h1", valueRight: "1'h1"}
+  - {id: "test_en_i", valueLeft: "1'h1", valueRight: "1'h1"}
+  - {id: "ram_cfg_i", valueLeft: "10'h0", valueRight: "10'h0"}
+  - {id: "hart_id_i", valueLeft: "hart_id_i", valueRight: "hart_id_i"}
+  - {id: "boot_addr_i", valueLeft: "boot_addr_i", valueRight: "boot_addr_i"}
+  - {id: "irq_software_i", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "irq_timer_i", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "irq_external_i", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "irq_fast_i", valueLeft: "15'h0", valueRight: "15'h0"}
+  - {id: "irq_nm_i", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "scramble_key_valid_i", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "scramble_key_i", valueLeft: "128'h0", valueRight: "128'h0"}
+  - {id: "scramble_nonce_i", valueLeft: "64'h0", valueRight: "64'h0"}
+  - {id: "scramble_req_o", valueLeft: "scramble_req_oLeft", valueRight: "scramble_req_oRight"}
+  - {id: "debug_req_i", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "crash_dump_o", valueLeft: "crash_dump_oLeft", valueRight: "crash_dump_oRight"}
+  - {id: "double_fault_seen_o", valueLeft: "double_fault_seen_oLeft", valueRight: "double_fault_seen_oRight"}
+  - {id: "fetch_enable_i", valueLeft: "1'h1", valueRight: "1'h1"}
+  - {id: "alert_minor_o", valueLeft: "alert_minor_oLeft", valueRight: "alert_minor_oRight"}
+  - {id: "alert_major_internal_o", valueLeft: "alert_major_internal_oLeft", valueRight: "alert_major_internal_oRight"}
+  - {id: "alert_major_bus_o", valueLeft: "alert_major_bus_oLeft", valueRight: "alert_major_bus_oRight"}
+  - {id: "core_sleep_o", valueLeft: "core_sleep_oLeft", valueRight: "core_sleep_oRight"}
+  - {id: "scan_rst_ni", valueLeft: "1'h1", valueRight: "1'h1"}
+  - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
+  
+
+
+expandArrays:
+ - {filename: "ibex_imem.v", array: "imem", i: "32", j: "1024", var: "imem_flat", flatten: "True"}
+ - {filename: "ibex_dmem.v", array: "dmem", i: "32", j: "1024", var: "dmem_flat", flatten: "True"}
+ - {filename: "ibex_cs_registers.v", array: "pmp_addr_rdata", i: "32", j: "16", var: "pmp_addr_rdata_flat", flatten: "True"}
+ - {filename: "ibex_cs_registers.v", array: "mhpmevent", i: "32", j: "32", var: "mhpmevent_flat", flatten: "True"}
+
+
+
+
+  
+
+auxiliaryVariables:
+ - {id: "\\ibex_imem.imem_flat", width: 32768, value: "\\ibex_imem.imem_flat"}
+ - {id: "\\ibex_dmem.dmem_flat", width: 32768, value: "\\ibex_dmem.dmem_flat"}
+ - {id: "\\ibex_core.ibex_cs_registers.pmp_addr_rdata_flat", width: 512, value: "\\ibex_core.ibex_cs_registers.pmp_addr_rdata_flat"}
+ - {id: "\\ibex_core.ibex_cs_registers.mhpmevent_flat", width: 1024, value: "\\ibex_core.ibex_cs_registers.mhpmevent_flat"}

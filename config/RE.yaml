@@ -1,0 +1,124 @@
+# input/output information
+codeFolder: "../benchmarks/RE" # folder with Verilog sources
+outFolder: "testOut/RE" # target folder for intermediate data
+prodCircuitTemplate: "prod.v"
+clockInput: 'clk'
+initRegister: 'init'
+cycleDelayed: "33" # depend on the upper bound of the opread od Mult
+
+# main module under analysis
+module: "pipeline_mul_fast" 
+moduleFile: "pipeline_mul_fast.v" 
+memoryList: ["Imem"]
+
+# Verilog frontend
+yosysPath: "yosys/yosys"
+yosysBMCPath: "yosys-smtbmc"
+inductiveyosysBMCBound: "2"
+checkyosysBMCBound: "20"
+directlycheckyosysBMCBound: "10"
+prefixCheck: "True"
+yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+
+# Outpute
+outputformat: "brief"
+
+# iVerilog
+iverilogPath: "iverilog"
+vvpPath: "vvp"
+
+# Analysis backend
+avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
+
+### SOURCE -- CONTRACT
+filteredSrcObservations:
+#  - {id: "ADD", cond: "decode_reg && ex_op == 8'h01", attrs: []} # disclose whenever we are executing an ADD
+ - {id: "MUL", cond: "decode_reg && ex_op == 8'h02", attrs: [ {value: "ex_imm", width: 24} ] } # disclose whenever we are executing a MUL
+ #- {id: "Retire", cond: "1", attrs: [{value: "(retire)", width: 1}]}
+ #- {id: "Decode", cond: "1", attrs: [{value: "(decode)", width: 1}]}
+
+srcObservations: 
+#  - {id: "ADD", cond: "(op_ctr == 8'h01)", attrs: []} # disclose whenever we are executing an ADD
+ - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register_old", width: 32}, {value: "imm_ctr", width: 24}   ] } # disclose MUL operand whenever we are executing a MUL
+#  - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register", width: 32}, {value: "imm_ctr", width: 24} ] }
+
+### Predicates
+# Retire predicates
+predicateRetire:
+ - {id: "Retire", cond: "1", attrs: [{value: "retire", width: 1}]}
+
+# Pipeline predicates
+predicatePI:
+ - {id: "DECODE", cond: "1", attrs: [{value: "decode", width: 1}]}
+
+
+### STATE INVARIANT
+stateInvariant: 
+ - {id: "instr1", cond: "1", attrs: [{value: " (op_decode == ex_op)", width: 1}]}
+ - {id: "instr2", cond: "1", attrs: [{value: " (imm_decode == ex_imm)", width: 1}]}
+
+### INVARIANT
+invariant: []
+#  - {id: "MUL_EXECUTE0", cond: "mult", attrs: [{value: "mul_rd", width: 32}]}
+#  - {id: "MUL_EXECUTE1", cond: "ex_op == 8'h02", attrs: [{value: "rd", width: 32}]}
+#  - {id: "MUL_EXECUTE1", cond: "ex_op == 8'h02", attrs: [{value: "ex_imm", width: 24}]}
+#  - {id: "MUL_EXECUTE2", cond: "ex_op == 8'h02", attrs: [{value: "rd", width: 32}]}
+
+
+### TARGET
+trgObservations: 
+  - {id: "ready", cond: "1", attrs: [{value: "ready", width: 1}] } 
+  #- {id: "retire", cond: "retire", attrs: [] } 
+
+### INITIAL STATE\cpu.
+state: 
+#- {id: "Imem_state", expr: "Imem", width: 1024}
+- {id: "mul_res", expr: "mul_res", width: 32 , val : 0}
+- {id: "mult", expr: "mult", width: 1 , val : 0}
+- {id: "ex_op", expr: "ex_op", width: 8 , val : 0}
+- {id: "ex_imm", expr: "ex_imm", width: 24 , val : 0}
+- {id: "mul_rd", expr: "mul_rd", width: 32 , val : 0}
+- {id: "mul_imm", expr: "mul_imm", width: 24 , val : 0}
+- {id: "wb_res", expr: "wb_res", width: 32 , val : 0}
+- {id: "wb_we", expr: "wb_we", width: 1 , val : 0}
+- {id: "pc", expr: "pc", width: 32 , val : 0}
+- {id: "nxpc", expr: "nxpc", width: 32 , val : 0}
+- {id: "nxpc2", expr: "nxpc2", width: 32 , val : 0}
+- {id: "nxpc3", expr: "nxpc3", width: 32 , val : 0}
+- {id: "register", expr: "register", width: 32 , val : 0}
+- {id: "retire", expr: "retire", width: 1 , val : 0}
+- {id: "decode_reg", expr: "decode_reg", width: 1 , val : 0}
+- {id: "register_old", expr: "register_old", width: 32 , val : 0}
+- {id: "rd_old", expr: "rd_old", width: 32 , val : 0}
+
+
+
+inputs:
+  - {id: "clk", valueLeft: "clk", valueRight: "clk"}
+  - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
+
+expandArrays:
+ - {filename: "pipeline_mul_fast.v", array: "Imem", i: "32", j: "32", var: "Imem_flat", flatten: "True", mult: "false"}
+
+
+auxiliaryVariables: 
+- {id: "ex_op", value: "ex_op", width: 8}
+- {id: "ex_imm", value: "ex_imm", width: 24}
+- {id: "pc_d", value: "pc_d", width: 32}
+- {id: "pc_e", value: "pc_e", width: 32}
+- {id: "pc_w", value: "pc_w", width: 32}
+- {id: "pc_r", value: "pc_r", width: 32}
+- {id: "mul_res", value: "mul_res", width: 32}
+- {id: "mul_rd", value: "mul_rd", width: 32}
+- {id: "wb_res", value: "wb_res", width: 32}
+- {id: "wb_we", value: "wb_we", width: 1}
+- {id: "Imem", width: 1024, value: "Imem_flat"}
+- {id: "mult", value: "mult", width: 1}
+- {id: "register", value: "register", width: 32}
+- {id: "op", value: "op", width: 8}
+- {id: "retire", value: "retire", width: 1}
+- {id: "rd", value: "rd", width: 32}
+
+
+
+

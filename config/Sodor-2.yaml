@@ -1,0 +1,238 @@
+# input/output information
+codeFolder: "benchmarks/Sodor-2" # folder with Verilog sources
+outFolder: "testOut/Sodor-2" # target folder for intermediate data
+prodCircuitTemplate: "prod.v"
+clockInput: 'clock'
+initRegister: 'init'
+cycleDelayed: "1"
+
+
+# main module under analysis
+module: "SodorInternalTile_2stage" 
+moduleFile: "SodorInternalTile_2stage.v" 
+memoryList: ["AsyncScratchPadMemory_2stage.mem_0_0", "AsyncScratchPadMemory_2stage.mem_1_0", "AsyncScratchPadMemory_2stage.mem_2_0", "AsyncScratchPadMemory_2stage.mem_3_0", "AsyncScratchPadMemory_2stage.mem_0_1", "AsyncScratchPadMemory_2stage.mem_1_1", "AsyncScratchPadMemory_2stage.mem_2_1", "AsyncScratchPadMemory_2stage.mem_3_1"]
+
+
+
+# Verilog frontend
+yosysPath: "yosys/yosys"
+yosysBMCPath: "yosys-smtbmc"
+inductiveyosysBMCBound: "2"
+checkyosysBMCBound: "5"
+prefixCheck: "True"
+yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+
+
+# Output
+outputformat: "brief"
+
+# iVerilog
+iverilogPath: "iverilog"
+vvpPath: "vvp"
+
+# Analysis backend
+avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
+
+
+
+### SOURCE
+filteredSrcObservations:
+######################
+# seq-arch
+######################
+  - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.fetch_reg ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.filtered_if_reg_pc", width: 32}]} # disclose the value of program counter.
+  - {id: "RADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_reg && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_addr", width: 21}]} 
+  - {id: "WADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_reg && \\AsyncScratchPadMemory_2stage.module__io_en ) ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.module__io_addr", width: 21}]} # disclose a LOAD whenever we have a memory load. 
+  - {id: "RDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute_reg && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data", width: 32}]} 
+  - {id: "WDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute && \\AsyncScratchPadMemory_2stage.module__io_en ) ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.module__io_data", width: 32}]} # disclose a LOAD whenever we have a memory load. 
+  - {id: "INSTR", cond: "\\Core_2stage.DatPath_2stage.execute_reg", attrs: [ {value: " \\Core_2stage.DatPath_2stage.exe_reg_inst", width: 32}]} 
+
+  # - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.execute_wire ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_wire_pc", width: 32}]} # disclose the value of program counter.
+  # - {id: "RADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1_wire  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T_wire ) )", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dmem_req_bits_addr_wire [20:0]", width: 21}]} 
+  # - {id: "WADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.CtlPath_2stage.write_en_wire ) ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dmem_req_bits_addr_wire [20:0]", width: 21}]} # disclose a LOAD whenever we have a memory load. 
+  # - {id: "RDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1_wire  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T_wire ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data_wire", width: 32}]} 
+  # - {id: "WDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.CtlPath_2stage.write_en_wire ) ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dmem_req_bits_data_wire", width: 32}]} # disclose a LOAD whenever we have a memory load. 
+  # - {id: "INSTR", cond: "\\Core_2stage.DatPath_2stage.execute_wire", attrs: [ {value: " \\Core_2stage.DatPath_2stage.exe_wire_inst", width: 32}]} 
+
+######################
+# seq-ct-jump
+######################
+  # - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.execute ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_reg_pc", width: 32}]} # disclose the value of program counter.
+  # # - {id: "RADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_addr", width: 21}]} 
+  # # - {id: "WADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute && \\AsyncScratchPadMemory_2stage.module__io_en ) ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.module__io_addr", width: 21}]} # disclose a LOAD whenever we have a memory load. 
+  # - {id: "JUMP", cond: " ( \\Core_2stage.DatPath_2stage.fetch_wire )", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_br_target ", width: 32}, {value: "\\Core_2stage.DatPath_2stage._if_pc_next_T_7 ", width: 32} ]} # disclose a LOAD whenever we have a memory load. 
+  # - {id: "INSTR", cond: "\\Core_2stage.DatPath_2stage.execute", attrs: [ {value: " \\Core_2stage.DatPath_2stage.exe_reg_inst", width: 32}]} 
+
+srcObservations:
+  - {id: "PC", cond: "1", attrs: [ {value: " \\Core_2stage.DatPath_2stage.pc_retire ", width: 32} ] }
+  # - {id: "RADDR", cond: " \\Core_2stage.CtlPath_2stage.load_ctr ", attrs: [ {value: " \\Core_2stage.DatPath_2stage.io_dmem_req_bits_addr_ctr ", width: 32}]} 
+  # - {id: "WADDR", cond: " \\Core_2stage.CtlPath_2stage.store_ctr ", attrs: [ {value: " \\Core_2stage.DatPath_2stage.io_dmem_req_bits_addr_ctr ", width: 32}]} # disclose a LOAD whenever we have a memory load. 
+  # - {id: "RDATA", cond: " \\Core_2stage.CtlPath_2stage.load_ctr ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.load_data_ctr", width: 32}]} 
+  - {id: "INSTR", cond: "1", attrs: [ {value: " \\AsyncScratchPadMemory_2stage.instr_ctr ", width: 32}]} 
+  - {id: "BRANCH", cond: "\\Core_2stage.CtlPath_2stage.branch_inst", attrs: [ {value: " \\Core_2stage.CtlPath_2stage.branch_taken ", width: 1}]} 
+
+
+### Predicates
+# Retire predicates
+predicateRetire:
+ - {id: "Retire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.retire", width: 1}]}
+
+# Pipeline predicates
+predicatePI: 
+ - {id: "EXECUTE_wire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.execute", width: 1}]}
+ - {id: "FETCH_wire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.fetch", width: 1}]}
+
+
+### TARGET
+trgObservations: 
+# - {id: "IF_REG_PC", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.if_reg_pc", width: 32} ] } 
+# - {id: "EXE_REG_PC", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_reg_pc", width: 32} ] }
+# - {id: "IO_CTL_STALL", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_ctl_stall", width: 32} ] }
+ - {id: "IO_CTL_IF_KILL", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_ctl_if_kill", width: 1} ] }
+# - {id: "IO_DAT_INST_MISALIGNED", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dat_inst_misaligned", width: 32} ] }
+# - {id: "IO_CTL_DATA_MISALIGNED", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dat_data_misaligned", width: 32} ] }
+
+
+
+### STATE INVARIANT
+stateInvariant:
+ - {id: "NO_DEFAULT_INST", cond: "1", attrs: [{value: "( ( \\Core_2stage.DatPath_2stage.io_imem_resp_bits_data == 32'h4033 ) == 0 )", width: 1}]} # Make sure that the default instruction is not from instruction memory
+ - {id: "NO_DEFAULT_INST2", cond: "1", attrs: [{value: "( \\Core_2stage.DatPath_2stage.execute_reg == 0 || ( \\Core_2stage.DatPath_2stage.exe_reg_inst == 32'h4033 ) == 0 )", width: 1}]} # Make sure that the default instruction is not from instruction memory
+ - {id: "PCs", cond: "1", attrs: [{value: "( ( \\Core_2stage.DatPath_2stage.io_ctl_if_kill == 0 ) || ( \\Core_2stage.DatPath_2stage.if_reg_pc == \\Core_2stage.DatPath_2stage.exe_reg_pc + 32'h4 ) )", width: 1}]} 
+ - {id: "EXE_REG_PC1", cond: "1", attrs: [{value: "( \\Core_2stage.DatPath_2stage.exe_reg_pc [1:0] == 0 )", width: 1}]} # The last 2 bits of program counter should be 0
+ - {id: "EXE_REG_PC2", cond: "1", attrs: [{value: "( ( ! \\Core_2stage.DatPath_2stage.io_ctl_if_kill_r ) || ( \\Core_2stage.DatPath_2stage.exe_reg_pc == 32'h0 ) )", width: 1}]} # If speculative fetch is not correct,  exex_reg_pc should be reset to 0
+ - {id: "IF_REG_PC1", cond: "1", attrs: [{value: " ( \\Core_2stage.DatPath_2stage.if_reg_pc [1:0] == 0 )", width: 1}]} # The last 2 bits of program counter should be 0
+ - {id: "IF_REG_PC2", cond: "1", attrs: [{value: " ( ( \\Core_2stage.DatPath_2stage.io_ctl_if_kill_r ) || ( \\Core_2stage.DatPath_2stage.if_reg_pc == \\Core_2stage.DatPath_2stage.exe_reg_pc + 32'h4 ) )", width: 1}]} # If speculative fetch is correct, if_reg_pc = exe_reg_pc + 4
+ - {id: "IF_INST_BUFFER_VALID", cond: "1", attrs: [{value: " ( \\Core_2stage.DatPath_2stage.if_inst_buffer_valid == 0 )", width: 1}]}
+ - {id: "KILL_EXECUTE", cond: "1", attrs: [{value: " ( \\Core_2stage.DatPath_2stage.io_ctl_if_kill == 0 || \\Core_2stage.DatPath_2stage.execute_reg == 1 )", width: 1}]}
+ - {id: "IO_DAT_INST_MISALIGNED", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dat_inst_misaligned == 0", width: 1} ] }
+ - {id: "IO_CTL_DATA_MISALIGNED", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dat_data_misaligned == 0", width: 1} ] }
+ - {id: "EXE_REG_INST", cond: "1", attrs: [{value: "( ( \\Core_2stage.DatPath_2stage.io_ctl_if_kill_r ) || ( \\Core_2stage.DatPath_2stage.exe_reg_inst == \\AsyncScratchPadMemory_2stage.instr_exe ) )", width: 1}]} # If speculative fetch is correct, exe_reg_inst = imem[exe_reg_pc]
+# Configrations 
+ - {id: "RV32I", cond: "1", attrs: [{value: " ( (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h37 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h17 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h6f ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h67 ) ||(\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h63 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h3 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h23 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h13 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h33 && (\\Core_2stage.DatPath_2stage.exe_reg_inst [31:25] == 7'h0 || \\Core_2stage.DatPath_2stage.exe_reg_inst [31:25] == 7'h20 ) ) )", width: 1}]} #|| (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'hf && \\Core_2stage.DatPath_2stage.exe_reg_inst [14:12] == 3'h1 ) || (\\Core_2stage.DatPath_2stage.exe_reg_inst [6:0] == 7'h73 && \\Core_2stage.DatPath_2stage.exe_reg_inst [14:12] == 3'h0 ) )", width: 1}]}
+ - {id: "io_ctl_exception", cond: "1", attrs: [{value: " ( \\Core_2stage.CtlPath_2stage.io_ctl_exception == 0 )", width: 1}]} # 2stage implements less instructons than 1stage, this leds to the same instrction set for them 
+ - {id: "io_eret", cond: "1", attrs: [{value: " ( \\Core_2stage.DatPath_2stage.CSRFile_2stage.io_eret == 0 )", width: 1}]} # No eret from CSR
+ - {id: "io_interrupt", cond: "1", attrs: [{value: " ( \\Core_2stage.DatPath_2stage.CSRFile_2stage.io_interrupt == 0 )", width: 1}]} # No interrupt from CSR
+# - {id: "NO_CSR", cond: "1", attrs: [{value: " ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_spp == 0 ) && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.io_status_cease_r == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.large_ == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.large_1 == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_cause == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_ebreakm == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_step == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_debug == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dpc == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dscratch == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mcause == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mcountinhibit == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mepc == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mie == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mscratch == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_mie == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_mpie == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mtval == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mtvec == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_singleStepped == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.reg_wfi == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.small_ == 0 && ( \Core_2stage.DatPath_2stage.CSRFile_2stage.small_l == 0 )", width: 1}]} 
+ # branch target should not be exe_pc + 4
+#  - {id: "no_branch_plus4", cond: "1", attrs: [{value: " ( ! ( \\Core_2stage.DatPath_2stage._T && \\Core_2stage.DatPath_2stage._if_pc_next_T_1 ) ) || ( \\Core_2stage.DatPath_2stage.exe_br_target != \\Core_2stage.DatPath_2stage.exe_reg_pc + 4 ) ", width: 1}]} # No eret from CSR
+#  - {id: "no_jump_plus4", cond: "1", attrs: [{value: " ( ! ( (! \\Core_2stage.DatPath_2stage._if_pc_next_T ) && (! \\Core_2stage.DatPath_2stage._if_pc_next_T_1 ) && \\Core_2stage.DatPath_2stage._T ) ) || ( \\Core_2stage.DatPath_2stage._if_pc_next_T_7 != \\Core_2stage.DatPath_2stage.if_pc_plus4 ) ", width: 1}]} # No interrupt from CSR
+
+
+### INVARIANT
+invariant: 
+  - {id: "RDATA_inv", cond: "( \\Core_2stage.DatPath_2stage._exe_wbdata_T_1 ) && ( ! ( \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [{value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data", width: 32}]} # When there is a load instruction, the data loaded should be the same 
+  - {id: "INSTR_inv", cond: "( ! \\Core_2stage.DatPath_2stage.io_ctl_if_kill_r )", attrs: [{value: "\\Core_2stage.DatPath_2stage.exe_reg_inst", width: 32}]} # When the speculative fetch is correct, the instruction loaded should be the same
+  - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.fetch_reg ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.filtered_if_reg_pc", width: 32}]} # disclose the value of program counter.
+  - {id: "PC1", cond: " \\Core_2stage.DatPath_2stage.fetch_reg && (! \\Core_2stage.DatPath_2stage.io_ctl_if_kill )", attrs: [ {value: "\\Core_2stage.DatPath_2stage.if_reg_pc", width: 32}]} # disclose the value of program counter.
+  - {id: "BRANCH", cond: " \\Core_2stage.DatPath_2stage._if_pc_next_T_1 && \\Core_2stage.DatPath_2stage._T ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_br_target", width: 32}]} # disclose the value of program counter.
+  - {id: "PLUS4", cond: " \\Core_2stage.DatPath_2stage._if_pc_next_T && \\Core_2stage.DatPath_2stage._T ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.if_pc_plus4", width: 32}]} # disclose the value of program counter.
+  - {id: "JUMP", cond: " (! \\Core_2stage.DatPath_2stage._if_pc_next_T ) && (! \\Core_2stage.DatPath_2stage._if_pc_next_T_1 ) && \\Core_2stage.DatPath_2stage._T", attrs: [ {value: "\\Core_2stage.DatPath_2stage._if_pc_next_T_7", width: 32}]} # disclose the value of program counter.
+  - {id: "BRANCH1", cond: " \\Core_2stage.DatPath_2stage.fetch ", attrs: [ {value: "\\Core_2stage.DatPath_2stage._T && \\Core_2stage.DatPath_2stage._if_pc_next_T_1", width: 1}]} # disclose the value of program counter.
+  - {id: "PLUS41", cond: " \\Core_2stage.DatPath_2stage.fetch ", attrs: [ {value: "\\Core_2stage.DatPath_2stage._T && \\Core_2stage.DatPath_2stage._if_pc_next_T", width: 1}]} # disclose the value of program counter.
+  - {id: "JUMP1", cond: " \\Core_2stage.DatPath_2stage.fetch ", attrs: [ {value: "\\Core_2stage.DatPath_2stage._T && (! \\Core_2stage.DatPath_2stage._if_pc_next_T_1 ) && (! \\Core_2stage.DatPath_2stage._if_pc_next_T ) ", width: 1}]} # disclose the value of program counter.
+  - {id: "KILL", cond: " \\Core_2stage.DatPath_2stage.execute_reg ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_ctl_if_kill ", width: 1}]} # disclose the value of program counter.
+
+### State
+state:
+- {id: "regfile", expr: "regfile_flat_trg", width: 1024 , val : 0}
+- {id: "\\Core_2stage.DatPath_2stage.if_inst_buffer", expr: "\\Core_2stage.DatPath_2stage.if_inst_buffer", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.if_reg_pc", expr: "\\Core_2stage.DatPath_2stage.if_reg_pc", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.exe_reg_pc", expr: "\\Core_2stage.DatPath_2stage.exe_reg_pc", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.exe_reg_pc_plus4", expr: "\\Core_2stage.DatPath_2stage.exe_reg_pc_plus4", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.exe_reg_inst", expr: "\\Core_2stage.DatPath_2stage.exe_reg_inst", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.exe_reg_valid", expr: "\\Core_2stage.DatPath_2stage.exe_reg_valid", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.if_inst_buffer_valid", expr: "\\Core_2stage.DatPath_2stage.if_inst_buffer_valid", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.reg_interrupt_handled", expr: "\\Core_2stage.DatPath_2stage.reg_interrupt_handled", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_wfi", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_wfi", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.small_1", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.small_1", width: 6, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.large_1", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.large_1", width: 58, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_spp", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_spp", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_mpie", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_mpie", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_mie", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mstatus_mie", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_ebreakm", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_ebreakm", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_cause", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_cause", width: 3, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_step", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dcsr_step", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_debug", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_debug", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dpc", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dpc", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dscratch", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_dscratch", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_singleStepped", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_singleStepped", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mie", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mie", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mepc", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mepc", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mcause", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mcause", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mtval", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mtval", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mscratch", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mscratch", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mtvec", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mtvec", width: 32, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mcountinhibit", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.reg_mcountinhibit", width: 3, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.small_", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.small_", width: 6, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.large_", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.large_", width: 58, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.io_status_cease_r", expr: "\\Core_2stage.DatPath_2stage.CSRFile_2stage.io_status_cease_r", width: 1, val: 0 }
+- {id: "\\Core_2stage.DatPath_2stage.execute_reg", expr: "\\Core_2stage.DatPath_2stage.execute_reg", width: 1, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage.fetch_reg", expr: "\\Core_2stage.DatPath_2stage.fetch_reg", width: 1, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage.retire", expr: "\\Core_2stage.DatPath_2stage.retire", width: 1, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage.pc_retire", expr: "\\Core_2stage.DatPath_2stage.pc_retire", width: 32, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage.if_reg_pc_delay", expr: "\\Core_2stage.DatPath_2stage.if_reg_pc_delay", width: 32, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage._exe_wbdata_T_1_delay", expr: "\\Core_2stage.DatPath_2stage._exe_wbdata_T_1_delay", width: 1, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage._exe_wbdata_T_delay", expr: "\\Core_2stage.DatPath_2stage._exe_wbdata_T_delay", width: 1, val: 0}
+- {id: "\\Core_2stage.DatPath_2stage.exe_reg_inst_delay", expr: "\\Core_2stage.DatPath_2stage.exe_reg_inst_delay", width: 32, val: 0}
+- {id: "\\AsyncScratchPadMemory_2stage.module__io_en_delay", expr: "\\AsyncScratchPadMemory_2stage.module__io_en_delay", width: 1, val: 0}
+- {id: "\\AsyncScratchPadMemory_2stage.module__io_addr_delay", expr: "\\AsyncScratchPadMemory_2stage.module__io_addr_delay", width: 21, val: 0}
+- {id: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_addr_delay", expr: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_addr_delay", width: 21, val: 0}
+- {id: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data_delay", expr: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data_delay", width: 32, val: 0}
+
+
+
+
+inputs: 
+  - {id: "clock", valueLeft: "clock", valueRight: "clock"}
+  - {id: "reset", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_debug_port_req_valid", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_debug_port_req_bits_addr", valueLeft: "32'h0", valueRight: "32'h0"}
+  - {id: "io_debug_port_req_bits_data", valueLeft: "32'h0", valueRight: "32'h0"}
+  - {id: "io_debug_port_req_bits_fcn", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_debug_port_req_bits_typ", valueLeft: "3'h0", valueRight: "3'h0"}
+  - {id: "io_debug_port_resp_valid", valueLeft: "trgio_debug_port_resp_validLeft", valueRight: "trgio_debug_port_resp_validRight"}
+  - {id: "io_debug_port_resp_bits_data", valueLeft: "trgio_debug_port_resp_bits_dataLeft", valueRight: "trgio_debug_port_resp_bits_dataRight"}
+  - {id: "io_master_port_0_req_valid", valueLeft: "trgio_master_port_0_req_validLeft", valueRight: "trgio_master_port_0_req_validRight"}
+  - {id: "io_master_port_0_req_bits_addr", valueLeft: "trgio_master_port_0_req_bits_addrLeft", valueRight: "trgio_master_port_0_req_bits_addrRight"}
+  - {id: "io_master_port_0_req_bits_data", valueLeft: "trgio_master_port_0_req_bits_dataLeft", valueRight: "trgio_master_port_0_req_bits_dataRight"}
+  - {id: "io_master_port_0_req_bits_fcn", valueLeft: "trgio_master_port_0_req_bits_fcnLeft", valueRight: "trgio_master_port_0_req_bits_fcnRight"}
+  - {id: "io_master_port_0_req_bits_typ", valueLeft: "trgio_master_port_0_req_bits_typLeft", valueRight: "trgio_master_port_0_req_bits_typRight"}
+  - {id: "io_master_port_0_resp_valid", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_master_port_0_resp_bits_data", valueLeft: "32'h0", valueRight: "32'h0"}
+  - {id: "io_master_port_1_req_valid", valueLeft: "trgio_master_port_1_req_validLeft", valueRight: "trgio_master_port_1_req_validRight"}
+  - {id: "io_master_port_1_req_bits_addr", valueLeft: "trgio_master_port_1_req_bits_addrLeft", valueRight: "trgio_master_port_1_req_bits_addrRight"}
+  - {id: "io_master_port_1_req_bits_data", valueLeft: "trgio_master_port_1_req_bits_dataLeft", valueRight: "trgio_master_port_1_req_bits_dataRight"}
+  - {id: "io_master_port_1_req_bits_fcn", valueLeft: "trgio_master_port_1_req_bits_fcnLeft", valueRight: "trgio_master_port_1_req_bits_fcnRight"}
+  - {id: "io_master_port_1_req_bits_typ", valueLeft: "trgio_master_port_1_req_bits_typLeft", valueRight: "trgio_master_port_1_req_bits_typRight"}
+  - {id: "io_master_port_1_resp_valid", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_master_port_1_resp_bits_data", valueLeft: "32'h0", valueRight: "32'h0"}
+  - {id: "io_interrupt_debug", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_interrupt_msip", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_interrupt_meip", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_interrupt_mtip", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_hartid", valueLeft: "1'h0", valueRight: "1'h0"}
+  - {id: "io_reset_vector", valueLeft: "32'h0", valueRight: "32'h0"}
+  - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
+  
+expandArrays:
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_0_1", start: "0", i: "8", j: "1024", var: "mem_0_1_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_1_1", start: "0", i: "8", j: "1024", var: "mem_1_1_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_2_1", start: "0", i: "8", j: "1024", var: "mem_2_1_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_3_1", start: "0", i: "8", j: "1024", var: "mem_3_1_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_0_0", start: "0", i: "8", j: "1024", var: "mem_0_0_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_1_0", start: "0", i: "8", j: "1024", var: "mem_1_0_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_2_0", start: "0", i: "8", j: "1024", var: "mem_2_0_flat_trg", flatten: "True"}
+ - {filename: "AsyncScratchPadMemory_2stage.v", array: "mem_3_0", start: "0", i: "8", j: "1024", var: "mem_3_0_flat_trg", flatten: "True"}
+ - {filename: "DatPath_2stage.v", array: "regfile", start: "0", i: "32", j: "32", var: "regfile_flat_trg", flatten: "True"}
+
+auxiliaryVariables: 
+- {id: "mem_0_1_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_0_1_flat_trg", width: 8192}
+- {id: "mem_1_1_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_1_1_flat_trg", width: 8192}
+- {id: "mem_2_1_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_2_1_flat_trg", width: 8192}
+- {id: "mem_3_1_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_3_1_flat_trg", width: 8192}
+- {id: "mem_0_0_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_0_0_flat_trg", width: 8192}
+- {id: "mem_1_0_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_1_0_flat_trg", width: 8192}
+- {id: "mem_2_0_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_2_0_flat_trg", width: 8192}
+- {id: "mem_3_0_flat_trg", value: "\\AsyncScratchPadMemory_2stage.mem_3_0_flat_trg", width: 8192}
+- {id: "regfile_flat_trg", value: "\\Core_2stage.DatPath_2stage.regfile_flat_trg", width: 1024}
