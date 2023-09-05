@@ -4,4 +4,4 @@
 # benchmarks = [RE, DarkRISCV-2, DarkRISCV-3, Sodor-2, Ibex-small, Ibex-mult-div, Ibex-cache]
 
 # for benchmark in benchmarks:
-#    run 'python source/cli.py config-files benchmark > testOut/benchmark/log'
+#    run 'python source/cli.py benchmark.yaml > testOut/benchmark/benchmark.log'

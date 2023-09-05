@@ -1,4 +1,8 @@
-# Run 'make' in 'yosys'
+# Todo list
+
+# Create a folder "verification" under "yosys-path/manual"
+
+# Move all folders in "yosys-passes" to Yosys/manual/verification
 
 # Run 'make' in 'yosys/manual/verification/addmodule', which will generate a new pass 'addmodule.so' in main folder
 
