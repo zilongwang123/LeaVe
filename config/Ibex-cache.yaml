@@ -4,7 +4,7 @@ outFolder: "testOut/Ibex-cache" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
-cycleDelayed: "4" # greater than 1
+cycleDelayed: "38" # greater than 1
 
 
 # main module under analysis
@@ -13,7 +13,7 @@ moduleFile: "ibex_top.v"
 memoryList: ["ibex_imem.imem","ibex_dmem.dmem"]
 
 # Verilog frontend
-yosysPath: "yosys/yosys"
+yosysPath: "../../../yosys/yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
@@ -48,6 +48,8 @@ srcObservations:
   # Indicates that the instruction on fly of the two runs are the same
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
   - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
+  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
+  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
 
 
 ######################
@@ -122,8 +124,8 @@ trgObservations: []
 
 stateInvariant: # if init is "1", it will only be assumed in cycle 0 
 # configration of RV32I Base Instruction Set with out fence, ecall, ebreak. The memory instructions are constrained with word_size only. 
-  - {id: "NODIV", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.div_en_o == 0", width: 1}] }
-  - {id: "NOMUL", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.mult_en_o == 0", width: 1}] }
+  # - {id: "NODIV", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.div_en_o == 0", width: 1}] }
+  # - {id: "NOMUL", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.mult_en_o == 0", width: 1}] }
   - {id: "no_instr_is_compressed1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.instr_is_compressed == 0 ", width: 1}] }
   - {id: "no_instr_is_compressed2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.instr_is_compressed_id_o == 0 ", width: 1}] }
   - {id: "no_instr_is_compressed3", cond: "1", attrs: [ { value: "  \\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.aligned_is_compressed == 0 ", width: 1}] }

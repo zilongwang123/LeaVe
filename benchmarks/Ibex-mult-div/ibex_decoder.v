@@ -51,7 +51,7 @@ module ibex_decoder (
 	branch_in_dec_o
 );
 	parameter [0:0] RV32E = 0;
-	parameter integer RV32M = 32'sd2;
+	parameter integer RV32M = 32'sd1;
 	parameter integer RV32B = 32'sd0;
 	parameter [0:0] BranchTargetALU = 0;
 	input wire clk_i;
@@ -321,42 +321,42 @@ module ibex_decoder (
 						10'b0010000010, 10'b0010000100, 10'b0010000110, 10'b0100000111, 10'b0100000110, 10'b0100000100, 10'b0110000001, 10'b0110000101, 10'b0000101100, 10'b0000101110, 10'b0000101101, 10'b0000101111, 10'b0000100100, 10'b0100100100, 10'b0000100111, 10'b0100100001, 10'b0010100001, 10'b0110100001, 10'b0100100101, 10'b0100100111: illegal_insn = (RV32B != 32'sd0 ? 1'b0 : 1'b1);
 						10'b0110100101, 10'b0010100101, 10'b0000100001, 10'b0000100101, 10'b0010100010, 10'b0010100100, 10'b0010100110, 10'b0010000001, 10'b0010000101, 10'b0000101001, 10'b0000101010, 10'b0000101011: illegal_insn = ((RV32B == 32'sd2) || (RV32B == 32'sd3) ? 1'b0 : 1'b1);
 						10'b0100100110, 10'b0000100110: illegal_insn = (RV32B == 32'sd3 ? 1'b0 : 1'b1);
-						10'b0000001000: begin
+						10'b0000001000: begin //mul
 							multdiv_operator_o = 2'd0;
 							multdiv_signed_mode_o = 2'b00;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001001: begin
+						10'b0000001001: begin //mulh
 							multdiv_operator_o = 2'd1;
 							multdiv_signed_mode_o = 2'b11;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001010: begin
+						10'b0000001010: begin  //mulhsu
 							multdiv_operator_o = 2'd1;
 							multdiv_signed_mode_o = 2'b01;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001011: begin
+						10'b0000001011: begin //mulhu
 							multdiv_operator_o = 2'd1;
 							multdiv_signed_mode_o = 2'b00;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001100: begin
+						10'b0000001100: begin //div
 							multdiv_operator_o = 2'd2;
 							multdiv_signed_mode_o = 2'b11;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001101: begin
+						10'b0000001101: begin //divu
 							multdiv_operator_o = 2'd2;
 							multdiv_signed_mode_o = 2'b00;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001110: begin
+						10'b0000001110: begin  //rem
 							multdiv_operator_o = 2'd3;
 							multdiv_signed_mode_o = 2'b11;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);
 						end
-						10'b0000001111: begin
+						10'b0000001111: begin //remu
 							multdiv_operator_o = 2'd3;
 							multdiv_signed_mode_o = 2'b00;
 							illegal_insn = (RV32M == 32'sd0 ? 1'b1 : 1'b0);

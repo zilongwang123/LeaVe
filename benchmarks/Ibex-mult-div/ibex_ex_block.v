@@ -26,7 +26,7 @@ module ibex_ex_block (
 	branch_decision_o,
 	ex_valid_o
 );
-	parameter integer RV32M = 32'sd2;
+	parameter integer RV32M = 32'sd1;
 	parameter integer RV32B = 32'sd0;
 	parameter [0:0] BranchTargetALU = 0;
 	input wire clk_i;
@@ -118,33 +118,7 @@ module ibex_ex_block (
 	);
 	// generate
 	// 	if (RV32M == 32'sd1) begin : gen_multdiv_slow
-	// 		ibex_multdiv_slow ibex_multdiv_slow(
-	// 			.clk_i(clk_i),
-	// 			.rst_ni(rst_ni),
-	// 			.mult_en_i(mult_en_i),
-	// 			.div_en_i(div_en_i),
-	// 			.mult_sel_i(mult_sel_i),
-	// 			.div_sel_i(div_sel_i),
-	// 			.operator_i(multdiv_operator_i),
-	// 			.signed_mode_i(multdiv_signed_mode_i),
-	// 			.op_a_i(multdiv_operand_a_i),
-	// 			.op_b_i(multdiv_operand_b_i),
-	// 			.alu_adder_ext_i(alu_adder_result_ext),
-	// 			.alu_adder_i(alu_adder_result_ex_o),
-	// 			.equal_to_zero_i(alu_is_equal_result),
-	// 			.data_ind_timing_i(data_ind_timing_i),
-	// 			.valid_o(multdiv_valid),
-	// 			.alu_operand_a_o(multdiv_alu_operand_a),
-	// 			.alu_operand_b_o(multdiv_alu_operand_b),
-	// 			.imd_val_q_i(imd_val_q_i),
-	// 			.imd_val_d_o(multdiv_imd_val_d),
-	// 			.imd_val_we_o(multdiv_imd_val_we),
-	// 			.multdiv_ready_id_i(multdiv_ready_id_i),
-	// 			.multdiv_result_o(multdiv_result)
-	// 		);
-	// 	end
-	// 	else if ((RV32M == 32'sd2) || (RV32M == 32'sd3)) begin : gen_multdiv_fast
-			ibex_multdiv_fast #(.RV32M(RV32M)) ibex_multdiv_fast(
+			ibex_multdiv_slow ibex_multdiv_slow(
 				.clk_i(clk_i),
 				.rst_ni(rst_ni),
 				.mult_en_i(mult_en_i),
@@ -154,20 +128,48 @@ module ibex_ex_block (
 				.operator_i(multdiv_operator_i),
 				.signed_mode_i(multdiv_signed_mode_i),
 				.op_a_i(multdiv_operand_a_i),
-				.op_b_i(multdiv_operand_b_i),
-				.alu_operand_a_o(multdiv_alu_operand_a),
-				.alu_operand_b_o(multdiv_alu_operand_b),
+				.op_b_i(op_b_i),
 				.alu_adder_ext_i(alu_adder_result_ext),
 				.alu_adder_i(alu_adder_result_ex_o),
 				.equal_to_zero_i(alu_is_equal_result),
 				.data_ind_timing_i(data_ind_timing_i),
+				.valid_o(multdiv_valid),
+				.alu_operand_a_o(multdiv_alu_operand_a),
+				.alu_operand_b_o(multdiv_alu_operand_b),
 				.imd_val_q_i(imd_val_q_i),
 				.imd_val_d_o(multdiv_imd_val_d),
 				.imd_val_we_o(multdiv_imd_val_we),
 				.multdiv_ready_id_i(multdiv_ready_id_i),
-				.valid_o(multdiv_valid),
 				.multdiv_result_o(multdiv_result)
 			);
+		wire [31:0] op_b_i;
+		assign op_b_i = multdiv_operand_b_i;// % 1024;
+	// 	end
+	// 	else if ((RV32M == 32'sd2) || (RV32M == 32'sd3)) begin : gen_multdiv_fast
+			// ibex_multdiv_fast #(.RV32M(RV32M)) ibex_multdiv_fast(
+			// 	.clk_i(clk_i),
+			// 	.rst_ni(rst_ni),
+			// 	.mult_en_i(mult_en_i),
+			// 	.div_en_i(div_en_i),
+			// 	.mult_sel_i(mult_sel_i),
+			// 	.div_sel_i(div_sel_i),
+			// 	.operator_i(multdiv_operator_i),
+			// 	.signed_mode_i(multdiv_signed_mode_i),
+			// 	.op_a_i(multdiv_operand_a_i),
+			// 	.op_b_i(multdiv_operand_b_i),
+			// 	.alu_operand_a_o(multdiv_alu_operand_a),
+			// 	.alu_operand_b_o(multdiv_alu_operand_b),
+			// 	.alu_adder_ext_i(alu_adder_result_ext),
+			// 	.alu_adder_i(alu_adder_result_ex_o),
+			// 	.equal_to_zero_i(alu_is_equal_result),
+			// 	.data_ind_timing_i(data_ind_timing_i),
+			// 	.imd_val_q_i(imd_val_q_i),
+			// 	.imd_val_d_o(multdiv_imd_val_d),
+			// 	.imd_val_we_o(multdiv_imd_val_we),
+			// 	.multdiv_ready_id_i(multdiv_ready_id_i),
+			// 	.valid_o(multdiv_valid),
+			// 	.multdiv_result_o(multdiv_result)
+			// );
 	// 	end
 	// endgenerate
 	assign ex_valid_o = (multdiv_sel ? multdiv_valid : ~(|alu_imd_val_we));

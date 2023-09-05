@@ -4,7 +4,7 @@ outFolder: "testOut/Ibex-small" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
-cycleDelayed: "3" # greater than 1
+cycleDelayed: "38" # greater than 1
 
 
 # main module under analysis
@@ -13,7 +13,7 @@ moduleFile: "ibex_top.v"
 memoryList: ["ibex_imem.imem","ibex_dmem.dmem"]
 
 # Verilog frontend
-yosysPath: "yosys/yosys"
+yosysPath: "../../../yosys/yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
@@ -39,15 +39,15 @@ srcObservations:
 ######################
   # program counter
   - {id: "PC", cond: "1", attrs: [{value: "\\ibex_core.pc_ctr", width: 32}]}
-  # When the instruction is a load, we attach the data address
-  # - {id: "LOAD", cond: " \\ibex_core.load_ctr ", attrs: [ {value: "\\ibex_core.lsu_addr_ctr", width: 32}]} 
-  # When the instruction is a write, we attach the data address
-  # - {id: "STORE", cond: " \\ibex_core.store_ctr ", attrs: [ {value: "\\ibex_core.lsu_addr_ctr", width: 32}]} 
+  # When the instruction is a memory instruction, we attach the last 2 bits of data address
+  - {id: "ALIGNED", cond: " \\ibex_core.load_ctr || \\ibex_core.store_ctr ", attrs: [ {value: "\\ibex_core.data_offset_ctr", width: 2}]}  
   # When the instruction is a load, we need the data loaded to the registers are the same
   # - {id: "DATAI", cond: " \\ibex_core.load_ctr", attrs: [ {value: "\\ibex_dmem.load_data_ctr", width: 32}]}
   # Indicates that the instruction on fly of the two runs are the same
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
   - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
+  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
+  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
 
 
 ######################
@@ -122,8 +122,8 @@ trgObservations: []
 
 stateInvariant: # if init is "1", it will only be assumed in cycle 0 
 # configration of RV32I Base Instruction Set with out fence, ecall, ebreak. The memory instructions are constrained with word_size only. 
-  - {id: "NODIV", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.div_en_o == 0", width: 1}] }
-  - {id: "NOMUL", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.mult_en_o == 0", width: 1}] }
+  # - {id: "NODIV", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.div_en_o == 0", width: 1}] }
+  # - {id: "NOMUL", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.mult_en_o == 0", width: 1}] }
   - {id: "no_instr_is_compressed1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.instr_is_compressed == 0 ", width: 1}] }
   - {id: "no_instr_is_compressed2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.instr_is_compressed_id_o == 0 ", width: 1}] }
   - {id: "no_instr_is_compressed3", cond: "1", attrs: [ { value: "  \\ibex_core.ibex_if_stage.ibex_prefetch_buffer.fifo_i.aligned_is_compressed == 0 ", width: 1}] }
@@ -140,17 +140,16 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "no_csr_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.csr_access_o == 0", width: 1}] }
   - {id: "no_wfi_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.wfi_insn_o == 0", width: 1}] }
   - {id: "no_fence", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_decoder.opcode !== 7'h0f )", width: 1}] }
-  - {id: "ls_word", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_be == 4'b1111 ", width: 1}] }
+  # - {id: "ls_word", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_be == 4'b1111 ", width: 1}] }
 # memory systems
   - {id: "imem_rvalid", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 1 || \\ibex_imem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
   - {id: "imem_gnt", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 0 || \\ibex_imem.sram_gnt == 0 ", width: 1}] } # When req be 0, gnt should also be 0
   - {id: "dmem_req_ls", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 1 || \\ibex_core.ibex_id_stage.ibex_decoder.data_req_o == 1 ", width: 1}] } # When req be 1, the instr in id stage should be load/store 
   - {id: "dmem_rvalid_ls", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_rvalid !== 1 || \\ibex_core.ibex_id_stage.ibex_decoder.data_req_o == 1 ", width: 1}] } # When req be 1, the instr in id stage should be load/store 
-  - {id: "dmem_rvalid", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 1 || \\ibex_dmem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
-  # - {id: "dmem_rvalid_2", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_rvalid !== 1 || \\ibex_dmem.sram_req == 0 ", width: 1}] } # When req be 1, rvalid should be 0
+  # - {id: "dmem_rvalid", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 1 || \\ibex_dmem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
   - {id: "dmem_gnt", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_req !== 0 || \\ibex_dmem.sram_gnt == 0 ", width: 1}] } # When req be 0, gnt should also be 0
   - {id: "dmem_gnt_first_cycle1", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.instr_first_cycle !== 1 || ( \\ibex_dmem.sram_gnt == 0 && \\ibex_dmem.sram_rvalid == 0 )", width: 1}] } # When it's the first cycle of decode stage, gnt should also be 0
-  - {id: "dmem_gnt_first_cycle2", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.instr_first_cycle == 0 && \\ibex_dmem.sram_req == 1 ) ) || ( \\ibex_dmem.sram_rvalid == 0 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] } # when it's not the first cycle of decode stage and the instr is a memory access, the gnt should be 1
+  # - {id: "dmem_gnt_first_cycle2", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.instr_first_cycle == 0 && \\ibex_dmem.sram_req == 1 ) ) || ( \\ibex_dmem.sram_rvalid == 0 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] } # when it's not the first cycle of decode stage and the instr is a memory access, the gnt should be 1
 # For multicycle instructions, if it's not the first cycle of the instr, the ctl signals set in the first cycle should be hold
   # - {id: "JAL", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode == 7'h6f ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.rf_we == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.jump_set_o == 1'b1 ) ", width: 1}] } 
   # - {id: "JALR", cond: "1", attrs: [ { value: "( ! ( \\ibex_core.ibex_id_stage.ibex_decoder.instr_first_cycle_i == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.opcode == 7'h67 ) ) || ( \\ibex_core.ibex_id_stage.ibex_decoder.rf_we == 0 && \\ibex_core.ibex_id_stage.ibex_decoder.jump_set_o == 1'b1 ) ", width: 1}] } # 
@@ -162,7 +161,7 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "no_pmp_error1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.pmp_err_q == 0 ", width: 1}] }  
   - {id: "no_pmp_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.pmp_err_d == 0 ", width: 1}] }  
   - {id: "no_lsu_error1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_q == 0 ", width: 1}] }  
-  - {id: "no_lsu_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_d == 0 ", width: 1}] }  
+  - {id: "no_lsu_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_d == 0 ", width: 1}] } 
 # no branch predictor
   - {id: "no_branch_predictor", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.nt_branch_mispredict_i == 0 ", width: 1}] }
 # ls done => instruction done
@@ -176,12 +175,13 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "id_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.id_fsm_q !== 1'd1 ) || ( \\ibex_core.ibex_id_stage.instr_first_cycle == 0 && ( \\ibex_core.ibex_id_stage.lsu_req_dec || \\ibex_core.ibex_id_stage.multdiv_en_dec || \\ibex_core.ibex_id_stage.branch_in_dec || \\ibex_core.ibex_id_stage.jump_in_dec || \\ibex_core.ibex_id_stage.alu_multicycle_dec ) )", width: 1 }] }
 # The LOAD-STORE FSM
   # - {id: "start_from_beginning3", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.ls_fsm_cs == 0 ", width: 1, init: "1"}] }
-  - {id: "split_misaligned_access", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.split_misaligned_access == 0 )", width: 1}] }
+  # - {id: "split_misaligned_access", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.split_misaligned_access == 0 )", width: 1}] }
   - {id: "ls_fsm_0", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd0 ) || ( \\ibex_dmem.sram_gnt == 0 )", width: 1}] }
-  - {id: "ls_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd1 ) ", width: 1}] }
-  - {id: "ls_fsm_2", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd2 ) ", width: 1}] }
-  - {id: "ls_fsm_3", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd3 ) || ( \\ibex_dmem.sram_req == 1 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] }
-  - {id: "ls_fsm_4", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd4 ) ", width: 1}] }
+  - {id: "ls_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd1 ) || ( \\ibex_core.ibex_load_store_unit.split_misaligned_access == 1 ) ", width: 1}] }
+  - {id: "ls_fsm_2", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd2 ) || ( \\ibex_core.ibex_load_store_unit.split_misaligned_access == 1 ) ", width: 1}] }
+  - {id: "ls_fsm_3_0", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd3 || \\ibex_core.ibex_load_store_unit.split_misaligned_access !== 0 ) || ( \\ibex_dmem.sram_req == 1 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] }
+  - {id: "ls_fsm_3_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd3 || \\ibex_core.ibex_load_store_unit.split_misaligned_access !== 1 ) || ( \\ibex_dmem.sram_req == 1 && \\ibex_core.ibex_load_store_unit.handle_misaligned_q == 1 )", width: 1}] }
+  - {id: "ls_fsm_4", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_load_store_unit.ls_fsm_cs !== 3'd4 )  ", width: 1}] }
 # The controller FSM start from state 5 (controller running)
   - {id: "start_from_beginning4", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs == 4'd5 ", width: 1, init: "1"}] }
   # - {id: "ctrl_fsm_0", cond: "1", attrs: [ { value: " \\ibex_core.ibex_id_stage.ibex_controller.ctrl_fsm_cs !== 4'd0 || \\ibex_core.ibex_id_stage.id_fsm_q == 0 ", width: 1}] }
@@ -220,6 +220,7 @@ invariant:
   - {id: "DATAI_inv", cond: "\\ibex_core.en_wb && \\ibex_core.rf_we_lsu", attrs: [ {value: "\\ibex_core.rf_wdata_lsu", width: 32}]} 
   - {id: "INSTR_inv", cond: "\\ibex_core.en_wb", attrs: [ {value: "\\ibex_core.instr_rdata_id", width: 32}]}
   - {id: "BRANCH_inv", cond: "\\ibex_core.ibex_id_stage.instr_first_cycle", attrs: [ {value: "\\ibex_core.branch_decision", width: 1}]}
+  - {id: "Misaligned_inv", cond: "\\ibex_core.ibex_id_stage.ibex_decoder.data_req_o", attrs: [ {value: "\\ibex_core.ibex_load_store_unit.split_misaligned_access", width: 1}]}
 
 
 
@@ -341,7 +342,7 @@ state:
   - {id: "\\ibex_core.perf_store_retire", expr: "\\ibex_core.perf_store_retire", width: 1 , val : 0}
   - {id: "\\ibex_core.instr_rdata_id_retire", expr: "\\ibex_core.instr_rdata_id_retire", width: 32 , val : 0}
   - {id: "\\ibex_core.rf_wdata_lsu_retire", expr: "\\ibex_core.rf_wdata_lsu_retire", width: 32 , val : 0}
-  - {id: "\\ibex_core.lsu_addr_last_retire", expr: "\\ibex_core.lsu_addr_last_retire", width: 32 , val : 0}
+  - {id: "\\ibex_core.alu_adder_result_ex_retire", expr: "\\ibex_core.alu_adder_result_ex_retire", width: 32 , val : 0}
 
 inputs: 
   - {id: "clk_i", valueLeft: "clk_i", valueRight: "clk_i"}

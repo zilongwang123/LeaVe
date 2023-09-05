@@ -116,7 +116,7 @@ module ibex_id_stage (
 	instr_id_done_o
 );
 	parameter [0:0] RV32E = 0;
-	parameter integer RV32M = 32'sd2;
+	parameter integer RV32M = 32'sd1;
 	parameter integer RV32B = 32'sd0;
 	parameter [0:0] DataIndTiming = 1'b0;
 	parameter [0:0] BranchTargetALU = 0;

@@ -58,8 +58,10 @@ module ibex_core (
 	pc_id,
 	rf_raddr_a_o_ctr,
 	rf_raddr_b_o_ctr,
+	rf_raddr_b_o_ctr_id,
 	rf_rdata_a_fwd_ctr,
 	rf_rdata_b_fwd_ctr,
+	rf_rdata_b_fwd_ctr_id,
 	lsu_addr_ctr,
 );
 	parameter [0:0] PMPEnable = 1'b0;
@@ -882,6 +884,7 @@ module ibex_core (
 	reg [31:0]  instr_rdata_id_retire;
 	reg [31:0]  alu_adder_result_ex_retire;
 	reg [31:0]  rf_wdata_lsu_retire;
+	reg [31:0]  rf_rdata_b_fwd_ctr_old;
 	always @(posedge clk_i) begin
 
 		retire <= en_wb;
@@ -892,6 +895,7 @@ module ibex_core (
 			rf_wdata_lsu_retire <= rf_wdata_lsu;
 			alu_adder_result_ex_retire <= alu_adder_result_ex;
 			perf_store_retire <= perf_store;
+			rf_rdata_b_fwd_ctr_old <= rf_rdata_b_fwd_ctr_id;
 		end
 
 	end
@@ -913,9 +917,12 @@ module ibex_core (
 	assign rf_raddr_a_o_ctr = instr_ctr[19:15];
 	output wire [4:0] rf_raddr_b_o_ctr;
 	assign rf_raddr_b_o_ctr = instr_ctr[24:20];
+	output wire [4:0] rf_raddr_b_o_ctr_id;
+	assign rf_raddr_b_o_ctr_id = instr_rdata_id[24:20];
 
 	input wire [31:0] rf_rdata_a_fwd_ctr;
 	input wire [31:0] rf_rdata_b_fwd_ctr;
+	input wire [31:0] rf_rdata_b_fwd_ctr_id;
 	wire [31:0] alu_operand_a_ctr;
 	assign alu_operand_a_ctr = rf_rdata_a_fwd_ctr;
 
@@ -1000,5 +1007,13 @@ module ibex_core (
 			default: cmp_signed_ctr = 1'b0;
 		endcase
 
+	// for division
+	wire div_ctr;
+	wire [31:0] div_op_b_ctr;
+	assign div_ctr = ( instr_ctr[6:0] == 7'h33 ) && ( instr_ctr[31:25] == 7'h01 ) && ( instr_ctr[14:12] == 3'h4 || instr_ctr[14:12] == 3'h5 || instr_ctr[14:12] == 3'h6 || instr_ctr[14:12] == 3'h7);
+	assign div_op_b_ctr = rf_rdata_b_fwd_ctr_old; 
+
+	// wire div_op_zero_ctr;
+	// assign div_op_zero_ctr = rf_rdata_b_fwd_ctr_old == 0; 
 
 endmodule

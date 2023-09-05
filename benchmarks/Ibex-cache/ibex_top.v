@@ -378,8 +378,10 @@ module ibex_top (
 		.pc_id(pc_id),
 		.rf_raddr_a_o_ctr(rf_raddr_a_o_ctr),
 		.rf_raddr_b_o_ctr(rf_raddr_b_o_ctr),
+		.rf_raddr_b_o_ctr_id(rf_raddr_b_o_ctr_id),
 		.rf_rdata_a_fwd_ctr(rf_rdata_a_fwd_ctr),
 		.rf_rdata_b_fwd_ctr(rf_rdata_b_fwd_ctr),
+		.rf_rdata_b_fwd_ctr_id(rf_rdata_b_fwd_ctr_id),
 		.lsu_addr_ctr(lsu_addr_ctr),
 	);
 	//// for contract
@@ -388,8 +390,10 @@ module ibex_top (
 	wire [31:0] pc_id;
 	wire [4:0]  rf_raddr_a_o_ctr;
 	wire [4:0]  rf_raddr_b_o_ctr;
+	wire [4:0]  rf_raddr_b_o_ctr_id;
 	wire [31:0]	rf_rdata_a_fwd_ctr;
 	wire [31:0]	rf_rdata_b_fwd_ctr;
+	wire [31:0]	rf_rdata_b_fwd_ctr_id;
 	wire [31:0] lsu_addr_ctr;
 
 
@@ -425,8 +429,10 @@ module ibex_top (
 				.err_o(rf_alert_major_internal),
 				.rf_raddr_a_o_ctr(rf_raddr_a_o_ctr),
 				.rf_raddr_b_o_ctr(rf_raddr_b_o_ctr),
+				.rf_raddr_b_o_ctr_id(rf_raddr_b_o_ctr_id),
 				.rf_rdata_a_fwd_ctr(rf_rdata_a_fwd_ctr),
 				.rf_rdata_b_fwd_ctr(rf_rdata_b_fwd_ctr),
+				.rf_rdata_b_fwd_ctr_id(rf_rdata_b_fwd_ctr_id),
 			);
 		// end
 		// else if (RegFile == 32'sd1) begin : gen_regfile_fpga

@@ -14,8 +14,10 @@ module ibex_register_file_ff (
 	err_o,
 	rf_raddr_a_o_ctr,
 	rf_raddr_b_o_ctr,
+	rf_raddr_b_o_ctr_id,
 	rf_rdata_a_fwd_ctr,
 	rf_rdata_b_fwd_ctr,
+	rf_rdata_b_fwd_ctr_id,
 );
 	parameter [0:0] RV32E = 0;
 	parameter [31:0] DataWidth = 32;
@@ -116,4 +118,7 @@ module ibex_register_file_ff (
 	input wire [4:0]  rf_raddr_b_o_ctr;
 	output wire [31:0]	rf_rdata_b_fwd_ctr;
 	assign rf_rdata_b_fwd_ctr = rf_reg[rf_raddr_b_o_ctr];
+	input wire [4:0]  rf_raddr_b_o_ctr_id;
+	output wire [31:0]	rf_rdata_b_fwd_ctr_id;
+	assign rf_rdata_b_fwd_ctr_id = rf_reg[rf_raddr_b_o_ctr_id];
 endmodule

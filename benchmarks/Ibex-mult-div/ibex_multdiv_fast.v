@@ -22,7 +22,7 @@ module ibex_multdiv_fast (
 	multdiv_result_o,
 	valid_o
 );
-	parameter integer RV32M = 32'sd2;
+	parameter integer RV32M = 32'sd1;
 	input wire clk_i;
 	input wire rst_ni;
 	input wire mult_en_i;

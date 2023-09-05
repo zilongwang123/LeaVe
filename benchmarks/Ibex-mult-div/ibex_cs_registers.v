@@ -83,7 +83,7 @@ module ibex_cs_registers (
 	parameter [31:0] PMPGranularity = 0;
 	parameter [31:0] PMPNumRegions = 4;
 	parameter [0:0] RV32E = 0;
-	parameter integer RV32M = 32'sd2;
+	parameter integer RV32M = 32'sd1;
 	parameter integer RV32B = 32'sd0;
 	input wire clk_i;
 	input wire rst_ni;
