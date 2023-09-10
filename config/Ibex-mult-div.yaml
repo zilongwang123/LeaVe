@@ -4,7 +4,7 @@ outFolder: "testOut/Ibex-mult-div" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
-cycleDelayed: "42" # greater than 1
+cycleDelayed: "38" # greater than 1
 
 
 # main module under analysis
@@ -51,8 +51,8 @@ srcObservations:
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
   - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
   - {id: "MULTIPLICATION", cond: "\\ibex_core.mul_ctr", attrs: [ {value: " \\ibex_core.mul_op_b_ctr ", width: 32}]} 
-  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
-  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
+  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
+  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
 
 
 ######################
@@ -147,6 +147,7 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "no_fence", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_decoder.opcode !== 7'h0f )", width: 1}] }
   - {id: "no_security_features", cond: "1", attrs: [ { value: " ( \\ibex_core.data_ind_timing == 0 )", width: 1}] }
   # - {id: "ls_word", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_be == 4'b1111 ", width: 1}] }
+  - {id: "instr_alu", cond: "1", attrs: [ { value: "\\ibex_core.ibex_if_stage.instr_rdata_id_o == \\ibex_core.ibex_if_stage.instr_rdata_alu_id_o ", width: 1}] }
 # memory systems
   - {id: "imem_rvalid", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 1 || \\ibex_imem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
   - {id: "imem_gnt", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 0 || \\ibex_imem.sram_gnt == 0 ", width: 1}] } # When req be 0, gnt should also be 0
