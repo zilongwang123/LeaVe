@@ -1,6 +1,6 @@
 # input/output information
-codeFolder: "benchmarks/Ibex-mult-div" # folder with Verilog sources
-outFolder: "testOut/Ibex-mult-div" # target folder for intermediate data
+codeFolder: "benchmarks/ibex-slow-mult" # folder with Verilog sources
+outFolder: "testOut" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
@@ -18,7 +18,7 @@ yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
 prefixCheck: "True"
-yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"]
+yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
 
 # Output
 outputformat: "brief"
@@ -147,7 +147,7 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "no_fence", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_decoder.opcode !== 7'h0f )", width: 1}] }
   - {id: "no_security_features", cond: "1", attrs: [ { value: " ( \\ibex_core.data_ind_timing == 0 )", width: 1}] }
   # - {id: "ls_word", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_be == 4'b1111 ", width: 1}] }
-  - {id: "instr_alu", cond: "1", attrs: [ { value: "\\ibex_core.ibex_if_stage.instr_rdata_id_o == \\ibex_core.ibex_if_stage.instr_rdata_alu_id_o ", width: 1}] }
+  # - {id: "instr_alu", cond: "1", attrs: [ { value: "\\ibex_core.ibex_if_stage.instr_rdata_id_o == \\ibex_core.ibex_if_stage.instr_rdata_alu_id_o ", width: 1}] }
 # memory systems
   - {id: "imem_rvalid", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 1 || \\ibex_imem.sram_rvalid == 0 ", width: 1}] } # When req be 1, rvalid should be 0
   - {id: "imem_gnt", cond: "1", attrs: [ { value: "\\ibex_imem.sram_req !== 0 || \\ibex_imem.sram_gnt == 0 ", width: 1}] } # When req be 0, gnt should also be 0
@@ -249,7 +249,8 @@ invariant:
   - {id: "MULT_inv2", cond: " \\ibex_core.ibex_ex_block.ibex_multdiv_slow.mult_en_i ", attrs: [ {value: "\\ibex_core.ibex_ex_block.ibex_multdiv_slow.accum_window_d", width: 33}]}
   - {id: "MULT_inv3", cond: " \\ibex_core.ibex_ex_block.ibex_multdiv_slow.mult_en_i ", attrs: [ {value: "\\ibex_core.ibex_ex_block.ibex_multdiv_slow.op_b_shift_d", width: 33}]}
   - {id: "MULT_inv4", cond: " \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q == 3'd3 ", attrs: [ {value: "\\ibex_core.ibex_ex_block.ibex_multdiv_slow.op_b_shift_d", width: 33}]}
-
+# for aligned
+  - {id: "Aligned_inv", cond: " \\ibex_core.lsu_req ", attrs: [ {value: "\\ibex_core.ibex_load_store_unit.split_misaligned_access", width: 1}]}
 
 
 

@@ -1029,7 +1029,7 @@ module ibex_core (
 	// for multiplication
 	wire mul_ctr;
 	wire [31:0] mul_op_b_ctr;
-	assign mul_ctr = ( instr_ctr[6:0] == 7'h33 ) && ( instr_ctr[31:25] == 7'h01 ) && ( instr_ctr[14:12] == 3'h0 );
+	assign mul_ctr = ( instr_ctr[6:0] == 7'h33 ) && ( instr_ctr[31:25] == 7'h01 ) && ( instr_ctr[14:12] == 3'h0 || instr_ctr[14:12] == 3'h1 ||instr_ctr[14:12] == 3'h2 ||instr_ctr[14:12] == 3'h3);
 	assign mul_op_b_ctr = rf_rdata_b_fwd_ctr_old;
 
 	// for division
