@@ -1,6 +1,13 @@
 # LeaVe
 A tool for checking the contract satisfaction for hardware designs
 
+## Dependencies
+Python 3.8.10
+yices 2.6.4
+Yosys 0.26+50
+Icarus Verilog version 12.0
+
+
 
 ## Compile the yosys passes
 Follow the readme in folder "yosys-passes"
