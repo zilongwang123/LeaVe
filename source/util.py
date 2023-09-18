@@ -21,12 +21,12 @@ def replaceIndexMetaVariable(expr:str, metavar:str, value:str):
 
 
 def logfile(content):
-    with open("logfile", "a") as lf:
+    with open("testOut/logfile", "a") as lf:
         lf.write(content)
 
 def logtimefile(content):
     print("--------------------------")
-    with open("logtimefile", "a") as lf:
+    with open("testOut/logtimefile", "a") as lf:
         lf.write(content)
         print("--------------------------")
 

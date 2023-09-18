@@ -1,6 +1,6 @@
 # input/output information
 codeFolder: "benchmarks/RE" # folder with Verilog sources
-outFolder: "testOut/RE" # target folder for intermediate data
+outFolder: "testOut" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk'
 initRegister: 'init'
@@ -12,7 +12,7 @@ moduleFile: "pipeline_mul_fast.v"
 memoryList: ["Imem"]
 
 # Verilog frontend
-yosysPath: "yosys/yosys"
+yosysPath: "../yosys/yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"

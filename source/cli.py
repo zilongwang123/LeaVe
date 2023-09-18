@@ -133,11 +133,12 @@ def main():
     if CONF.selfCompositionEquality == "===":
         CONF.selfCompositionInequality = "!=="
 
-    run_process(["rm", "logfile"], CONF.verbose_preprocessing)
-    run_process(["rm", "logtimefile"], CONF.verbose_preprocessing)
-    logfile("1. Preparing the environment for verification....\n")
+    # run_process(["rm", "logfile"], CONF.verbose_preprocessing)
+    # run_process(["rm", "logtimefile"], CONF.verbose_preprocessing)
+    
     run_process(["rm", "-rf", CONF.outFolder], CONF.verbose_preprocessing)
     run_process(["mkdir", CONF.outFolder], CONF.verbose_preprocessing)
+    logfile("1. Preparing the environment for verification....\n")
     '''
     logfile("\n2. Initializing for the leakage ordering check...\n")
     
