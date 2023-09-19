@@ -23,6 +23,7 @@ Follow the readme in folder "yosys-passes"
 
 ## verify a new hardware design
 1. prepare 'prod.v'
+    See the "benchmarks/prod_example.v"
 
 2. prepare configuration file
-
+    See the "benchmarks/config_example.v"

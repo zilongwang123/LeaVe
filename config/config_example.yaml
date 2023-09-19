@@ -1,0 +1,92 @@
+# input/output information
+codeFolder: "benchmarks/RE" # folder with Verilog sources
+outFolder: "testOut" # target folder for intermediate data
+prodCircuitTemplate: "prod.v" # the name of the product circuit template
+clockInput: 'clk' # the name of the clock wire
+initRegister: 'init' # the name of the initial register
+cycleDelayed: "33" # the lookahead in paper, which depends on the largest number of cycles the instructions could fly in the pipeline
+
+# main module under analysis
+module: "pipeline_mul_fast" # the name of the top module of the design
+moduleFile: "pipeline_mul_fast.v" # the file of the top module of the design
+memoryList: ["Imem"] # the memories in the design
+
+# Verilog frontend
+yosysPath: "../yosys/yosys" # the path of Yosys
+yosysBMCPath: "yosys-smtbmc"
+inductiveyosysBMCBound: "2" # the bound for the inductive check
+checkyosysBMCBound: "20" 
+prefixCheck: "True"
+yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"] # the additional yosys passes used in the check
+
+# Outpute
+outputformat: "brief" # use 'brief' to get a brief log
+
+# iVerilog
+iverilogPath: "iverilog" # the path of iverilog
+vvpPath: "vvp" # the path of the vvp
+
+# Analysis backend
+avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
+
+# The contract observations
+srcObservations: 
+# An example is show below. The "id" is the name of the observation; the "cond" is the condition of the observation; the "attrs" contains the wires that should be equal if the condition is satisfied.
+ - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register_old", width: 32}, {value: "imm_ctr", width: 24}   ] } # disclose MUL operand whenever we are executing a MUL
+
+
+### Predicates
+# Retire predicates
+predicateRetire:
+# An example is show below. The "id" is the name of the retire predicate; the "cond" is always 1; the "attrs" contains the retire wire.
+ - {id: "Retire", cond: "1", attrs: [{value: "retire", width: 1}]}
+
+
+
+### STATE INVARIANT
+stateInvariant: 
+# An example is show below. The "id" is the name of the state invariant; the "cond" is always 1; the "attrs" always satisfied in both runs.
+ - {id: "instr1", cond: "1", attrs: [{value: " (op_decode == ex_op)", width: 1}]}
+
+
+### manually added relational invariants which will be checked by LeaVe along with the automatically generated ones
+invariant:
+# An example is show below. The "id" is the name of the retire predicate; the "cond" is the condition; the "attrs" contains the wires that should be equal if the condition is satisfied..
+ - {id: "MUL_EXECUTE0", cond: "mult", attrs: [{value: "mul_rd", width: 32}]}
+
+
+### TARGET
+trgObservations: 
+# An example is show below. It follows the same senmatic of contract observation.
+  - {id: "ready", cond: "1", attrs: [{value: "ready", width: 1}] } 
+
+
+### define the initial state of the circuits.
+state: 
+# An example is show below. The "id" is the name of the register; the "expr" is the name of the register; the "width" is the length of the register; the "val" is the initial value of the register.
+- {id: "mul_res", expr: "mul_res", width: 32 , val : 0}
+
+
+### define the inputs of the two runs in the product circuit, and the stuttering signal.
+inputs:
+# an example of the input
+  - {id: "clk", valueLeft: "clk", valueRight: "clk"}
+# an example of the stuttering signal
+  - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
+
+
+### translate the two dimension arrays (memory) to one dimension.
+expandArrays:
+# An example is show below. The "filename" is the name of file where the memory is; the "array" is the name of the memory; the "i" is the first parameter of the memory; 
+# the "j" is the second parameter of the memory; the "var" is the new wire that connect to the memory; the "flatten" connect the memory to the new wire; the memory will connect to one wireif the "mult" set to false. 
+ - {filename: "pipeline_mul_fast.v", array: "Imem", i: "32", j: "32", var: "Imem_flat", flatten: "True", mult: "false"}
+
+
+### The length of the variables in the design. Only the new generated wires in the "expandArrays" are needed.
+auxiliaryVariables: 
+- {id: "Imem", width: 1024, value: "Imem_flat"}
+
+
+
+
+
