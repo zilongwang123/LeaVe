@@ -1,34 +1,32 @@
 # LeaVe
 A tool for checking the contract satisfaction for hardware designs
 
-## Dependencies
-Python 3.8.10
-yices 2.6.4
-Yosys 0.26+50
-Icarus Verilog version 12.0
 
+## Dependencies
+1. Python 3.8.10
+2. yices 2.6.4
+3. Yosys 0.26+50
+4. Icarus Verilog version 12.0
 
 
 ## Compile the yosys passes
 Follow the readme in folder "yosys-passes"
 
 
-
 ## run the test
-### Change the "yosysPath" in configuration file to the right path "yosys-root-path/yosys".
+1. Change the "yosysPath" in configuration file to the right path "yosys-root-path/yosys".
 
-### Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is one of the configuration file in folder "config".
+2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is one of the configuration file in folder "config".
 
-### The result is in foldertestOut.
+3. The result is in foldertestOut.
 
-### The file "logfile" contains the information about the invariants set in each loop.
+4. The file "logfile" contains the information about the invariants set in each loop.
 
-### The file "logtimefile" contains the time information about LeaVe.
-
+5. The file "logtimefile" contains the time information about LeaVe.
 
 
 ## verify a new hardware design
-### prepare 'prod.v'
+1. prepare 'prod.v'
 
-### prepare configuration file
+2. prepare configuration file
 
