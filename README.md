@@ -18,11 +18,7 @@ Follow the readme in folder "yosys-passes"
 
 2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is one of the configuration file in folder "config".
 
-3. The result is in foldertestOut.
-
-4. The file "logfile" contains the information about the invariants set in each loop.
-
-5. The file "logtimefile" contains the time information about LeaVe.
+3. The result is in folder "testOut". The file "logfile" contains the information about the invariants set in each loop. The file "logtimefile" contains the time information about LeaVe.
 
 
 ## verify a new hardware design
