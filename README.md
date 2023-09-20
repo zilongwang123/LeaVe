@@ -14,7 +14,7 @@ Follow the readme in folder "yosys-passes"
 
 
 ## run the test
-1. Change the "yosysPath" in configuration file to the right path "yosys-root-path/yosys".
+1. Change the "yosysPath" in configuration file to the executable yosys "yosys-root-path/yosys".
 
 2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is in ["RE","DarkRISCV-2","DarkRISCV-3","Sodor-2","ibex-small","ibex-mult-div","ibex_cache"].
 
