@@ -16,7 +16,7 @@ Follow the readme in folder "yosys-passes"
 ## run the test
 1. Change the "yosysPath" in configuration file to the right path "yosys-root-path/yosys".
 
-2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is one of the configuration file in folder "config".
+2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is in ["RE","DarkRISCV-2","DarkRISCV-3","Sodor-2","ibex-small","ibex-mult-div","ibex_cache"].
 
 3. The result is in folder "testOut". The file "logfile" contains the information about the invariants set in each loop. The file "logtimefile" contains the time information about LeaVe.
 
