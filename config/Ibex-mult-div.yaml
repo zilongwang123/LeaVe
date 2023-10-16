@@ -1,6 +1,6 @@
 # input/output information
-codeFolder: "benchmarks/ibex-slow-mult" # folder with Verilog sources
-outFolder: "testOut" # target folder for intermediate data
+codeFolder: "benchmarks/Ibex-slow-mult" # folder with Verilog sources
+outFolder: "testOut/Ibex-slow-mult" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
@@ -13,7 +13,7 @@ moduleFile: "ibex_top.v"
 memoryList: ["ibex_imem.imem","ibex_dmem.dmem"]
 
 # Verilog frontend
-yosysPath: "../../../yosys/yosys"
+yosysPath: "../yosys/yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"

@@ -15,7 +15,7 @@ memoryList: ["AsyncScratchPadMemory_2stage.mem_0_0", "AsyncScratchPadMemory_2sta
 
 
 # Verilog frontend
-yosysPath: "yosys/yosys"
+yosysPath: "../yosys/yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "5"

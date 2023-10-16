@@ -13,7 +13,7 @@ moduleFile: "darksocv_2stages.v"
 memoryList: ["RAM","ROM"]
 
 # Verilog frontend
-yosysPath: "yosys/yosys"
+yosysPath: "../yosys/yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"

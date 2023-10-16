@@ -1,6 +1,6 @@
 # input/output information
 codeFolder: "benchmarks/RE" # folder with Verilog sources
-outFolder: "testOut" # target folder for intermediate data
+outFolder: "testOut/RE" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk'
 initRegister: 'init'
