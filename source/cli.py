@@ -137,6 +137,7 @@ def main():
     # run_process(["rm", "logtimefile"], CONF.verbose_preprocessing)
     
     # run_process(["rm", "-rf", CONF.outFolder], CONF.verbose_preprocessing)
+    run_process(["mkdir", "testOut"], CONF.verbose_preprocessing)
     run_process(["mkdir", CONF.outFolder], CONF.verbose_preprocessing)
     logfile("1. Preparing the environment for verification....\n")
     '''
