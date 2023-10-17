@@ -10,7 +10,7 @@ A tool for checking the contract satisfaction for hardware designs
 
 
 ## Compile the yosys passes
-Follow the readme in folder "yosys-passes"
+Follow the instructions in folder "yosys-passes" to build the yosys passes.
 
 
 ## run the test
