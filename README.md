@@ -35,7 +35,7 @@ Note that while the verification of `DarkRISCV-2`,`DarkRISCV-3`, and `Sodor-2` i
 
 ## The running example from paper
 
-1. In the configuration file `config/$TARGET.yaml`, change the value of the `yosysPath` option to point to the Yosys's executable in your machine, e.g., `yosys-root-path/yosys`.
+1. In the configuration file `config/RE.yaml`, change the value of the `yosysPath` option to point to the Yosys's executable in your machine.
 
 2. Run the tool with the command `python3 source/cli.py config/RE.yaml`.
 
