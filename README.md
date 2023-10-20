@@ -17,7 +17,7 @@ To run LeaVe, you need the following dependencies:
 
 ## Compile the Yosys passes
 
-LeaVe relies on three Yosys custom passes to prepare the processor design for verification. These passes need to be compiled before using LeaVe. Follow the instructions in folder "yosys-passes" to build the Yosys passes.
+LeaVe relies on three Yosys custom passes to prepare the processor design for verification. These passes need to be compiled before using LeaVe. Follow the instructions in folder `yosys-passes` to build the Yosys passes.
 
 ## Reproducing the results from the CCS 2023 paper
 
