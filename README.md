@@ -13,12 +13,25 @@ A tool for checking the contract satisfaction for hardware designs
 Follow the instructions in folder "yosys-passes" to build the yosys passes.
 
 
-## run the test
+## Run the test
 1. Change the "yosysPath" in configuration file to the executable yosys "yosys-root-path/yosys".
 
 2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is in ["RE","DarkRISCV-2","DarkRISCV-3","Sodor-2","ibex-small","ibex-mult-div","ibex_cache"].
 
-3. The result is in folder "testOut". The file "logfile" contains the information about the invariants set in each loop. The file "logtimefile" contains the time information about LeaVe.
+3. The result is in folder "testOut/benchmark". The output file "logfile" contains the information about the invariants set in each loop. The output file "logtimefile" contains the time information about LeaVe.
+
+## A running example
+1. Change the "yosysPath" in "config/RE.yaml" to the executable yosys "yosys-root-path/yosys".
+
+2. Run the tool with command "python3 source/cli.py config/RE.yaml".
+
+3. The output file should contain "Verification passed"
+
+4. Remove one of the contract observations "MUL" from "srcObservations" in "config/RE.yaml" (srcObservations:[]).
+
+5. Rerun the tool as in step 3.
+
+6. The output file should contain "Verification failed"
 
 
 ## verify a new hardware design

@@ -232,6 +232,8 @@ def main():
     if State:    
         logfile("\n\n3. Check the satisfaction based on learned strongest attacker.\n")
         if invariantSubset(invariant, CONF.trgObservations):
+            logfile("\n\n\tVerification passed!!\n\n")
+            logtimefile("\n\n\tVerification passed!!\n\n")
             logfile("\n\tThe CPU is SECURE under the attack w.r.t the contract!!")
         else:
             logfile("\n\tThe CPU is VULNERABLE under the attack w.r.t the contract!!")

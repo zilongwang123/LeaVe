@@ -46,8 +46,10 @@ def runTestbed(testbed):
                 tbname = inv.split(" ")
                 if (tbname[-1] == "0" or tbname[-1] == "x") and len(tbname) == 2:
                     name = tbname[0].split("_trg")[0].split(".")[-1]
-                    if name == "renamed_ibex_core__ibex_load_store_unit__handle_misaligned_q":
+                    if name == "Retire":
                         logtimefile("Failed to prove " + name)
+                        logtimefile("\nVerification failed!!!\n ")
+                        logfile("\nVerification failed!!!\n ")
                         exit(1)
                     diffInvList.append(name)
             if len(diffInvList) < 2:

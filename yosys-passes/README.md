@@ -1,7 +1,5 @@
-1. Cope the Yosys source code from the repository "https://github.com/YosysHQ/yosys", and install it follow the instruction
+1. Replace the "yosys-root-path" with the correct one.
 
-2. Move the folder "yosys-passes" to "Yosys-root-path/manual"， where "Yosys-root-path" is the main folder of the Yosys
+2. Run "make".
 
-3. Run "make" to compile the 'my_cmd.cc' in each folder, which will generate "my_cmd.so" in the same folder, where "my_cmd" is in ["addmodule","show_regs_mems","stuttering"]
-
-4. Move the "my_cmd.so" to the main folder of LeaVe
+3. The 3 needed yosys passes ("addmodule.so", "show_regs_mems.so", "stuttering.so") are in the main folder of LeaVe.
