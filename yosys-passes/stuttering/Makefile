@@ -1,6 +1,3 @@
-
-
-
 CXXFLAGS=$(shell ../../../yosys-config --cxxflags)
 DATDIR=$(shell ../../../yosys-config --datdir)
 

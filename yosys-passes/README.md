@@ -1,3 +1,4 @@
+
 1. Replace the "yosys-root-path" with the correct one.
 
 2. Run "make".
