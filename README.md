@@ -1,29 +1,49 @@
 # LeaVe
-A tool for checking the contract satisfaction for hardware designs
+LeaVe is a tool for verifying that processor designs formalized in Verilog satisfy an ISA-level leakage contract capturing security guarantees in terms of timing leaks. 
 
+For more details on LeaVe's verification approach, see our paper "Specification and Verification of Side-channel Security for Open-source Processors via Leakage Contracts" at ACM CCS 2023  (open access [here](https://arxiv.org/abs/2305.06979)).
+
+For more details on leakage contracts, see our paper "Hardware-Software Contracts for Secure Speculation" at IEEE S&P 2021 (open access [here](https://arxiv.org/abs/2006.03841)).
 
 ## Dependencies
+
+To run LeaVe, you need the following dependencies:
+
 1. Python 3.8.10
 2. yices 2.6.4
 3. Yosys 0.26+50
 4. Icarus Verilog version 12.0
 
 
-## Compile the yosys passes
-Follow the instructions in folder "yosys-passes" to build the yosys passes.
+## Compile the Yosys passes
 
+LeaVe relies on three Yosys custom passes to prepare the processor design for verification. These passes need to be compiled before using LeaVe. Follow the instructions in folder "yosys-passes" to build the Yosys passes.
 
-## run the test
-1. Change the "yosysPath" in configuration file to the executable yosys "yosys-root-path/yosys".
+## Reproducing the results from the CCS 2023 paper
 
-2. Run 'python3 source/cli.py config/Benchmark.yaml', where 'Benchmark' is in ["RE","DarkRISCV-2","DarkRISCV-3","Sodor-2","ibex-small","ibex-mult-div","ibex_cache"].
+These are the instructions for reproducing the results in Table 1 from our CCS 2023 paper. For each target, the instructions below describe how to verify that the processor satisfies the strongest contract in Table 1.
 
-3. The result is in folder "testOut". The file "logfile" contains the information about the invariants set in each loop. The file "logtimefile" contains the time information about LeaVe.
+Below, `$TARGET` is one of  [`RE`,`DarkRISCV-2`,`DarkRISCV-3`,`Sodor-2`,`ibex-small`,`ibex-mult-div`,`ibex_cache`]. To use LeaVe to verify `$TARGET`, follow these steps:
 
+1. In the configuration file `config/$TARGET.yaml`, change the value of the `yosysPath` option to point to the Yosys's executable in your machine, e.g., `yosys-root-path/yosys`.
 
-## verify a new hardware design
-1. prepare 'prod.v'
-    See the "benchmarks/prod_example.v"
+2. Run LeaVe by executing `python3 source/cli.py config/$TARGET.yaml`.
 
-2. prepare configuration file
-    See the "benchmarks/config_example.v"
+3. Inspect the results in the folder `testOut`. The file `logfile` contains the information about the invariants discovered in each iteration of the invariant synthesis loop. The file `logtimefile` reports timing statistics about the verification process.
+
+Note that while the verification of `RE`,`DarkRISCV-2`,`DarkRISCV-3`, and `Sodor-2` is rather quick, verifying `ibex-small`,`ibex-mult-div`, and `ibex_cache` required roughly 1 day in our experiments.
+
+## Verify a new processor design
+
+To verify a new processor design using LeaVe, you first need to prepare the following files:
+
+1. A template of the product circuit. For an example of such template, see  the file at `benchmarks/prod_example.v`.
+
+[MG: Where does prod_example.v need to be placed?]
+
+2. A configuration file. For an example of such file, see `config/config_example.v`.
+
+[MG: Where does config_example.v need to be placed?]
+
+Once both files, you can start the verification by executing the following command: 
+[MG: Which one?]
