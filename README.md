@@ -9,9 +9,9 @@ For more details on leakage contracts, see our paper "Hardware-Software Contract
 
 To run LeaVe, you need the following dependencies:
 
-1. Python 3.8.10
+1. Python, version 3.8.10 or higher
 2. yices 2.6.4
-3. Yosys 0.26+50
+3. Yosys, version 0.26+50 or higher
 4. Icarus Verilog version 12.0
 
 
@@ -37,13 +37,8 @@ Note that while the verification of `RE`,`DarkRISCV-2`,`DarkRISCV-3`, and `Sodor
 
 To verify a new processor design using LeaVe, you first need to prepare the following files:
 
-1. A template of the product circuit. For an example of such template, see  the file at `benchmarks/prod_example.v`.
+1. A template of the product circuit. For an example of such template, see  the file at `benchmarks/prod_example.v`. It should be placed in the same folder of the source code.
 
-[MG: Where does prod_example.v need to be placed?]
+2. A configuration file. For an example of such file, see `config/config_example.yaml`. It should be placed in the folder "config".
 
-2. A configuration file. For an example of such file, see `config/config_example.v`.
-
-[MG: Where does config_example.v need to be placed?]
-
-Once both files, you can start the verification by executing the following command: 
-[MG: Which one?]
+3. Once both files, you can start the verification by executing the following command:  `python3 source/cli.py config/config_example.yaml`
