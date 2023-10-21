@@ -19,6 +19,17 @@ To run LeaVe, you need the following dependencies:
 
 LeaVe relies on three Yosys custom passes to prepare the processor design for verification. These passes need to be compiled before using LeaVe. Follow the instructions in folder `yosys-passes` to build the Yosys passes.
 
+## Baseline example
+
+As a baseline example, we will use the running example from our CCS 2023 paper (see section 2 for a description of processor, ISA, and leakage contract). To run this baseline example and check that everything works correctly follow these steps:
+
+1. In the configuration file `config/RE.yaml`, change the value of the `yosysPath` option to point to the Yosys's executable in your machine. 
+ The leakage contract is encoded in the `srcObservations` option in the configuration file, whereas the attacker monitor is encoded in the `trgObservations` option.
+
+2. Run LeaVe with the command `python3 source/cli.py config/RE.yaml`. If everything is set-up properly, the output file `testout/logfile` should contain the `Verification passed` message. This indicates that LeaVe successfully verified that the contract in `srcObservations` is satisfied for the processor under verification and the attacker in `trgObservations`.
+
+4. Now, remove the contract observations `MUL` from  `srcObservations`, so that the  `srcObservations` is `[]`. Run again LeaVe with the command `python3 source/cli.py config/RE.yaml`. This time the output file `testout/logfile` should contain the message `Verification failed`, indicating that LeaVe cannot prove contract satisfaction.
+
 ## Reproducing the results from the CCS 2023 paper
 
 These are the instructions for reproducing the results in Table 1 from our CCS 2023 paper. For each target, the instructions below describe how to verify that the processor satisfies the strongest contract in Table 1.
@@ -32,20 +43,6 @@ Below, `$TARGET` is one of  [`DarkRISCV-2`,`DarkRISCV-3`,`Sodor-2`,`ibex-small`,
 3. Inspect the results in the folder `testOut`. The output file `logfile` contains the information about the invariants discovered in each iteration of the invariant synthesis loop. The output file `logtimefile` reports timing statistics about the verification process.
 
 Note that while the verification of `DarkRISCV-2`,`DarkRISCV-3`, and `Sodor-2` is rather quick, verifying `ibex-small`,`ibex-mult-div`, and `ibex_cache` required roughly 1 day in our experiments.
-
-## The running example from paper
-
-1. In the configuration file `config/RE.yaml`, change the value of the `yosysPath` option to point to the Yosys's executable in your machine.
-
-2. Run the tool with the command `python3 source/cli.py config/RE.yaml`.
-
-3. The output files should contain "Verification passed".
-
-4. Remove one of the contract observations (for example the `MUL`, and the `srcObservations` will be `[]` ).
-
-5. Run the tool again.
-
-6. The output files should contain "Verification failed".
 
 ## Verify a new processor design
 
