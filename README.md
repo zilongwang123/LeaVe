@@ -44,6 +44,8 @@ Below, `$TARGET` is one of  [`DarkRISCV-2`,`DarkRISCV-3`,`Sodor-2`,`ibex-small`,
 
 Note that while the verification of `DarkRISCV-2`,`DarkRISCV-3`, and `Sodor-2` is rather quick, verifying `ibex-small`,`ibex-mult-div`, and `ibex-cache` required roughly 1 day in our experiments.
 
+To run the 4way-LeaVe, follow the instruction in folder `4way`.
+
 ## Verify a new processor design
 
 To verify a new processor design using LeaVe, you first need to prepare the following files:
