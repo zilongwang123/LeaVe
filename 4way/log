@@ -1,0 +1,1821 @@
+Execute rm logfile
+
+Execute rm logtimefile
+rm: cannot remove 'logtimefile': No such file or directory
+
+Execute rm -rf testOut
+
+Execute mkdir testOut
+
+Execute rm -rf testOut/nondeleyed_init
+
+Execute cp -R benchmarks/Sodor-2-4way testOut/nondeleyed_init
+
+Execute ../../yosys/yosys -m../addmodule.so -m../show_regs_mems.so -stestOut/nondeleyed_init/show_yosys.script
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.34+43 (git sha1 d21c464ae, clang 10.0.0-4ubuntu1 -fPIC -Os)
+
+
+-- Executing script file `testOut/nondeleyed_init/show_yosys.script' --
+
+1. Executing Verilog-2005 frontend: testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v' to AST representation.
+Generating RTLIL representation for module `\AsyncScratchPadMemory_1stage'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v' to AST representation.
+Generating RTLIL representation for module `\AsyncScratchPadMemory_2stage'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CSRFile_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CSRFile_1stage.v' to AST representation.
+Generating RTLIL representation for module `\CSRFile_1stage'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CSRFile_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CSRFile_2stage.v' to AST representation.
+Generating RTLIL representation for module `\CSRFile_2stage'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: testOut/nondeleyed_init/Core_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/Core_1stage.v' to AST representation.
+Generating RTLIL representation for module `\Core_1stage'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: testOut/nondeleyed_init/Core_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/Core_2stage.v' to AST representation.
+Generating RTLIL representation for module `\Core_2stage'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CtlPath_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CtlPath_1stage.v' to AST representation.
+Generating RTLIL representation for module `\CtlPath_1stage'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CtlPath_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CtlPath_2stage.v' to AST representation.
+Generating RTLIL representation for module `\CtlPath_2stage'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: testOut/nondeleyed_init/DatPath_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/DatPath_1stage.v' to AST representation.
+Generating RTLIL representation for module `\DatPath_1stage'.
+Successfully finished Verilog frontend.
+
+10. Executing Verilog-2005 frontend: testOut/nondeleyed_init/DatPath_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/DatPath_2stage.v' to AST representation.
+Generating RTLIL representation for module `\DatPath_2stage'.
+Successfully finished Verilog frontend.
+
+11. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemReader_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemReader_1stage.v' to AST representation.
+Generating RTLIL representation for module `\MemReader_1stage'.
+Successfully finished Verilog frontend.
+
+12. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemReader_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemReader_2stage.v' to AST representation.
+Generating RTLIL representation for module `\MemReader_2stage'.
+Successfully finished Verilog frontend.
+
+13. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemWriter_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemWriter_1stage.v' to AST representation.
+Generating RTLIL representation for module `\MemWriter_1stage'.
+Successfully finished Verilog frontend.
+
+14. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemWriter_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemWriter_2stage.v' to AST representation.
+Generating RTLIL representation for module `\MemWriter_2stage'.
+Successfully finished Verilog frontend.
+
+15. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorInternalTile_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorInternalTile_1stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage'.
+Successfully finished Verilog frontend.
+
+16. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorInternalTile_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorInternalTile_2stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_2stage'.
+Successfully finished Verilog frontend.
+
+17. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorRequestRouter_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorRequestRouter_1stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorRequestRouter_1stage'.
+Successfully finished Verilog frontend.
+
+18. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorRequestRouter_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorRequestRouter_2stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorRequestRouter_2stage'.
+Successfully finished Verilog frontend.
+
+19. Executing Verilog-2005 frontend: testOut/nondeleyed_init/prod.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/prod.v' to AST representation.
+Generating RTLIL representation for module `\prod'.
+Successfully finished Verilog frontend.
+
+20. Executing HIERARCHY pass (managing design hierarchy).
+
+20.1. Analyzing design hierarchy..
+Top module:  \SodorInternalTile_2stage
+Used module:     \SodorRequestRouter_2stage
+Used module:     \AsyncScratchPadMemory_2stage
+Used module:         \MemWriter_2stage
+Used module:         \MemReader_2stage
+Used module:     \Core_2stage
+Used module:         \DatPath_2stage
+Used module:             \CSRFile_2stage
+Used module:         \CtlPath_2stage
+
+20.2. Analyzing design hierarchy..
+Top module:  \SodorInternalTile_2stage
+Used module:     \SodorRequestRouter_2stage
+Used module:     \AsyncScratchPadMemory_2stage
+Used module:         \MemWriter_2stage
+Used module:         \MemReader_2stage
+Used module:     \Core_2stage
+Used module:         \DatPath_2stage
+Used module:             \CSRFile_2stage
+Used module:         \CtlPath_2stage
+Removing unused module `\prod'.
+Removing unused module `\SodorRequestRouter_1stage'.
+Removing unused module `\SodorInternalTile_1stage'.
+Removing unused module `\MemWriter_1stage'.
+Removing unused module `\MemReader_1stage'.
+Removing unused module `\DatPath_1stage'.
+Removing unused module `\CtlPath_1stage'.
+Removing unused module `\Core_1stage'.
+Removing unused module `\CSRFile_1stage'.
+Removing unused module `\AsyncScratchPadMemory_1stage'.
+Removed 10 unused modules.
+
+21. Executing PROC pass (convert processes to netlists).
+
+21.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+21.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 7 switch rules as full_case in process $proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764 in module CSRFile_2stage.
+Marked 31 switch rules as full_case in process $proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762 in module CSRFile_2stage.
+Marked 8 switch rules as full_case in process $proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135 in module AsyncScratchPadMemory_2stage.
+Marked 17 switch rules as full_case in process $proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052 in module DatPath_2stage.
+Removed a total of 0 dead cases.
+
+21.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 18 redundant assignments.
+Promoted 30 assignments to connections.
+
+21.4. Executing PROC_INIT pass (extract init attributes).
+
+21.5. Executing PROC_ARST pass (detect async resets in processes).
+
+21.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~84 debug messages>
+
+21.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764'.
+     1/3: $0\large_1[57:0]
+     2/3: $0\small_1[5:0]
+     3/3: $0\reg_wfi[0:0]
+Creating decoders for process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+     1/20: $0\io_status_cease_r[0:0]
+     2/20: $0\large_[57:0]
+     3/20: $0\small_[5:0]
+     4/20: $0\reg_mcountinhibit[2:0]
+     5/20: $0\reg_mtval[31:0]
+     6/20: $0\reg_mcause[31:0]
+     7/20: $0\reg_mepc[31:0]
+     8/20: $0\reg_singleStepped[0:0]
+     9/20: $0\reg_dpc[31:0]
+    10/20: $0\reg_debug[0:0]
+    11/20: $0\reg_mstatus_mie[0:0]
+    12/20: $0\reg_mstatus_mpie[0:0]
+    13/20: $0\reg_mstatus_spp[0:0]
+    14/20: $0\reg_mtvec[31:0]
+    15/20: $0\reg_mscratch[31:0]
+    16/20: $0\reg_mie[31:0]
+    17/20: $0\reg_dscratch[31:0]
+    18/20: $0\reg_dcsr_step[0:0]
+    19/20: $0\reg_dcsr_cause[2:0]
+    20/20: $0\reg_dcsr_ebreakm[0:0]
+Creating decoders for process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+     1/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:380$101_EN[7:0]$191
+     2/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:380$101_DATA[7:0]$190
+     3/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:380$101_ADDR[9:0]$189
+     4/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:377$100_EN[7:0]$187
+     5/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:377$100_DATA[7:0]$186
+     6/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:377$100_ADDR[9:0]$185
+     7/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:374$99_EN[7:0]$183
+     8/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:374$99_DATA[7:0]$182
+     9/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:374$99_ADDR[9:0]$181
+    10/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:371$98_EN[7:0]$179
+    11/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:371$98_DATA[7:0]$178
+    12/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:371$98_ADDR[9:0]$177
+    13/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:368$97_EN[7:0]$175
+    14/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:368$97_DATA[7:0]$174
+    15/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:368$97_ADDR[9:0]$173
+    16/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:365$96_EN[7:0]$171
+    17/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:365$96_DATA[7:0]$170
+    18/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:365$96_ADDR[9:0]$169
+    19/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:362$95_EN[7:0]$167
+    20/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:362$95_DATA[7:0]$166
+    21/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:362$95_ADDR[9:0]$165
+    22/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:359$94_EN[7:0]$163
+    23/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:359$94_DATA[7:0]$162
+    24/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:359$94_ADDR[9:0]$161
+Creating decoders for process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+     1/14: $0\if_inst_buffer_valid[0:0]
+     2/14: $0\exe_reg_pc_plus4[31:0]
+     3/14: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:402$1897_EN[31:0]$2066
+     4/14: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:402$1897_DATA[31:0]$2065
+     5/14: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:402$1897_ADDR[4:0]$2064
+     6/14: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:399$1896_EN[31:0]$2062
+     7/14: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:399$1896_DATA[31:0]$2061
+     8/14: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:399$1896_ADDR[4:0]$2060
+     9/14: $0\reg_interrupt_handled[0:0]
+    10/14: $0\exe_reg_valid[0:0]
+    11/14: $0\exe_reg_inst[31:0]
+    12/14: $0\exe_reg_pc[31:0]
+    13/14: $0\if_reg_pc[31:0]
+    14/14: $0\if_inst_buffer[31:0]
+
+21.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+21.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\CSRFile_2stage.\reg_wfi' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764'.
+  created $dff cell `$procdff$2477' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\small_1' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764'.
+  created $dff cell `$procdff$2478' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\large_1' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764'.
+  created $dff cell `$procdff$2479' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mstatus_spp' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2480' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mstatus_mpie' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2481' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mstatus_mie' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2482' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_dcsr_ebreakm' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2483' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_dcsr_cause' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2484' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_dcsr_step' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2485' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_debug' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2486' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_dpc' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2487' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_dscratch' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2488' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_singleStepped' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2489' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mie' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2490' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mepc' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2491' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mcause' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2492' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mtval' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2493' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mscratch' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2494' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mtvec' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2495' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\reg_mcountinhibit' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2496' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\small_' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2497' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\large_' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2498' with positive edge clock.
+Creating register for signal `\CSRFile_2stage.\io_status_cease_r' using process `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+  created $dff cell `$procdff$2499' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:359$94_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2500' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:359$94_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2501' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:359$94_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2502' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:362$95_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2503' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:362$95_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2504' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:362$95_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2505' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:365$96_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2506' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:365$96_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2507' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:365$96_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2508' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:368$97_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2509' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:368$97_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2510' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:368$97_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2511' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:371$98_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2512' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:371$98_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2513' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:371$98_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2514' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:374$99_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2515' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:374$99_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2516' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:374$99_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2517' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:377$100_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2518' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:377$100_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2519' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:377$100_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2520' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:380$101_ADDR' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2521' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:380$101_DATA' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2522' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_2stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:380$101_EN' using process `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+  created $dff cell `$procdff$2523' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\if_inst_buffer' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2524' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\if_reg_pc' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2525' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\exe_reg_pc' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2526' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\exe_reg_pc_plus4' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2527' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\exe_reg_inst' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2528' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\exe_reg_valid' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2529' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\if_inst_buffer_valid' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2530' with positive edge clock.
+Creating register for signal `\DatPath_2stage.\reg_interrupt_handled' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2531' with positive edge clock.
+Creating register for signal `\DatPath_2stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:399$1896_ADDR' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2532' with positive edge clock.
+Creating register for signal `\DatPath_2stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:399$1896_DATA' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2533' with positive edge clock.
+Creating register for signal `\DatPath_2stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:399$1896_EN' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2534' with positive edge clock.
+Creating register for signal `\DatPath_2stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:402$1897_ADDR' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2535' with positive edge clock.
+Creating register for signal `\DatPath_2stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:402$1897_DATA' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2536' with positive edge clock.
+Creating register for signal `\DatPath_2stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_2stage.v:402$1897_EN' using process `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+  created $dff cell `$procdff$2537' with positive edge clock.
+
+21.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+21.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 7 empty switches in `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764'.
+Removing empty process `CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:627$764'.
+Found and cleaned up 46 empty switches in `\CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+Removing empty process `CSRFile_2stage.$proc$testOut/nondeleyed_init/CSRFile_2stage.v:424$762'.
+Found and cleaned up 8 empty switches in `\AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+Removing empty process `AsyncScratchPadMemory_2stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v:357$135'.
+Found and cleaned up 23 empty switches in `\DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+Removing empty process `DatPath_2stage.$proc$testOut/nondeleyed_init/DatPath_2stage.v:397$2052'.
+Cleaned up 84 empty switches.
+
+21.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module MemWriter_2stage.
+<suppressed ~1 debug messages>
+Optimizing module CtlPath_2stage.
+<suppressed ~10 debug messages>
+Optimizing module SodorInternalTile_2stage.
+Optimizing module Core_2stage.
+Optimizing module MemReader_2stage.
+<suppressed ~1 debug messages>
+Optimizing module CSRFile_2stage.
+<suppressed ~72 debug messages>
+Optimizing module SodorRequestRouter_2stage.
+<suppressed ~6 debug messages>
+Optimizing module AsyncScratchPadMemory_2stage.
+<suppressed ~1 debug messages>
+Optimizing module DatPath_2stage.
+<suppressed ~24 debug messages>
+
+22. Executing FLATTEN pass (flatten design).
+Deleting now unused module MemWriter_2stage.
+Deleting now unused module CtlPath_2stage.
+Deleting now unused module Core_2stage.
+Deleting now unused module MemReader_2stage.
+Deleting now unused module CSRFile_2stage.
+Deleting now unused module SodorRequestRouter_2stage.
+Deleting now unused module AsyncScratchPadMemory_2stage.
+Deleting now unused module DatPath_2stage.
+<suppressed ~13 debug messages>
+
+23. Executing Verilog backend.
+
+23.1. Executing BMUXMAP pass.
+
+23.2. Executing DEMUXMAP pass.
+Dumping module `\SodorInternalTile_2stage'.
+
+24. Executing show_regs_mems pass (Show the list of the registers and the memorys in the design).
+
+25. Executing Verilog backend.
+
+25.1. Executing BMUXMAP pass.
+
+25.2. Executing DEMUXMAP pass.
+Dumping module `\SodorInternalTile_2stage'.
+
+End of script. Logfile hash: 2a0484f7fb, CPU: user 0.39s system 0.08s, MEM: 37.44 MB peak
+Yosys 0.34+43 (git sha1 d21c464ae, clang 10.0.0-4ubuntu1 -fPIC -Os)
+Time spent: 48% 20x read_verilog (0 sec), 22% 1x flatten (0 sec), ...
+
+Execute ../../yosys/yosys -m../addmodule.so -m../show_regs_mems.so -stestOut/nondeleyed_init/show_yosys.script
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.34+43 (git sha1 d21c464ae, clang 10.0.0-4ubuntu1 -fPIC -Os)
+
+
+-- Executing script file `testOut/nondeleyed_init/show_yosys.script' --
+
+1. Executing Verilog-2005 frontend: testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v' to AST representation.
+Generating RTLIL representation for module `\AsyncScratchPadMemory_1stage'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/AsyncScratchPadMemory_2stage.v' to AST representation.
+Generating RTLIL representation for module `\AsyncScratchPadMemory_2stage'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CSRFile_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CSRFile_1stage.v' to AST representation.
+Generating RTLIL representation for module `\CSRFile_1stage'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CSRFile_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CSRFile_2stage.v' to AST representation.
+Generating RTLIL representation for module `\CSRFile_2stage'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: testOut/nondeleyed_init/Core_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/Core_1stage.v' to AST representation.
+Generating RTLIL representation for module `\Core_1stage'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: testOut/nondeleyed_init/Core_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/Core_2stage.v' to AST representation.
+Generating RTLIL representation for module `\Core_2stage'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CtlPath_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CtlPath_1stage.v' to AST representation.
+Generating RTLIL representation for module `\CtlPath_1stage'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: testOut/nondeleyed_init/CtlPath_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/CtlPath_2stage.v' to AST representation.
+Generating RTLIL representation for module `\CtlPath_2stage'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: testOut/nondeleyed_init/DatPath_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/DatPath_1stage.v' to AST representation.
+Generating RTLIL representation for module `\DatPath_1stage'.
+Successfully finished Verilog frontend.
+
+10. Executing Verilog-2005 frontend: testOut/nondeleyed_init/DatPath_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/DatPath_2stage.v' to AST representation.
+Generating RTLIL representation for module `\DatPath_2stage'.
+Successfully finished Verilog frontend.
+
+11. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemReader_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemReader_1stage.v' to AST representation.
+Generating RTLIL representation for module `\MemReader_1stage'.
+Successfully finished Verilog frontend.
+
+12. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemReader_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemReader_2stage.v' to AST representation.
+Generating RTLIL representation for module `\MemReader_2stage'.
+Successfully finished Verilog frontend.
+
+13. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemWriter_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemWriter_1stage.v' to AST representation.
+Generating RTLIL representation for module `\MemWriter_1stage'.
+Successfully finished Verilog frontend.
+
+14. Executing Verilog-2005 frontend: testOut/nondeleyed_init/MemWriter_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/MemWriter_2stage.v' to AST representation.
+Generating RTLIL representation for module `\MemWriter_2stage'.
+Successfully finished Verilog frontend.
+
+15. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorInternalTile_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorInternalTile_1stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage'.
+Successfully finished Verilog frontend.
+
+16. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorInternalTile_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorInternalTile_2stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_2stage'.
+Successfully finished Verilog frontend.
+
+17. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorRequestRouter_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorRequestRouter_1stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorRequestRouter_1stage'.
+Successfully finished Verilog frontend.
+
+18. Executing Verilog-2005 frontend: testOut/nondeleyed_init/SodorRequestRouter_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/SodorRequestRouter_2stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorRequestRouter_2stage'.
+Successfully finished Verilog frontend.
+
+19. Executing Verilog-2005 frontend: testOut/nondeleyed_init/prod.v
+Parsing SystemVerilog input from `testOut/nondeleyed_init/prod.v' to AST representation.
+Generating RTLIL representation for module `\prod'.
+Successfully finished Verilog frontend.
+
+20. Executing HIERARCHY pass (managing design hierarchy).
+
+20.1. Analyzing design hierarchy..
+Top module:  \SodorInternalTile_1stage
+Used module:     \SodorRequestRouter_1stage
+Used module:     \AsyncScratchPadMemory_1stage
+Used module:         \MemWriter_1stage
+Used module:         \MemReader_1stage
+Used module:     \Core_1stage
+Used module:         \DatPath_1stage
+Used module:             \CSRFile_1stage
+Used module:         \CtlPath_1stage
+
+20.2. Analyzing design hierarchy..
+Top module:  \SodorInternalTile_1stage
+Used module:     \SodorRequestRouter_1stage
+Used module:     \AsyncScratchPadMemory_1stage
+Used module:         \MemWriter_1stage
+Used module:         \MemReader_1stage
+Used module:     \Core_1stage
+Used module:         \DatPath_1stage
+Used module:             \CSRFile_1stage
+Used module:         \CtlPath_1stage
+Removing unused module `\prod'.
+Removing unused module `\SodorRequestRouter_2stage'.
+Removing unused module `\SodorInternalTile_2stage'.
+Removing unused module `\MemWriter_2stage'.
+Removing unused module `\MemReader_2stage'.
+Removing unused module `\DatPath_2stage'.
+Removing unused module `\CtlPath_2stage'.
+Removing unused module `\Core_2stage'.
+Removing unused module `\CSRFile_2stage'.
+Removing unused module `\AsyncScratchPadMemory_2stage'.
+Removed 10 unused modules.
+
+21. Executing PROC pass (convert processes to netlists).
+
+21.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+21.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 8 switch rules as full_case in process $proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881 in module DatPath_1stage.
+Marked 2 switch rules as full_case in process $proc$testOut/nondeleyed_init/CtlPath_1stage.v:412$1241 in module CtlPath_1stage.
+Marked 7 switch rules as full_case in process $proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476 in module CSRFile_1stage.
+Marked 31 switch rules as full_case in process $proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474 in module CSRFile_1stage.
+Marked 8 switch rules as full_case in process $proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37 in module AsyncScratchPadMemory_1stage.
+Removed a total of 0 dead cases.
+
+21.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 17 redundant assignments.
+Promoted 30 assignments to connections.
+
+21.4. Executing PROC_INIT pass (extract init attributes).
+
+21.5. Executing PROC_ARST pass (detect async resets in processes).
+
+21.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~75 debug messages>
+
+21.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+     1/10: $0\reg_dmiss[0:0]
+     2/10: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:369$1731_EN[31:0]$1895
+     3/10: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:369$1731_DATA[31:0]$1894
+     4/10: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:369$1731_ADDR[4:0]$1893
+     5/10: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:366$1730_EN[31:0]$1891
+     6/10: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:366$1730_DATA[31:0]$1890
+     7/10: $1$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:366$1730_ADDR[4:0]$1889
+     8/10: $0\reg_interrupt_edge[0:0]
+     9/10: $0\if_inst_buffer[31:0]
+    10/10: $0\pc_reg[31:0]
+Creating decoders for process `\CtlPath_1stage.$proc$testOut/nondeleyed_init/CtlPath_1stage.v:412$1241'.
+     1/1: $0\reg_mem_en[0:0]
+Creating decoders for process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476'.
+     1/3: $0\large_1[57:0]
+     2/3: $0\small_1[5:0]
+     3/3: $0\reg_wfi[0:0]
+Creating decoders for process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+     1/20: $0\io_status_cease_r[0:0]
+     2/20: $0\large_[57:0]
+     3/20: $0\small_[5:0]
+     4/20: $0\reg_mcountinhibit[2:0]
+     5/20: $0\reg_mtval[31:0]
+     6/20: $0\reg_mcause[31:0]
+     7/20: $0\reg_mepc[31:0]
+     8/20: $0\reg_singleStepped[0:0]
+     9/20: $0\reg_dpc[31:0]
+    10/20: $0\reg_debug[0:0]
+    11/20: $0\reg_mstatus_mie[0:0]
+    12/20: $0\reg_mstatus_mpie[0:0]
+    13/20: $0\reg_mstatus_spp[0:0]
+    14/20: $0\reg_mtvec[31:0]
+    15/20: $0\reg_mscratch[31:0]
+    16/20: $0\reg_mie[31:0]
+    17/20: $0\reg_dscratch[31:0]
+    18/20: $0\reg_dcsr_step[0:0]
+    19/20: $0\reg_dcsr_cause[2:0]
+    20/20: $0\reg_dcsr_ebreakm[0:0]
+Creating decoders for process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+     1/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:350$8_EN[7:0]$93
+     2/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:350$8_DATA[7:0]$92
+     3/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:350$8_ADDR[9:0]$91
+     4/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:347$7_EN[7:0]$89
+     5/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:347$7_DATA[7:0]$88
+     6/24: $1$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:347$7_ADDR[9:0]$87
+     7/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:344$6_EN[7:0]$85
+     8/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:344$6_DATA[7:0]$84
+     9/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:344$6_ADDR[9:0]$83
+    10/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:341$5_EN[7:0]$81
+    11/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:341$5_DATA[7:0]$80
+    12/24: $1$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:341$5_ADDR[9:0]$79
+    13/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:338$4_EN[7:0]$77
+    14/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:338$4_DATA[7:0]$76
+    15/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:338$4_ADDR[9:0]$75
+    16/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:335$3_EN[7:0]$73
+    17/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:335$3_DATA[7:0]$72
+    18/24: $1$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:335$3_ADDR[9:0]$71
+    19/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:332$2_EN[7:0]$69
+    20/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:332$2_DATA[7:0]$68
+    21/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:332$2_ADDR[9:0]$67
+    22/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:329$1_EN[7:0]$65
+    23/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:329$1_DATA[7:0]$64
+    24/24: $1$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:329$1_ADDR[9:0]$63
+
+21.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+21.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\DatPath_1stage.\pc_reg' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4382' with positive edge clock.
+Creating register for signal `\DatPath_1stage.\reg_dmiss' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4383' with positive edge clock.
+Creating register for signal `\DatPath_1stage.\if_inst_buffer' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4384' with positive edge clock.
+Creating register for signal `\DatPath_1stage.\reg_interrupt_edge' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4385' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:366$1730_ADDR' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4386' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:366$1730_DATA' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4387' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:366$1730_EN' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4388' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:369$1731_ADDR' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4389' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:369$1731_DATA' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4390' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_init/DatPath_1stage.v:369$1731_EN' using process `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+  created $dff cell `$procdff$4391' with positive edge clock.
+Creating register for signal `\CtlPath_1stage.\reg_mem_en' using process `\CtlPath_1stage.$proc$testOut/nondeleyed_init/CtlPath_1stage.v:412$1241'.
+  created $dff cell `$procdff$4392' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_wfi' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476'.
+  created $dff cell `$procdff$4393' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\small_1' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476'.
+  created $dff cell `$procdff$4394' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\large_1' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476'.
+  created $dff cell `$procdff$4395' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mstatus_spp' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4396' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mstatus_mpie' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4397' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mstatus_mie' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4398' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dcsr_ebreakm' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4399' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dcsr_cause' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4400' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dcsr_step' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4401' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_debug' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4402' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dpc' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4403' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dscratch' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4404' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_singleStepped' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4405' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mie' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4406' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mepc' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4407' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mcause' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4408' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mtval' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4409' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mscratch' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4410' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mtvec' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4411' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mcountinhibit' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4412' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\small_' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4413' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\large_' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4414' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\io_status_cease_r' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+  created $dff cell `$procdff$4415' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:329$1_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4416' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:329$1_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4417' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:329$1_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4418' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:332$2_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4419' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:332$2_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4420' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:332$2_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4421' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:335$3_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4422' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:335$3_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4423' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:335$3_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4424' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:338$4_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4425' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:338$4_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4426' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:338$4_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4427' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:341$5_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4428' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:341$5_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4429' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:341$5_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4430' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:344$6_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4431' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:344$6_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4432' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:344$6_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4433' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:347$7_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4434' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:347$7_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4435' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:347$7_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4436' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:350$8_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4437' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:350$8_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4438' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:350$8_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$4439' with positive edge clock.
+
+21.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+21.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 11 empty switches in `\DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+Removing empty process `DatPath_1stage.$proc$testOut/nondeleyed_init/DatPath_1stage.v:364$1881'.
+Found and cleaned up 3 empty switches in `\CtlPath_1stage.$proc$testOut/nondeleyed_init/CtlPath_1stage.v:412$1241'.
+Removing empty process `CtlPath_1stage.$proc$testOut/nondeleyed_init/CtlPath_1stage.v:412$1241'.
+Found and cleaned up 7 empty switches in `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476'.
+Removing empty process `CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:627$476'.
+Found and cleaned up 46 empty switches in `\CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+Removing empty process `CSRFile_1stage.$proc$testOut/nondeleyed_init/CSRFile_1stage.v:424$474'.
+Found and cleaned up 8 empty switches in `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+Removing empty process `AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_init/AsyncScratchPadMemory_1stage.v:327$37'.
+Cleaned up 75 empty switches.
+
+21.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module DatPath_1stage.
+<suppressed ~21 debug messages>
+Optimizing module MemWriter_1stage.
+<suppressed ~1 debug messages>
+Optimizing module CtlPath_1stage.
+<suppressed ~9 debug messages>
+Optimizing module SodorInternalTile_1stage.
+Optimizing module Core_1stage.
+Optimizing module MemReader_1stage.
+<suppressed ~1 debug messages>
+Optimizing module CSRFile_1stage.
+<suppressed ~72 debug messages>
+Optimizing module SodorRequestRouter_1stage.
+<suppressed ~6 debug messages>
+Optimizing module AsyncScratchPadMemory_1stage.
+
+22. Executing FLATTEN pass (flatten design).
+Deleting now unused module DatPath_1stage.
+Deleting now unused module MemWriter_1stage.
+Deleting now unused module CtlPath_1stage.
+Deleting now unused module Core_1stage.
+Deleting now unused module MemReader_1stage.
+Deleting now unused module CSRFile_1stage.
+Deleting now unused module SodorRequestRouter_1stage.
+Deleting now unused module AsyncScratchPadMemory_1stage.
+<suppressed ~12 debug messages>
+
+23. Executing Verilog backend.
+
+23.1. Executing BMUXMAP pass.
+
+23.2. Executing DEMUXMAP pass.
+Dumping module `\SodorInternalTile_1stage'.
+
+24. Executing show_regs_mems pass (Show the list of the registers and the memorys in the design).
+
+25. Executing Verilog backend.
+
+25.1. Executing BMUXMAP pass.
+
+25.2. Executing DEMUXMAP pass.
+Dumping module `\SodorInternalTile_1stage'.
+
+End of script. Logfile hash: 39cb77c457, CPU: user 0.97s system 0.12s, MEM: 85.13 MB peak
+Yosys 0.34+43 (git sha1 d21c464ae, clang 10.0.0-4ubuntu1 -fPIC -Os)
+Time spent: 76% 20x read_verilog (0 sec), 8% 1x flatten (0 sec), ...
+
+>>> Preprocessing 0) START
+>>> Preprocessing 1) Setting up output folder
+Execute rm -rf testOut/nondeleyed_base
+
+Execute cp -R benchmarks/Sodor-2-4way testOut/nondeleyed_base
+
+>>> Preprocessing 2) Expanding arrays in SodorInternalTile_1stage
+Expanding vector mem_0_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_1_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_2_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_3_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_0_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_1_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_2_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector mem_3_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Expanding vector regfile in file testOut/nondeleyed_base/DatPath_1stage.v
+>>> Preprocessing 3) Expanding arrays in SodorInternalTile_2stage
+Expanding vector mem_0_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_1_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_2_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_3_1 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_0_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_1_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_2_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector mem_3_0 in file testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Expanding vector regfile in file testOut/nondeleyed_base/DatPath_2stage.v
+true
+{'filename': 'DatPath_2stage.v', 'array': 'regfile', 'width': 32, 'size': 32, 'mult': 'true'}
+connecting regfile_i to memory regfile [i] in file testOut/nondeleyed_base/DatPath_2stage.v
+>>> Preprocessing 4) END
+Checking the base case
+>>> Verification 0) START
+>>> Verification 1) Flattening SodorInternalTile_1stage
+>>> Verification 2) Inline src observations
+>>> Verification 3) Inline state variables
+>>> Verification 4) Inline state variables
+>>> Verification 5) Finalize target module changes
+Execute ../../yosys/yosys -m../addmodule.so -m../show_regs_mems.so -stestOut/nondeleyed_base/src_yosys.script
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2020  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.34+43 (git sha1 d21c464ae, clang 10.0.0-4ubuntu1 -fPIC -Os)
+
+
+-- Executing script file `testOut/nondeleyed_base/src_yosys.script' --
+
+1. Executing Verilog-2005 frontend: testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v' to AST representation.
+Generating RTLIL representation for module `\AsyncScratchPadMemory_1stage'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/AsyncScratchPadMemory_2stage.v' to AST representation.
+Generating RTLIL representation for module `\AsyncScratchPadMemory_2stage'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: testOut/nondeleyed_base/CSRFile_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/CSRFile_1stage.v' to AST representation.
+Generating RTLIL representation for module `\CSRFile_1stage'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: testOut/nondeleyed_base/CSRFile_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/CSRFile_2stage.v' to AST representation.
+Generating RTLIL representation for module `\CSRFile_2stage'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: testOut/nondeleyed_base/Core_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/Core_1stage.v' to AST representation.
+Generating RTLIL representation for module `\Core_1stage'.
+Successfully finished Verilog frontend.
+
+6. Executing Verilog-2005 frontend: testOut/nondeleyed_base/Core_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/Core_2stage.v' to AST representation.
+Generating RTLIL representation for module `\Core_2stage'.
+Successfully finished Verilog frontend.
+
+7. Executing Verilog-2005 frontend: testOut/nondeleyed_base/CtlPath_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/CtlPath_1stage.v' to AST representation.
+Generating RTLIL representation for module `\CtlPath_1stage'.
+Successfully finished Verilog frontend.
+
+8. Executing Verilog-2005 frontend: testOut/nondeleyed_base/CtlPath_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/CtlPath_2stage.v' to AST representation.
+Generating RTLIL representation for module `\CtlPath_2stage'.
+Successfully finished Verilog frontend.
+
+9. Executing Verilog-2005 frontend: testOut/nondeleyed_base/DatPath_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/DatPath_1stage.v' to AST representation.
+Generating RTLIL representation for module `\DatPath_1stage'.
+Successfully finished Verilog frontend.
+
+10. Executing Verilog-2005 frontend: testOut/nondeleyed_base/DatPath_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/DatPath_2stage.v' to AST representation.
+Generating RTLIL representation for module `\DatPath_2stage'.
+Successfully finished Verilog frontend.
+
+11. Executing Verilog-2005 frontend: testOut/nondeleyed_base/MemReader_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/MemReader_1stage.v' to AST representation.
+Generating RTLIL representation for module `\MemReader_1stage'.
+Successfully finished Verilog frontend.
+
+12. Executing Verilog-2005 frontend: testOut/nondeleyed_base/MemReader_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/MemReader_2stage.v' to AST representation.
+Generating RTLIL representation for module `\MemReader_2stage'.
+Successfully finished Verilog frontend.
+
+13. Executing Verilog-2005 frontend: testOut/nondeleyed_base/MemWriter_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/MemWriter_1stage.v' to AST representation.
+Generating RTLIL representation for module `\MemWriter_1stage'.
+Successfully finished Verilog frontend.
+
+14. Executing Verilog-2005 frontend: testOut/nondeleyed_base/MemWriter_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/MemWriter_2stage.v' to AST representation.
+Generating RTLIL representation for module `\MemWriter_2stage'.
+Successfully finished Verilog frontend.
+
+15. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage'.
+Successfully finished Verilog frontend.
+
+16. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage_inductive_state_src.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage_inductive_state_src.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage_inductive_state_src'.
+Successfully finished Verilog frontend.
+
+17. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage_obs_src.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage_obs_src.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage_obs_src'.
+Successfully finished Verilog frontend.
+
+18. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage_state_src.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage_state_src.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage_state_src'.
+Successfully finished Verilog frontend.
+
+19. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_2stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_2stage'.
+Successfully finished Verilog frontend.
+
+20. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorRequestRouter_1stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorRequestRouter_1stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorRequestRouter_1stage'.
+Successfully finished Verilog frontend.
+
+21. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorRequestRouter_2stage.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorRequestRouter_2stage.v' to AST representation.
+Generating RTLIL representation for module `\SodorRequestRouter_2stage'.
+Successfully finished Verilog frontend.
+
+22. Executing Verilog-2005 frontend: testOut/nondeleyed_base/prod.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/prod.v' to AST representation.
+Generating RTLIL representation for module `\prod'.
+Successfully finished Verilog frontend.
+
+23. Executing HIERARCHY pass (managing design hierarchy).
+
+23.1. Analyzing design hierarchy..
+Top module:  \SodorInternalTile_1stage
+Used module:     \SodorRequestRouter_1stage
+Used module:     \AsyncScratchPadMemory_1stage
+Used module:         \MemWriter_1stage
+Used module:         \MemReader_1stage
+Used module:     \Core_1stage
+Used module:         \DatPath_1stage
+Used module:             \CSRFile_1stage
+Used module:         \CtlPath_1stage
+
+23.2. Analyzing design hierarchy..
+Top module:  \SodorInternalTile_1stage
+Used module:     \SodorRequestRouter_1stage
+Used module:     \AsyncScratchPadMemory_1stage
+Used module:         \MemWriter_1stage
+Used module:         \MemReader_1stage
+Used module:     \Core_1stage
+Used module:         \DatPath_1stage
+Used module:             \CSRFile_1stage
+Used module:         \CtlPath_1stage
+Removing unused module `\prod'.
+Removing unused module `\SodorRequestRouter_2stage'.
+Removing unused module `\SodorInternalTile_2stage'.
+Removing unused module `\SodorInternalTile_1stage_state_src'.
+Removing unused module `\SodorInternalTile_1stage_obs_src'.
+Removing unused module `\SodorInternalTile_1stage_inductive_state_src'.
+Removing unused module `\MemWriter_2stage'.
+Removing unused module `\MemReader_2stage'.
+Removing unused module `\DatPath_2stage'.
+Removing unused module `\CtlPath_2stage'.
+Removing unused module `\Core_2stage'.
+Removing unused module `\CSRFile_2stage'.
+Removing unused module `\AsyncScratchPadMemory_2stage'.
+Removed 13 unused modules.
+
+24. Executing PROC pass (convert processes to netlists).
+
+24.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+24.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 8 switch rules as full_case in process $proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265 in module DatPath_1stage.
+Marked 2 switch rules as full_case in process $proc$testOut/nondeleyed_base/CtlPath_1stage.v:412$17625 in module CtlPath_1stage.
+Marked 7 switch rules as full_case in process $proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860 in module CSRFile_1stage.
+Marked 31 switch rules as full_case in process $proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858 in module CSRFile_1stage.
+Marked 8 switch rules as full_case in process $proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37 in module AsyncScratchPadMemory_1stage.
+Removed a total of 0 dead cases.
+
+24.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 17 redundant assignments.
+Promoted 30 assignments to connections.
+
+24.4. Executing PROC_INIT pass (extract init attributes).
+
+24.5. Executing PROC_ARST pass (detect async resets in processes).
+
+24.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~75 debug messages>
+
+24.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+     1/10: $0\reg_dmiss[0:0]
+     2/10: $1$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:369$18115_EN[31:0]$18279
+     3/10: $1$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:369$18115_DATA[31:0]$18278
+     4/10: $1$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:369$18115_ADDR[4:0]$18277
+     5/10: $1$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:366$18114_EN[31:0]$18275
+     6/10: $1$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:366$18114_DATA[31:0]$18274
+     7/10: $1$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:366$18114_ADDR[4:0]$18273
+     8/10: $0\reg_interrupt_edge[0:0]
+     9/10: $0\if_inst_buffer[31:0]
+    10/10: $0\pc_reg[31:0]
+Creating decoders for process `\CtlPath_1stage.$proc$testOut/nondeleyed_base/CtlPath_1stage.v:412$17625'.
+     1/1: $0\reg_mem_en[0:0]
+Creating decoders for process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860'.
+     1/3: $0\large_1[57:0]
+     2/3: $0\small_1[5:0]
+     3/3: $0\reg_wfi[0:0]
+Creating decoders for process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+     1/20: $0\io_status_cease_r[0:0]
+     2/20: $0\large_[57:0]
+     3/20: $0\small_[5:0]
+     4/20: $0\reg_mcountinhibit[2:0]
+     5/20: $0\reg_mtval[31:0]
+     6/20: $0\reg_mcause[31:0]
+     7/20: $0\reg_mepc[31:0]
+     8/20: $0\reg_singleStepped[0:0]
+     9/20: $0\reg_dpc[31:0]
+    10/20: $0\reg_debug[0:0]
+    11/20: $0\reg_mstatus_mie[0:0]
+    12/20: $0\reg_mstatus_mpie[0:0]
+    13/20: $0\reg_mstatus_spp[0:0]
+    14/20: $0\reg_mtvec[31:0]
+    15/20: $0\reg_mscratch[31:0]
+    16/20: $0\reg_mie[31:0]
+    17/20: $0\reg_dscratch[31:0]
+    18/20: $0\reg_dcsr_step[0:0]
+    19/20: $0\reg_dcsr_cause[2:0]
+    20/20: $0\reg_dcsr_ebreakm[0:0]
+Creating decoders for process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+     1/24: $1$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:350$8_EN[7:0]$93
+     2/24: $1$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:350$8_DATA[7:0]$92
+     3/24: $1$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:350$8_ADDR[9:0]$91
+     4/24: $1$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:347$7_EN[7:0]$89
+     5/24: $1$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:347$7_DATA[7:0]$88
+     6/24: $1$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:347$7_ADDR[9:0]$87
+     7/24: $1$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:344$6_EN[7:0]$85
+     8/24: $1$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:344$6_DATA[7:0]$84
+     9/24: $1$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:344$6_ADDR[9:0]$83
+    10/24: $1$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:341$5_EN[7:0]$81
+    11/24: $1$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:341$5_DATA[7:0]$80
+    12/24: $1$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:341$5_ADDR[9:0]$79
+    13/24: $1$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:338$4_EN[7:0]$77
+    14/24: $1$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:338$4_DATA[7:0]$76
+    15/24: $1$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:338$4_ADDR[9:0]$75
+    16/24: $1$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:335$3_EN[7:0]$73
+    17/24: $1$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:335$3_DATA[7:0]$72
+    18/24: $1$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:335$3_ADDR[9:0]$71
+    19/24: $1$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:332$2_EN[7:0]$69
+    20/24: $1$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:332$2_DATA[7:0]$68
+    21/24: $1$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:332$2_ADDR[9:0]$67
+    22/24: $1$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:329$1_EN[7:0]$65
+    23/24: $1$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:329$1_DATA[7:0]$64
+    24/24: $1$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:329$1_ADDR[9:0]$63
+
+24.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+24.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\DatPath_1stage.\pc_reg' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18936' with positive edge clock.
+Creating register for signal `\DatPath_1stage.\reg_dmiss' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18937' with positive edge clock.
+Creating register for signal `\DatPath_1stage.\if_inst_buffer' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18938' with positive edge clock.
+Creating register for signal `\DatPath_1stage.\reg_interrupt_edge' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18939' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:366$18114_ADDR' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18940' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:366$18114_DATA' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18941' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:366$18114_EN' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18942' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:369$18115_ADDR' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18943' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:369$18115_DATA' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18944' with positive edge clock.
+Creating register for signal `\DatPath_1stage.$memwr$\regfile$testOut/nondeleyed_base/DatPath_1stage.v:369$18115_EN' using process `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+  created $dff cell `$procdff$18945' with positive edge clock.
+Creating register for signal `\CtlPath_1stage.\reg_mem_en' using process `\CtlPath_1stage.$proc$testOut/nondeleyed_base/CtlPath_1stage.v:412$17625'.
+  created $dff cell `$procdff$18946' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_wfi' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860'.
+  created $dff cell `$procdff$18947' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\small_1' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860'.
+  created $dff cell `$procdff$18948' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\large_1' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860'.
+  created $dff cell `$procdff$18949' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mstatus_spp' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18950' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mstatus_mpie' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18951' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mstatus_mie' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18952' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dcsr_ebreakm' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18953' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dcsr_cause' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18954' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dcsr_step' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18955' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_debug' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18956' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dpc' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18957' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_dscratch' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18958' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_singleStepped' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18959' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mie' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18960' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mepc' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18961' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mcause' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18962' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mtval' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18963' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mscratch' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18964' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mtvec' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18965' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\reg_mcountinhibit' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18966' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\small_' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18967' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\large_' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18968' with positive edge clock.
+Creating register for signal `\CSRFile_1stage.\io_status_cease_r' using process `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+  created $dff cell `$procdff$18969' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:329$1_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18970' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:329$1_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18971' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:329$1_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18972' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:332$2_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18973' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:332$2_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18974' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_0_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:332$2_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18975' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:335$3_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18976' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:335$3_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18977' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:335$3_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18978' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:338$4_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18979' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:338$4_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18980' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_1_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:338$4_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18981' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:341$5_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18982' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:341$5_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18983' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:341$5_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18984' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:344$6_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18985' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:344$6_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18986' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_2_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:344$6_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18987' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:347$7_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18988' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:347$7_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18989' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:347$7_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18990' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:350$8_ADDR' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18991' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:350$8_DATA' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18992' with positive edge clock.
+Creating register for signal `\AsyncScratchPadMemory_1stage.$memwr$\mem_3_0$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:350$8_EN' using process `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+  created $dff cell `$procdff$18993' with positive edge clock.
+
+24.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+24.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 11 empty switches in `\DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+Removing empty process `DatPath_1stage.$proc$testOut/nondeleyed_base/DatPath_1stage.v:364$18265'.
+Found and cleaned up 3 empty switches in `\CtlPath_1stage.$proc$testOut/nondeleyed_base/CtlPath_1stage.v:412$17625'.
+Removing empty process `CtlPath_1stage.$proc$testOut/nondeleyed_base/CtlPath_1stage.v:412$17625'.
+Found and cleaned up 7 empty switches in `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860'.
+Removing empty process `CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:627$16860'.
+Found and cleaned up 46 empty switches in `\CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+Removing empty process `CSRFile_1stage.$proc$testOut/nondeleyed_base/CSRFile_1stage.v:424$16858'.
+Found and cleaned up 8 empty switches in `\AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+Removing empty process `AsyncScratchPadMemory_1stage.$proc$testOut/nondeleyed_base/AsyncScratchPadMemory_1stage.v:327$37'.
+Cleaned up 75 empty switches.
+
+24.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module DatPath_1stage.
+<suppressed ~21 debug messages>
+Optimizing module MemWriter_1stage.
+<suppressed ~1 debug messages>
+Optimizing module CtlPath_1stage.
+<suppressed ~9 debug messages>
+Optimizing module SodorInternalTile_1stage.
+Optimizing module Core_1stage.
+Optimizing module MemReader_1stage.
+<suppressed ~1 debug messages>
+Optimizing module CSRFile_1stage.
+<suppressed ~72 debug messages>
+Optimizing module SodorRequestRouter_1stage.
+<suppressed ~6 debug messages>
+Optimizing module AsyncScratchPadMemory_1stage.
+
+25. Executing FLATTEN pass (flatten design).
+Deleting now unused module DatPath_1stage.
+Deleting now unused module MemWriter_1stage.
+Deleting now unused module CtlPath_1stage.
+Deleting now unused module Core_1stage.
+Deleting now unused module MemReader_1stage.
+Deleting now unused module CSRFile_1stage.
+Deleting now unused module SodorRequestRouter_1stage.
+Deleting now unused module AsyncScratchPadMemory_1stage.
+<suppressed ~12 debug messages>
+
+26. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage_obs_src.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage_obs_src.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage_obs_src'.
+Successfully finished Verilog frontend.
+
+27. Executing PROC pass (convert processes to netlists).
+
+27.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+27.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+27.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+27.4. Executing PROC_INIT pass (extract init attributes).
+
+27.5. Executing PROC_ARST pass (detect async resets in processes).
+
+27.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+27.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+27.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+27.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+27.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+27.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+27.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+<suppressed ~55 debug messages>
+
+28. Executing addModule pass (add module instance to existing design).
+
+29. Executing EXPOSE pass (exposing internal signals as outputs).
+New module port: SodorInternalTile_1stage/INSTR_obs_src_arg0
+New module port: SodorInternalTile_1stage/INSTR_obs_src_cond
+New module port: SodorInternalTile_1stage/RDATA_obs_src_arg0
+New module port: SodorInternalTile_1stage/WDATA_obs_src_arg0
+New module port: SodorInternalTile_1stage/WADDR_obs_src_arg0
+New module port: SodorInternalTile_1stage/PC_obs_src_cond
+New module port: SodorInternalTile_1stage/PC_obs_src_arg0
+New module port: SodorInternalTile_1stage/RADDR_obs_src_cond
+New module port: SodorInternalTile_1stage/WADDR_obs_src_cond
+New module port: SodorInternalTile_1stage/WDATA_obs_src_cond
+New module port: SodorInternalTile_1stage/RADDR_obs_src_arg0
+New module port: SodorInternalTile_1stage/RDATA_obs_src_cond
+
+30. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage_state_src.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage_state_src.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage_state_src'.
+Successfully finished Verilog frontend.
+
+31. Executing PROC pass (convert processes to netlists).
+
+31.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+31.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+31.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+31.4. Executing PROC_INIT pass (extract init attributes).
+
+31.5. Executing PROC_ARST pass (detect async resets in processes).
+
+31.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+31.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+31.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+31.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+31.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+31.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+31.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+
+32. Executing addModule pass (add module instance to existing design).
+
+33. Executing EXPOSE pass (exposing internal signals as outputs).
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.small__state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_debug_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dpc_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_singleStepped_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.reg_interrupt_edge_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mcountinhibit_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.small_1_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mstatus_mie_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.reg_dmiss_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dscratch_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.large_1_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mepc_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.large__state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.if_inst_buffer_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_wfi_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.io_status_cease_r_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_step_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_cause_state_src
+New module port: SodorInternalTile_1stage/mem_3_1_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mstatus_mpie_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_ebreakm_state_src
+New module port: SodorInternalTile_1stage/mem_2_1_state_src
+New module port: SodorInternalTile_1stage/mem_1_0_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mstatus_spp_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mie_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mscratch_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mcause_state_src
+New module port: SodorInternalTile_1stage/regfile_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.pc_reg_state_src
+New module port: SodorInternalTile_1stage/mem_3_0_state_src
+New module port: SodorInternalTile_1stage/mem_1_1_state_src
+New module port: SodorInternalTile_1stage/mem_0_1_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.CtlPath_1stage.reg_mem_en_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mtval_state_src
+New module port: SodorInternalTile_1stage/mem_2_0_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mtvec_state_src
+New module port: SodorInternalTile_1stage/mem_0_0_state_src
+
+34. Executing Verilog-2005 frontend: testOut/nondeleyed_base/SodorInternalTile_1stage_inductive_state_src.v
+Parsing SystemVerilog input from `testOut/nondeleyed_base/SodorInternalTile_1stage_inductive_state_src.v' to AST representation.
+Generating RTLIL representation for module `\SodorInternalTile_1stage_inductive_state_src'.
+Successfully finished Verilog frontend.
+
+35. Executing PROC pass (convert processes to netlists).
+
+35.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+35.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+35.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+35.4. Executing PROC_INIT pass (extract init attributes).
+
+35.5. Executing PROC_ARST pass (detect async resets in processes).
+
+35.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+35.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+35.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+35.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+35.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+35.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+35.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+
+36. Executing addModule pass (add module instance to existing design).
+
+37. Executing EXPOSE pass (exposing internal signals as outputs).
+New module port: SodorInternalTile_1stage/Core_1stage.CtlPath_1stage.reg_mem_en_inductive_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.reg_interrupt_edge_inductive_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.if_inst_buffer_inductive_state_src
+New module port: SodorInternalTile_1stage/Core_1stage.DatPath_1stage.reg_dmiss_inductive_state_src
+
+38. Executing OPT pass (performing simple optimizations).
+
+38.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+
+38.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\SodorInternalTile_1stage'.
+<suppressed ~141 debug messages>
+Removed a total of 47 cells.
+
+38.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \SodorInternalTile_1stage..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:254$18241.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:254$18241.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:253$18240.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:253$18240.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:252$18238.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:252$18238.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:251$18236.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:251$18236.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:250$18234.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:250$18234.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:249$18232.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:249$18232.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:248$18230.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:248$18230.
+    dead port 1/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:237$18218.
+    dead port 2/2 on $mux $flatten\Core_1stage.\DatPath_1stage.$ternary$testOut/nondeleyed_base/DatPath_1stage.v:237$18218.
+Removed 16 multiplexer ports.
+<suppressed ~155 debug messages>
+
+38.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \SodorInternalTile_1stage.
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18865:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18865_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18874:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18874_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18883:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18883_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18892:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18892_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18901:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18901_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18910:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18910_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18919:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18919_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\AsyncScratchPadMemory_1stage.$procmux$18928:
+      Old ports: A=8'00000000, B=8'11111111, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0]
+      New connections: $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [7:1] = { $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] $flatten\AsyncScratchPadMemory_1stage.$procmux$18928_Y [0] }
+    Consolidated identical input bits for $mux cell $flatten\Core_1stage.\DatPath_1stage.$procmux$18683:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y
+      New ports: A=1'0, B=1'1, Y=$flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0]
+      New connections: $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [31:1] = { $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] $flatten\Core_1stage.\DatPath_1stage.$procmux$18683_Y [0] }
+  Optimizing cells in module \SodorInternalTile_1stage.
+Performed a total of 9 changes.
+
+38.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\SodorInternalTile_1stage'.
+<suppressed ~69 debug messages>
+Removed a total of 23 cells.
+
+38.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $flatten\Core_1stage.\CtlPath_1stage.$procdff$18946 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\CtlPath_1stage.$procmux$18712_Y, Q = \Core_1stage.CtlPath_1stage.reg_mem_en, rval = 1'0).
+Adding EN signal on $flatten\Core_1stage.\DatPath_1stage.$procdff$18936 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.$procmux$18710_Y, Q = \Core_1stage.DatPath_1stage.pc_reg).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.$procdff$18937 ($dff) from module SodorInternalTile_1stage (D = \Core_1stage.DatPath_1stage.io_ctl_dmiss, Q = \Core_1stage.DatPath_1stage.reg_dmiss, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.$procdff$18938 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.$procmux$18696_Y, Q = \Core_1stage.DatPath_1stage.if_inst_buffer, rval = 0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.$procdff$18939 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.$procmux$18691_Y, Q = \Core_1stage.DatPath_1stage.reg_interrupt_edge, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$19020 ($sdff) from module SodorInternalTile_1stage (D = \Core_1stage.DatPath_1stage.csr_io_interrupt, Q = \Core_1stage.DatPath_1stage.reg_interrupt_edge).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18947 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$or$testOut/nondeleyed_base/CSRFile_1stage.v:277$16751_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_wfi, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18948 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:377$16839_Y [5:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.small_1, rval = 6'000000).
+Adding EN signal on $auto$ff.cc:266:slice$19025 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:377$16839_Y [5:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.small_1).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18949 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18727_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.large_1, rval = 58'0000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$19029 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18727_Y [57:26], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.large_1 [57:26]).
+Adding EN signal on $auto$ff.cc:266:slice$19029 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18727_Y [25:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.large_1 [25:0]).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18950 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:298$16772_Y [0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mstatus_spp, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18951 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18814_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mstatus_mpie, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18967 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:378$16840_Y [5:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.small_, rval = 6'000000).
+Adding EN signal on $auto$ff.cc:266:slice$19038 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:378$16840_Y [5:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.small_).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18968 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18751_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.large_, rval = 58'0000000000000000000000000000000000000000000000000000000000).
+Adding EN signal on $auto$ff.cc:266:slice$19042 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18751_Y [57:26], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.large_ [57:26]).
+Adding EN signal on $auto$ff.cc:266:slice$19042 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18751_Y [25:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.large_ [25:0]).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18966 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:376$16838_Y [2:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mcountinhibit, rval = 3'000).
+Adding EN signal on $auto$ff.cc:266:slice$19049 ($sdff) from module SodorInternalTile_1stage (D = \Core_1stage.DatPath_1stage.CSRFile_1stage._GEN_293 [2:0], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mcountinhibit).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18965 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18824_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mtvec, rval = 0).
+Adding EN signal on $auto$ff.cc:266:slice$19051 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$and$testOut/nondeleyed_base/CSRFile_1stage.v:233$16704_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mtvec).
+Adding EN signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18964 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$and$testOut/nondeleyed_base/CSRFile_1stage.v:233$16704_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mscratch).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18969 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$or$testOut/nondeleyed_base/CSRFile_1stage.v:310$16786_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.io_status_cease_r, rval = 1'0).
+Adding EN signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18960 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$and$testOut/nondeleyed_base/CSRFile_1stage.v:360$16827_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mie).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18959 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$or$testOut/nondeleyed_base/CSRFile_1stage.v:278$16753_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_singleStepped, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18956 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18796_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_debug, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18953 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18859_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_ebreakm, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$19064 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$and$testOut/nondeleyed_base/CSRFile_1stage.v:233$16704_Y [15], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_ebreakm).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18952 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18805_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mstatus_mie, rval = 1'0).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18955 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18843_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_step, rval = 1'0).
+Adding EN signal on $auto$ff.cc:266:slice$19069 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$and$testOut/nondeleyed_base/CSRFile_1stage.v:233$16704_Y [2], Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_step).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18962 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18772_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mcause, rval = 0).
+Adding EN signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18958 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$and$testOut/nondeleyed_base/CSRFile_1stage.v:233$16704_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dscratch).
+Adding SRST signal on $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procdff$18954 ($dff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$procmux$18852_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_cause, rval = 3'000).
+Adding EN signal on $auto$ff.cc:266:slice$19077 ($sdff) from module SodorInternalTile_1stage (D = $flatten\Core_1stage.\DatPath_1stage.\CSRFile_1stage.$ternary$testOut/nondeleyed_base/CSRFile_1stage.v:284$16759_Y, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_dcsr_cause).
+Setting constant 1-bit at position 0 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 1 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 2 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 3 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 4 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 5 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 6 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 7 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 8 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 9 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 10 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 11 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 12 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 13 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 14 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 15 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 16 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 17 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 18 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 19 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 20 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 21 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 22 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 23 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 24 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 25 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 26 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 27 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 28 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 29 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 30 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 31 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18944 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 0 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18943 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 1 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18943 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 2 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18943 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 3 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18943 ($dff) from module SodorInternalTile_1stage.
+Setting constant 1-bit at position 4 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18943 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 0 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 1 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 2 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 3 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 4 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 5 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 6 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 7 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 8 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 9 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 10 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 11 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 12 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 13 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 14 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 15 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 16 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 17 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 18 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 19 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 20 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 21 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 22 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 23 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 24 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 25 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 26 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 27 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 28 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 29 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 30 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 31 on $flatten\Core_1stage.\DatPath_1stage.$procdff$18945 ($dff) from module SodorInternalTile_1stage.
+
+38.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \SodorInternalTile_1stage..
+Removed 83 unused cells and 9433 unused wires.
+<suppressed ~103 debug messages>
+
+38.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+<suppressed ~1 debug messages>
+
+38.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+38.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \SodorInternalTile_1stage..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~122 debug messages>
+
+38.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \SodorInternalTile_1stage.
+Performed a total of 0 changes.
+
+38.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\SodorInternalTile_1stage'.
+<suppressed ~12 debug messages>
+Removed a total of 4 cells.
+
+38.13. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $auto$ff.cc:266:slice$19050 ($sdffe) from module SodorInternalTile_1stage (D = { \Core_1stage.DatPath_1stage.CSRFile_1stage.wdata [2] 1'0 \Core_1stage.DatPath_1stage.CSRFile_1stage.wdata [0] }, Q = \Core_1stage.DatPath_1stage.CSRFile_1stage.reg_mcountinhibit).
+Handling D = Q on $auto$ff.cc:266:slice$19036 ($sdff) from module SodorInternalTile_1stage (conecting SRST instead).
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$19036 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 1 on $auto$ff.cc:266:slice$19083 ($sdffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 0 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 1 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 2 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 4 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 5 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 6 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 8 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 9 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 10 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 12 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 13 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 14 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 15 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 16 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 17 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 18 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 19 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 20 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 21 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 22 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 23 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 24 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 25 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 26 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 27 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 28 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 29 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 30 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+Setting constant 0-bit at position 31 on $auto$ff.cc:266:slice$19059 ($dffe) from module SodorInternalTile_1stage.
+
+38.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \SodorInternalTile_1stage..
+Removed 1 unused cells and 5 unused wires.
+<suppressed ~3 debug messages>
+
+38.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+
+38.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+38.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \SodorInternalTile_1stage..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~121 debug messages>
+
+38.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \SodorInternalTile_1stage.
+Performed a total of 0 changes.
+
+38.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\SodorInternalTile_1stage'.
+Removed a total of 0 cells.
+
+38.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+38.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \SodorInternalTile_1stage..
+
+38.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module SodorInternalTile_1stage.
+
+38.23. Finished OPT passes. (There is nothing left to do.)
+
+39. Executing Verilog backend.
+
+39.1. Executing BMUXMAP pass.
+
+39.2. Executing DEMUXMAP pass.
+Dumping module `\SodorInternalTile_1stage'.
+
+End of script. Logfile hash: a71124962b, CPU: user 10.77s system 0.30s, MEM: 176.29 MB peak
+Yosys 0.34+43 (git sha1 d21c464ae, clang 10.0.0-4ubuntu1 -fPIC -Os)
+Time spent: 19% 3x opt_clean (1 sec), 15% 4x opt_merge (1 sec), ...

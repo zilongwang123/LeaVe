@@ -1,0 +1,8 @@
+read_verilog -sv testOut/nondeleyed_init/*.v
+hierarchy -top SodorInternalTile_1stage
+proc
+flatten
+select SodorInternalTile_1stage
+write_verilog  testOut/nondeleyed_init/SodorInternalTile_1stage.v
+show_regs_mems -o testOut/nondeleyed_init SodorInternalTile_1stage
+write_verilog  testOut/nondeleyed_init/SodorInternalTile_1stage.v
