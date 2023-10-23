@@ -213,11 +213,10 @@ def main():
     # source observations
     srcObservations = CONF.srcObservations
     # target observations
-    trgObservations = CONF.trgObservations + CONF.predicateRetire
+    trgObservations = CONF.trgObservations #+ CONF.predicateRetire
     # meta variables
     metaVars = CONF.metaVars
 
-    invariant = invariant + CONF.predicateRetire
 
     time1 = datetime.now() 
     logfile("\n2. Start the delayed leakage ordering check...\n")

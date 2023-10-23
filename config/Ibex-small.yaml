@@ -46,79 +46,21 @@ srcObservations:
   # Indicates that the instruction on fly of the two runs are the same
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
   - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
-  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
-  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
-
-
-######################
-# seq-ct  
-######################
-  # program counter
-  # - {id: "PC", cond: "\\core0.retire", attrs: [{value: "\\core0.PC_retire", width: 32}]}
-  # # When the instruction is a load, we attach the data address
-  # - {id: "LOAD", cond: "\\core0.retire && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayDADDR", width: 32}]} 
-  # # When the instruction is a write, we attach the data address
-  # - {id: "STORE", cond: "\\core0.retire && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayDADDR", width: 32}]} 
-  # - {id: "BCC", cond: "\\core0.retire && \\core0.DelayBCC", attrs: [ {value: "\\core0.DelayU1REG", width: 32},{value: "\\core0.DelayU2REG", width: 32}]}
-  # - {id: "JALR", cond: "\\core0.retire && \\core0.DelayJALR", attrs: [ {value: "\\core0.DelayU1REG", width: 32}]}
-  # - {id: "INSTR", cond: "\\core0.retire", attrs: [ {value: "\\core0.DelayXIDATA_next", width: 32}]}
-
-
-
-
-### FILTERED SOURCE
-filteredSrcObservations: []
-######################
-# seq-arch
-######################
-  #  - {id: "PCs", cond: " \\core0.filter_pc_reg ", attrs: [{value: "\\core0.PC", width: 32}]} #,{value: "\\core0.NXPC", width: 32}]}
-  #  - {id: "LOAD", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a LOAD whenever we have a memory load. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO 
-  #  - {id: "STORE", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a STORE whenever we have a memory store. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO  
-  #  - {id: "\\core0.DATAI", cond: "\\core0.writeback_reg && \\core0.DelayLCC", attrs: [ {value: "\\core0.DelayLDATA", width: 32}]} # disclose a LOAD and the data write to the register at write back stage
-  #  - {id: "\\core0.DATAO", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DATAO", width: 32}]}
-  #  - {id: "\\core0.XIDATA_next", cond: "\\core0.decode_reg ", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
-
-   
-######################
-# seq-ct  
-######################
-  #  - {id: "PCs", cond: " \\core0.filter_pc_reg ", attrs: [{value: "\\core0.PC", width: 32}]}
-  # #  - {id: "LOAD", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a LOAD whenever we have a memory load. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO 
-  # #  - {id: "STORE", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}  # disclose a STORE whenever we have a memory store. DADDR[12:2] is the address of the memory. DATAO is the value to be loaded, BE indicates the valid positions of DATAO  
-  # #  - {id: "BCC", cond: "\\core0.decode_reg && \\core0.BCC", attrs: [ {value: "\\core0.U1REG", width: 32},{value: "\\core0.U2REG", width: 32}]}
-  # #  - {id: "JALR", cond: "\\core0.decode_reg && \\core0.JALR", attrs: [ {value: "\\core0.U1REG", width: 32}]}
-  #  - {id: "\\core0.XIDATA_next", cond: "\\core0.decode_reg ", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
-
+  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
+  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
+  
 
 ### Predicates
 # Retire predicates
 predicateRetire: 
  - {id: "Retire", cond: "1", attrs: [{value: "\\ibex_core.retire ", width: 1}]}
 
-# Pipeline predicates for seq-arch
-predicatePI: []
-#  - {id: "WRITEBACK", cond: "1", attrs: [{value: "\\core0.writeback", width: 1}]}
-#  - {id: "DECODE", cond: "1", attrs: [{value: "\\core0.decode", width: 1}]}
-#  - {id: "FILTER_PC", cond: "1", attrs: [{value: "\\core0.filter_pc", width: 1}]}
-
-
 
 
 ### TARGET
-trgObservations: []
-# # signal for instr/data buses
-#  - {id: "\\core0.IADDR", cond: "1", attrs: [ {value: "\\core0.IADDR", width: 32} ] } 
-#  - {id: "\\core0.DADDR", cond: "1", attrs: [ {value: "\\core0.DADDR", width: 32} ] }
-# # control signals for memory
-#  - {id: "MEM_CTR", cond: "1", attrs: [{value: "\\core0.WR"}, {value: "\\core0.RD"}] } #  {value: "BE", width: 4}
-# # program counters
-#  - {id: "PCs", cond: "1", attrs: [{value: "\\core0.PC", width: 32}, {value: "\\core0.NXPC", width: 32}]}
-# # signal for halting the pipeline (e.g., if waiting for data from memory)
-#  - {id: "\\core0.HLT", cond: "1", attrs: [{ value: "\\core0.HLT"}]} 
-# # # reset logic
-#  - {id: "\\core0.XRES", cond: "1", attrs: [{ value: "\\core0.XRES", width: 8}]}
-# # # register controlling pipeline flushes
-#  - {id: "\\core0.FLUSH", cond: "1", attrs: [ {value: "\\core0.FLUSH", width: 2}] }
+trgObservations: 
+ - {id: "Retire", cond: "1", attrs: [{value: "\\ibex_core.retire ", width: 1}]}
+
 
 stateInvariant: # if init is "1", it will only be assumed in cycle 0 
 # configration of RV32I Base Instruction Set with out fence, ecall, ebreak. The memory instructions are constrained with word_size only. 

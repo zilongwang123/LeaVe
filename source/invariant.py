@@ -103,7 +103,7 @@ def initInvariant(filtertype):
         if av.get("id") not in av_dict:
             auxVars.append(av)
             av_dict.append(av.get("id"))
-    return auxVars, to_expand, embedInvariant(CONF.trgObservations,embedInvariant(CONF.invariant,invariant))
+    return auxVars, to_expand, embedInvariant(CONF.predicateRetire,embedInvariant(CONF.trgObservations,embedInvariant(CONF.invariant,invariant)))
 
 def embedInvariant(invariant, toembedinv):
     newinv = []

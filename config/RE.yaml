@@ -30,27 +30,15 @@ vvpPath: "vvp"
 # Analysis backend
 avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
 
-### SOURCE -- CONTRACT
-filteredSrcObservations:
-#  - {id: "ADD", cond: "decode_reg && ex_op == 8'h01", attrs: []} # disclose whenever we are executing an ADD
- - {id: "MUL", cond: "decode_reg && ex_op == 8'h02", attrs: [ {value: "ex_imm", width: 24} ] } # disclose whenever we are executing a MUL
- #- {id: "Retire", cond: "1", attrs: [{value: "(retire)", width: 1}]}
- #- {id: "Decode", cond: "1", attrs: [{value: "(decode)", width: 1}]}
 
 srcObservations: 
 #  - {id: "ADD", cond: "(op_ctr == 8'h01)", attrs: []} # disclose whenever we are executing an ADD
  - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register_old", width: 32}, {value: "imm_ctr", width: 24}   ] } # disclose MUL operand whenever we are executing a MUL
 #  - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register", width: 32}, {value: "imm_ctr", width: 24} ] }
 
-### Predicates
 # Retire predicates
 predicateRetire:
  - {id: "Retire", cond: "1", attrs: [{value: "retire", width: 1}]}
-
-# Pipeline predicates
-predicatePI:
- - {id: "DECODE", cond: "1", attrs: [{value: "decode", width: 1}]}
-
 
 ### STATE INVARIANT
 stateInvariant: 

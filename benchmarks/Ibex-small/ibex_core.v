@@ -1031,6 +1031,6 @@ module ibex_core (
 	assign div_ctr = ( instr_ctr[6:0] == 7'h33 ) && ( instr_ctr[31:25] == 7'h01 ) && ( instr_ctr[14:12] == 3'h4 || instr_ctr[14:12] == 3'h5 || instr_ctr[14:12] == 3'h6 || instr_ctr[14:12] == 3'h7);
 	assign div_op_b_ctr = rf_rdata_b_fwd_ctr_old; 
 
-	// wire div_op_zero_ctr;
-	// assign div_op_zero_ctr = rf_rdata_b_fwd_ctr_old == 0; 
+	wire div_op_zero_ctr;
+	assign div_op_zero_ctr = rf_rdata_b_fwd_ctr_old == 0; 
 endmodule

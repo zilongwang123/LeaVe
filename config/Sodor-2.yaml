@@ -35,33 +35,6 @@ avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
 
 
 
-### SOURCE
-filteredSrcObservations:
-######################
-# seq-arch
-######################
-  - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.fetch_reg ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.filtered_if_reg_pc", width: 32}]} # disclose the value of program counter.
-  - {id: "RADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_reg && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_addr", width: 21}]} 
-  - {id: "WADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_reg && \\AsyncScratchPadMemory_2stage.module__io_en ) ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.module__io_addr", width: 21}]} # disclose a LOAD whenever we have a memory load. 
-  - {id: "RDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute_reg && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data", width: 32}]} 
-  - {id: "WDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute && \\AsyncScratchPadMemory_2stage.module__io_en ) ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.module__io_data", width: 32}]} # disclose a LOAD whenever we have a memory load. 
-  - {id: "INSTR", cond: "\\Core_2stage.DatPath_2stage.execute_reg", attrs: [ {value: " \\Core_2stage.DatPath_2stage.exe_reg_inst", width: 32}]} 
-
-  # - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.execute_wire ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_wire_pc", width: 32}]} # disclose the value of program counter.
-  # - {id: "RADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1_wire  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T_wire ) )", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dmem_req_bits_addr_wire [20:0]", width: 21}]} 
-  # - {id: "WADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.CtlPath_2stage.write_en_wire ) ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dmem_req_bits_addr_wire [20:0]", width: 21}]} # disclose a LOAD whenever we have a memory load. 
-  # - {id: "RDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1_wire  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T_wire ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_data_wire", width: 32}]} 
-  # - {id: "WDATA", cond: " ( \\Core_2stage.DatPath_2stage.execute_wire && \\Core_2stage.CtlPath_2stage.write_en_wire ) ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dmem_req_bits_data_wire", width: 32}]} # disclose a LOAD whenever we have a memory load. 
-  # - {id: "INSTR", cond: "\\Core_2stage.DatPath_2stage.execute_wire", attrs: [ {value: " \\Core_2stage.DatPath_2stage.exe_wire_inst", width: 32}]} 
-
-######################
-# seq-ct-jump
-######################
-  # - {id: "PC", cond: " \\Core_2stage.DatPath_2stage.execute ", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_reg_pc", width: 32}]} # disclose the value of program counter.
-  # # - {id: "RADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute && \\Core_2stage.DatPath_2stage._exe_wbdata_T_1  && ( ! \\Core_2stage.DatPath_2stage._exe_wbdata_T ) )", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.io_core_ports_0_resp_bits_data_module_io_addr", width: 21}]} 
-  # # - {id: "WADDR", cond: " ( \\Core_2stage.DatPath_2stage.execute && \\AsyncScratchPadMemory_2stage.module__io_en ) ", attrs: [ {value: "\\AsyncScratchPadMemory_2stage.module__io_addr", width: 21}]} # disclose a LOAD whenever we have a memory load. 
-  # - {id: "JUMP", cond: " ( \\Core_2stage.DatPath_2stage.fetch_wire )", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_br_target ", width: 32}, {value: "\\Core_2stage.DatPath_2stage._if_pc_next_T_7 ", width: 32} ]} # disclose a LOAD whenever we have a memory load. 
-  # - {id: "INSTR", cond: "\\Core_2stage.DatPath_2stage.execute", attrs: [ {value: " \\Core_2stage.DatPath_2stage.exe_reg_inst", width: 32}]} 
 
 srcObservations:
   - {id: "PC", cond: "1", attrs: [ {value: " \\Core_2stage.DatPath_2stage.pc_retire ", width: 32} ] }
@@ -77,22 +50,10 @@ srcObservations:
 predicateRetire:
  - {id: "Retire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.retire", width: 1}]}
 
-# Pipeline predicates
-predicatePI: 
- - {id: "EXECUTE_wire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.execute", width: 1}]}
- - {id: "FETCH_wire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.fetch", width: 1}]}
-
 
 ### TARGET
 trgObservations: 
-# - {id: "IF_REG_PC", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.if_reg_pc", width: 32} ] } 
-# - {id: "EXE_REG_PC", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.exe_reg_pc", width: 32} ] }
-# - {id: "IO_CTL_STALL", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_ctl_stall", width: 32} ] }
- - {id: "IO_CTL_IF_KILL", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_ctl_if_kill", width: 1} ] }
-# - {id: "IO_DAT_INST_MISALIGNED", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dat_inst_misaligned", width: 32} ] }
-# - {id: "IO_CTL_DATA_MISALIGNED", cond: "1", attrs: [ {value: "\\Core_2stage.DatPath_2stage.io_dat_data_misaligned", width: 32} ] }
-
-
+- {id: "Retire", cond: "1", attrs: [{value: "\\Core_2stage.DatPath_2stage.retire", width: 1}]}
 
 ### STATE INVARIANT
 stateInvariant:
