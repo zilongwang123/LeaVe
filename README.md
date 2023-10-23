@@ -34,7 +34,7 @@ As a baseline example, we will use the running example from our CCS 2023 paper (
 
 These are the instructions for reproducing the results in Table 1 from our CCS 2023 paper. For each target, the instructions below describe how to verify that the processor satisfies the strongest contract in Table 1.
 
-Below, `$TARGET` is one of  [`DarkRISCV-2`,`DarkRISCV-3`,`Sodor-2`,`ibex-small`,`ibex-mult-div`,`ibex_cache`]. To use LeaVe to verify `$TARGET`, follow these steps:
+Below, `$TARGET` is one of  [`DarkRISCV-2`,`DarkRISCV-3`,`Sodor-2`,`ibex-small`,`ibex-mult-div`,`ibex-cache`]. To use LeaVe to verify `$TARGET`, follow these steps:
 
 1. In the configuration file `config/$TARGET.yaml`, change the value of the `yosysPath` option to point to the Yosys's executable in your machine, e.g., `yosys-root-path/yosys`.
 
@@ -42,7 +42,7 @@ Below, `$TARGET` is one of  [`DarkRISCV-2`,`DarkRISCV-3`,`Sodor-2`,`ibex-small`,
 
 3. Inspect the results in the folder `testOut`. The output file `logfile` contains the information about the invariants discovered in each iteration of the invariant synthesis loop. The output file `logtimefile` reports timing statistics about the verification process.
 
-Note that while the verification of `DarkRISCV-2`,`DarkRISCV-3`, and `Sodor-2` is rather quick, verifying `ibex-small`,`ibex-mult-div`, and `ibex_cache` required roughly 1 day in our experiments.
+Note that while the verification of `DarkRISCV-2`,`DarkRISCV-3`, and `Sodor-2` is rather quick, verifying `ibex-small`,`ibex-mult-div`, and `ibex-cache` required roughly 1 day in our experiments.
 
 ## Verify a new processor design
 
