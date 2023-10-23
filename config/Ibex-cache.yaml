@@ -59,7 +59,7 @@ predicateRetire:
 
 ### TARGET
 trgObservations: 
-- {id: "Retire", expr: "\\ibex_core.retire", width: 1 , val : 0}
+ - {id: "Retire", cond: "1", attrs: [{value: "\\ibex_core.retire ", width: 1}]}
 
 
 stateInvariant: # if init is "1", it will only be assumed in cycle 0 
