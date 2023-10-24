@@ -460,7 +460,7 @@ def constructProductCircuit(outFolder, srcObsVar, trgObsVar, state, invVars, clo
             verificationConditions += "\n"
 
             verificationConditions += "\t// contract-equivalence\n"
-            verificationConditions += selfCompositionCycleDelayedCheck(clock, CONF.cycleDelayed, "base")
+            verificationConditions += selfCompositionCycleDelayedCheck(clock, CONF.lookAhead, "base")
             verificationConditions += "\n"
         else:
             if len(state) > 0:
@@ -508,7 +508,7 @@ def constructProductCircuit(outFolder, srcObsVar, trgObsVar, state, invVars, clo
             verificationConditions += "\n"
 
             verificationConditions += "\t// contract-equivalence\n"
-            verificationConditions += selfCompositionCycleDelayedCheck(clock, CONF.cycleDelayed, "inductive")
+            verificationConditions += selfCompositionCycleDelayedCheck(clock, CONF.lookAhead, "inductive")
             verificationConditions += "\n"
 
         else :
@@ -1066,12 +1066,12 @@ def verify(trgObservations, cstrtype, filtertype):
         cmd = [CONF.yosysBMCPath, "-s", CONF.yosysBMCSolver]
         if cstrtype == "base":
             if filtertype == "delayedcheck":
-                cmd += ["-t", str(int(CONF.cycleDelayed)+1)]
+                cmd += ["-t", str(int(CONF.lookAhead)+1)]
             else: 
                 cmd += ["-t", str(int(CONF.inductiveyosysBMCBound)-1)]
         elif cstrtype == "inductive":
             if filtertype == "delayedcheck":
-                cmd += ["-t", str(int(CONF.cycleDelayed)+2)]
+                cmd += ["-t", str(int(CONF.lookAhead)+2)]
             else: 
                 cmd += ["-t", CONF.inductiveyosysBMCBound]
         elif cstrtype == "check":

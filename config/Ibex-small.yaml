@@ -4,7 +4,7 @@ outFolder: "testOut/Ibex-small" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
-cycleDelayed: "38" # greater than 1
+lookAhead: "38" # greater than 1
 
 
 # main module under analysis

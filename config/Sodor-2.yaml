@@ -4,7 +4,7 @@ outFolder: "testOut/Sodor-2" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clock'
 initRegister: 'init'
-cycleDelayed: "1"
+lookAhead: "1"
 
 
 # main module under analysis

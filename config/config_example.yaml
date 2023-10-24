@@ -4,7 +4,7 @@ outFolder: "testOut" # target folder for intermediate data
 prodCircuitTemplate: "prod.v" # the name of the product circuit template
 clockInput: 'clk' # the name of the clock wire
 initRegister: 'init' # the name of the initial register
-cycleDelayed: "33" # the lookahead in paper, which depends on the largest number of cycles the instructions could fly in the pipeline
+lookAhead: "33" # the lookahead in paper, which depends on the largest number of cycles the instructions could fly in the pipeline
 
 # main module under analysis
 module: "pipeline_mul_fast" # the name of the top module of the design
@@ -32,7 +32,8 @@ avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
 # The contract observations
 srcObservations: 
 # An example is show below. The "id" is the name of the observation; the "cond" is the condition of the observation; the "attrs" contains the wires that should be equal if the condition is satisfied.
- - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register_old", width: 32}, {value: "imm_ctr", width: 24}   ] } # disclose MUL operand whenever we are executing a MUL
+# The source observation equals to a predicate "( cond_l == cond_r && ( cond_l == 1 => ( attr1_l == attr1_r && attr2_l == attr2_r ...)))
+ - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register_old", width: 32}, {value: "imm_ctr", width: 24}   ] } # disclose MUL operand whenever we are executing a MUL.
 
 
 ### Predicates

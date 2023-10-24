@@ -6,7 +6,7 @@ class ConfCls:
     prodCircuitTemplate: str = ""
     clockInput: str = ""
     initRegister: str = ""
-    cycleDelayed: str = ""
+    lookAhead: str = ""
     cycleDelayedBound: str = ""
 
     # Backends

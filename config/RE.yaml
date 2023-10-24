@@ -4,7 +4,7 @@ outFolder: "testOut/RE" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk'
 initRegister: 'init'
-cycleDelayed: "33" # depend on the upper bound of the opread od Mult
+lookAhead: "33" # depend on the upper bound of the opread od Mult
 
 # main module under analysis
 module: "pipeline_mul_fast" 
