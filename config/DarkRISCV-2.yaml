@@ -4,7 +4,7 @@ outFolder: "testOut/DarkRISCV-2" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'XCLK'
 initRegister: 'init'
-cycleDelayed: "2" # greater than 1
+lookAhead: "2" # greater than 1
 
 
 # main module under analysis
