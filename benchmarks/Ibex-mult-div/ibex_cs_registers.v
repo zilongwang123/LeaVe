@@ -1159,7 +1159,7 @@ module ibex_cs_registers (
 			assign cpuctrlsts_part_wdata[1] = 1'b0;
 	// 	end
 	// endgenerate
-	assign data_ind_timing_o = cpuctrlsts_part_q[1];
+	assign data_ind_timing_o = 1'b1;//cpuctrlsts_part_q[1];
 	// generate
 	// 	if (DummyInstructions) begin : gen_dummy
 	// 		assign cpuctrlsts_part_wdata[2] = cpuctrlsts_part_wdata_raw[2];

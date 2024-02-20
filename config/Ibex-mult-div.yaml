@@ -1,6 +1,6 @@
 # input/output information
-codeFolder: "benchmarks/Ibex-slow-mult" # folder with Verilog sources
-outFolder: "testOut/Ibex-slow-mult" # target folder for intermediate data
+codeFolder: "benchmarks/Ibex-mult-div" # folder with Verilog sources
+outFolder: "testOut/Ibex-mult-div" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk_i'
 initRegister: 'init'
@@ -18,7 +18,7 @@ yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
 prefixCheck: "True"
-yosysAdditionalModules: ["addobsmodule.so", "show_regs_mems.so", "stuttering.so"]
+yosysAdditionalModules: ["addmodule.so", "show_regs_mems.so", "stuttering.so"]
 
 # Output
 outputformat: "brief"
@@ -49,10 +49,10 @@ srcObservations:
   # - {id: "DATAI", cond: " \\ibex_core.load_ctr", attrs: [ {value: "\\ibex_dmem.load_data_ctr", width: 32}]}
   # Indicates that the instruction on fly of the two runs are the same
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
-  - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
-  - {id: "MULTIPLICATION", cond: "\\ibex_core.mul_ctr", attrs: [ {value: " \\ibex_core.mul_op_b_ctr ", width: 32}]} 
-  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
-  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
+  # - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
+  # - {id: "MULTIPLICATION", cond: "\\ibex_core.mul_ctr", attrs: [ {value: " \\ibex_core.mul_op_b_ctr ", width: 32}]} 
+  # # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
+  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
 
 
 

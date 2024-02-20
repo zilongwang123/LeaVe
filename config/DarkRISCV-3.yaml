@@ -40,11 +40,11 @@ srcObservations:
   # program counter
   - {id: "PC", cond: "1", attrs: [{value: "\\core0.PC_retire", width: 32}]}
   # When the instruction is a load, we attach the data address
-  # - {id: "LOAD", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
+  - {id: "LOAD", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
   # When the instruction is a write, we attach the data address
-  # - {id: "STORE", cond: "\\core0.SCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
+  - {id: "STORE", cond: "\\core0.SCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
   # When the instruction is a load, we need the data loaded to the registers are the same
-  # - {id: "DATAI", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.LDATA_CTR", width: 32}]} 
+  - {id: "DATAI", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.LDATA_CTR", width: 32}]} 
   # Indicates that the instruction on fly of the two runs are the same
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\core0.INSTR_CTR", width: 32}]}
 
