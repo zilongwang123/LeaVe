@@ -49,10 +49,9 @@ srcObservations:
   # - {id: "DATAI", cond: " \\ibex_core.load_ctr", attrs: [ {value: "\\ibex_dmem.load_data_ctr", width: 32}]}
   # Indicates that the instruction on fly of the two runs are the same
   - {id: "INSTR", cond: "1", attrs: [ {value: "\\ibex_core.instr_ctr", width: 32}]}
-  # - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
-  # - {id: "MULTIPLICATION", cond: "\\ibex_core.mul_ctr", attrs: [ {value: " \\ibex_core.mul_op_b_ctr ", width: 32}]} 
-  # # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_b_ctr ", width: 32}]} 
-  # - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
+  - {id: "BRANCH", cond: "\\ibex_core.branch_ctr", attrs: [ {value: " \\ibex_core.branch_taken_ctr ", width: 1}]} 
+  - {id: "MULTIPLICATION", cond: "\\ibex_core.mul_ctr", attrs: [ {value: " \\ibex_core.mul_op_b_ctr ", width: 32}]} 
+  - {id: "DIVISION", cond: "\\ibex_core.div_ctr", attrs: [ {value: " \\ibex_core.div_op_zero_ctr ", width: 1}]} 
 
 
 
@@ -88,7 +87,7 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "no_csr_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.csr_access_o == 0", width: 1}] }
   - {id: "no_wfi_insn", cond: "1", attrs: [ { value: "\\ibex_core.ibex_id_stage.ibex_decoder.wfi_insn_o == 0", width: 1}] }
   - {id: "no_fence", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_id_stage.ibex_decoder.opcode !== 7'h0f )", width: 1}] }
-  - {id: "no_security_features", cond: "1", attrs: [ { value: " ( \\ibex_core.data_ind_timing == 0 )", width: 1}] }
+  # - {id: "no_security_features", cond: "1", attrs: [ { value: " ( \\ibex_core.data_ind_timing == 0 )", width: 1}] }
   # - {id: "ls_word", cond: "1", attrs: [ { value: "\\ibex_dmem.sram_be == 4'b1111 ", width: 1}] }
   # - {id: "instr_alu", cond: "1", attrs: [ { value: "\\ibex_core.ibex_if_stage.instr_rdata_id_o == \\ibex_core.ibex_if_stage.instr_rdata_alu_id_o ", width: 1}] }
 # memory systems
@@ -113,7 +112,7 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
   - {id: "no_pmp_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.pmp_err_d == 0 ", width: 1}] }  
   - {id: "no_lsu_error1", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_q == 0 ", width: 1}] }  
   - {id: "no_lsu_error2", cond: "1", attrs: [ { value: " \\ibex_core.ibex_load_store_unit.lsu_err_d == 0 ", width: 1}] } 
-  - {id: "no_data_ind_timing", cond: "1",  attrs: [ {value: " \\ibex_core.ibex_ex_block.ibex_multdiv_slow.data_ind_timing_i == 0 ", width: 1}] }
+  # - {id: "no_data_ind_timing", cond: "1",  attrs: [ {value: " \\ibex_core.ibex_ex_block.ibex_multdiv_slow.data_ind_timing_i == 0 ", width: 1}] }
 # no branch predictor
   - {id: "no_branch_predictor", cond: "1", attrs: [ { value: " \\ibex_core.ibex_if_stage.nt_branch_mispredict_i == 0 ", width: 1}] }
 # ls done => instruction done
@@ -156,15 +155,16 @@ stateInvariant: # if init is "1", it will only be assumed in cycle 0
 # load_data_id = dmem [f(pc_id)]
   - {id: "load_data_id", cond: "1", attrs: [ { value: " ( ! ( \\ibex_core.en_wb  && \\ibex_core.rf_we_lsu ) ) || ( \\ibex_core.rf_wdata_lsu == \\ibex_dmem.load_data_id ) ", width: 1}] }
 # The multdiv FSM
-  # - {id: "md_fsm_0", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd0 ) || ( \\ibex_dmem.sram_gnt == 0 )", width: 1}] }
   - {id: "md_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd1 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd31 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) && ( ! \\ibex_core.ibex_ex_block.ibex_multdiv_slow.equal_to_zero_i ) ) )", width: 1}] }
   - {id: "md_fsm_2", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd2 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd31 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) && ( ! \\ibex_core.ibex_ex_block.ibex_multdiv_slow.equal_to_zero_i ) ) )", width: 1}] }
-  # - {id: "md_fsm_3", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd3 ) || ( \\ibex_dmem.sram_req == 1 && \\ibex_dmem.sram_gnt == 1 )", width: 1}] }
+  # - {id: "md_fsm_1", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd1 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd31 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) ) )", width: 1}] }
+  # - {id: "md_fsm_2", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd2 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd31 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) ) )", width: 1}] }
   - {id: "md_fsm_4", cond: "1", attrs: [ { value: " ( ( ! ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q == 3'd4 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd0 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd1 ) ) ) || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.op_b_shift_d == 0 ) ) ", width: 1}] }
   - {id: "md_fsm_5", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd5 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd0 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) && ( ! \\ibex_core.ibex_ex_block.ibex_multdiv_slow.equal_to_zero_i ) ) ) ", width: 1}] }
   - {id: "md_fsm_6", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd6 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd0 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) && ( ! \\ibex_core.ibex_ex_block.ibex_multdiv_slow.equal_to_zero_i ) ) ) ", width: 1}] }
+  # - {id: "md_fsm_5", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd5 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd0 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) ) ) ", width: 1}] }
+  # - {id: "md_fsm_6", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd6 || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_d == 5'd0 && ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd2 || \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd3 ) ) ) ", width: 1}] }
   - {id: "md_fsm_7", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q !== 3'd7 ) ", width: 1}] }
-  # - {id: "multdiv_count_q", cond: "1", attrs: [ { value: " ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_q !== 5'd1 ) ", width: 1}] }
   - {id: "multdiv_count_q", cond: "1", attrs: [ { value: " ( ! ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.md_state_q == 3'd3  && \\ibex_core.ibex_ex_block.ibex_multdiv_slow.operator_i == 2'd0 && \\ibex_core.ibex_ex_block.ibex_multdiv_slow.multdiv_count_q == 5'd1 ) ) || ( \\ibex_core.ibex_ex_block.ibex_multdiv_slow.op_b_shift_d == 0 )  ", width: 1}] }
 
 

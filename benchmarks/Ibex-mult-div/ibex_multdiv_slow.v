@@ -147,24 +147,24 @@ module ibex_multdiv_slow (
 			case (md_state_q)
 				3'd0: begin
 					case (operator_i)
-						2'd0: begin
+						2'd0: begin //mul
 							op_a_shift_d = op_a_ext << 1;
 							accum_window_d = {~(op_a_ext[32] & op_b_i[0]), op_a_ext[31:0] & {32 {op_b_i[0]}}};
 							op_b_shift_d = op_b_ext >> 1;
 							md_state_d = (!data_ind_timing_i && ((op_b_ext >> 1) == 0) ? 3'd4 : 3'd3);
 						end
-						2'd1: begin
+						2'd1: begin //mulh
 							op_a_shift_d = op_a_ext;
 							accum_window_d = {1'b1, ~(op_a_ext[32] & op_b_i[0]), op_a_ext[31:1] & {31 {op_b_i[0]}}};
 							op_b_shift_d = op_b_ext >> 1;
 							md_state_d = 3'd3;
 						end
-						2'd2: begin
+						2'd2: begin //div
 							accum_window_d = {33 {1'b1}};
 							md_state_d = (!data_ind_timing_i && equal_to_zero_i ? 3'd6 : 3'd1);
 							div_by_zero_d = equal_to_zero_i;
 						end
-						2'd3: begin
+						2'd3: begin //rem
 							accum_window_d = op_a_ext;
 							md_state_d = (!data_ind_timing_i && equal_to_zero_i ? 3'd6 : 3'd1);
 						end
