@@ -5,10 +5,15 @@
 
 module pipeline_mul_fast
 (
-    input           clk // clock
+    input           clk, // clock
 );
 
-  
+    // registers moved to compile verilog
+    reg mult; 
+    wire ready;
+    reg [31:0] wb_res;
+    reg       wb_we;
+      
     //instruction memory
     reg [31:0] Imem [31:0];
     // we only have single register;
@@ -58,14 +63,12 @@ Execute stage: compute results.
 
     // are we ready for the next instruction?
     // whenever we're not multiplying
-    reg mult; 
-    wire ready;
     assign ready = (!mult);   
     
     // stores temporary result from multiplication
     reg [31:0] mul_res;
     reg [31:0] mul_rd;
-    reg [23:0] mul_imm;
+    reg [31:0] mul_imm;
 
     reg [31:0] rd_old;
     
@@ -80,7 +83,7 @@ Execute stage: compute results.
         else if (ready && ex_op==`ALU_MUL ) begin
             // start multiplying
             mult <= 1;
-            wb_we <= 0;	
+            wb_we <= 0; 
             mul_rd <= rd ;
             mul_imm <= ex_imm;
             mul_res <= 0;
@@ -89,8 +92,8 @@ Execute stage: compute results.
         else if (ready && ex_op==`ALU_CLR ) begin
             // start multiplying
             mult <= 0;
-            wb_we <= 1;	
-            mul_res <= 0;
+            wb_we <= 1; 
+            wb_res <= 0;
         end
 
         else if (mult) begin
@@ -98,7 +101,7 @@ Execute stage: compute results.
             // do one round 
                 wb_we <= 1;
                 mult <= 0;
-                wb_res <= ( mul_rd & {32 {mul_imm[0]} });
+                wb_res <= mul_res + ( mul_rd & {32 {mul_imm[0]} });
             end
             else if (mul_rd == 0 || mul_rd == 1)begin
             // do one round 
@@ -110,7 +113,7 @@ Execute stage: compute results.
             else begin
             // do one round 
                 mult <= 1;
-                wb_we <= 0;	
+                wb_we <= 0; 
                 mul_imm <= mul_imm << 1;
                 mul_rd <= mul_rd >> 1;
                 mul_res <= mul_res + ( mul_imm & {32 {mul_rd[0]} });
@@ -120,17 +123,14 @@ Execute stage: compute results.
         end
         // default: write old value.  
         else begin
-            wb_we <= 1;
+            wb_we <= 0;
             mult <= 0;
-            wb_res <=  register;
         end
     end
 
     /* 
     Writeback stage: writing results into the register file.
     */  
-    reg [31:0] wb_res;
-    reg       wb_we;
     //Writeback
     reg retire;
     reg [31:0] register_old;
@@ -157,7 +157,6 @@ Execute stage: compute results.
             pc <= nxpc;
         end
     end
-
 
 endmodule
 
