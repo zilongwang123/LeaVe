@@ -53,7 +53,7 @@ def show_regs_mems(cstrtype, outFolder):
         cmd.append(f"-m{m}")
     cmd.append("-s{}/show_yosys.script".format(outFolder))
     run_process(cmd, CONF.verbose_verification)
-
+    
 def initInvariant(filtertype):
     outFolder = CONF.outFolder + f"/{filtertype}_init" 
     ## 0. copy source code to target
@@ -70,7 +70,7 @@ def initInvariant(filtertype):
     auxiliaryVariables = []
     f = open("{}/regs_mems.dat".format(outFolder))
     for line in f:
-        linelist = line.split(" ")
+        linelist = line.split("||")
         # create the invariants for memories 
         # Memories: name width size filename
         if linelist[0] == "Memories":
@@ -88,6 +88,7 @@ def initInvariant(filtertype):
         # Registers: name width
         elif linelist[0] == "Variables":
             id = linelist[1]
+            print(id)
             width = int(linelist[2])
             if (not id.count("$")) and (not (id.startswith("_") and id.endswith("_"))):
                 id = escape_id(id)
