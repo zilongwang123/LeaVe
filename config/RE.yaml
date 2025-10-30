@@ -12,7 +12,7 @@ moduleFile: "pipeline_mul_fast.v"
 memoryList: ["Imem"]
 
 # Verilog frontend
-yosysPath: "../yosys/yosys"
+yosysPath: "yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
@@ -66,7 +66,7 @@ state:
 - {id: "ex_op", expr: "ex_op", width: 8 , val : 0}
 - {id: "ex_imm", expr: "ex_imm", width: 24 , val : 0}
 - {id: "mul_rd", expr: "mul_rd", width: 32 , val : 0}
-- {id: "mul_imm", expr: "mul_imm", width: 24 , val : 0}
+- {id: "mul_imm", expr: "mul_imm", width: 32 , val : 0}
 - {id: "wb_res", expr: "wb_res", width: 32 , val : 0}
 - {id: "wb_we", expr: "wb_we", width: 1 , val : 0}
 - {id: "pc", expr: "pc", width: 32 , val : 0}

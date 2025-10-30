@@ -123,8 +123,9 @@ Execute stage: compute results.
         end
         // default: write old value.  
         else begin
-            wb_we <= 0;
+            wb_we <= 1;
             mult <= 0;
+            wb_res <=  register;
         end
     end
 
