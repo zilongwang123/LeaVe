@@ -1,14 +1,14 @@
 # input/output information
-codeFolder: "benchmarks/RE" # folder with Verilog sources
-outFolder: "testOut/RE" # target folder for intermediate data
+codeFolder: "benchmarks/RE2" # folder with Verilog sources
+outFolder: "testOut/RE2" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk'
 initRegister: 'init'
 lookAhead: "33" # depend on the upper bound of the opread od Mult
 
 # main module under analysis
-module: "pipeline_mul_fast" 
-moduleFile: "pipeline_mul_fast.v" 
+module: "pipeline_mul" 
+moduleFile: "pipeline_mul.v" 
 memoryList: ["Imem"]
 
 # Verilog frontend
@@ -33,7 +33,7 @@ avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
 
 srcObservations: 
 #  - {id: "ADD", cond: "(op_ctr == 8'h01)", attrs: []} # disclose whenever we are executing an ADD
- - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register_old", width: 32}, {value: "imm_ctr", width: 24}   ] } # disclose MUL operand whenever we are executing a MUL
+ - {id: "MUL", cond: " instr_retire[7:0] == 8'h02 ", attrs: [ {value: " instr_retire[31:8] ", width: 24} ] } # disclose MUL operand whenever we are executing a MUL
 #  - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register", width: 32}, {value: "imm_ctr", width: 24} ] }
 
 # Retire predicates
@@ -42,20 +42,21 @@ predicateRetire:
 
 ### STATE INVARIANT
 stateInvariant: 
- - {id: "instr1", cond: "1", attrs: [{value: " (op_decode == ex_op)", width: 1}]}
- - {id: "instr2", cond: "1", attrs: [{value: " (imm_decode == ex_imm)", width: 1}]}
- 
+ - {id: "legal_instr", cond: "decode", attrs: [{value: " ( ex_op == 8'h1 || ex_op == 8'h2 || ex_op == 8'h3 )", width: 1}]}
+ - {id: "decode_stage", cond: "decode", attrs: [{value: " ( ex_op == instr_decode[7:0] && ex_imm == instr_decode[31:8] )", width: 1}]}
+
+
 ### INVARIANT
-invariant: []
-#  - {id: "MUL_EXECUTE0", cond: "mult", attrs: [{value: "mul_rd", width: 32}]}
-#  - {id: "MUL_EXECUTE1", cond: "ex_op == 8'h02", attrs: [{value: "rd", width: 32}]}
-#  - {id: "MUL_EXECUTE1", cond: "ex_op == 8'h02", attrs: [{value: "ex_imm", width: 24}]}
+invariant:
+#  - {id: "MUL_decode", cond: " decode && instr_decode[7:0] == 8'h02 ", attrs: [{value: " instr_decode[31:8] ", width: 24}]}
+ - {id: "MUL_execute", cond: " execute && instr_execute[7:0] == 8'h02 ", attrs: [{value: " instr_execute[31:8] ", width: 24}]}
+ - {id: "MUL_IMM", cond: "mult", attrs: [{value: "mul_imm", width: 24}]}
 #  - {id: "MUL_EXECUTE2", cond: "ex_op == 8'h02", attrs: [{value: "rd", width: 32}]}
 
 
 ### TARGET
 trgObservations: 
-  - {id: "ready", cond: "1", attrs: [{value: "ready", width: 1}] } 
+  - {id: "Retire", cond: "1", attrs: [{value: "retire", width: 1}] } 
   #- {id: "retire", cond: "retire", attrs: [] } 
 
 ### INITIAL STATE\cpu.
@@ -69,15 +70,22 @@ state:
 - {id: "mul_imm", expr: "mul_imm", width: 32 , val : 0}
 - {id: "wb_res", expr: "wb_res", width: 32 , val : 0}
 - {id: "wb_we", expr: "wb_we", width: 1 , val : 0}
-- {id: "pc", expr: "pc", width: 32 , val : 0}
-- {id: "nxpc", expr: "nxpc", width: 32 , val : 0}
-- {id: "nxpc2", expr: "nxpc2", width: 32 , val : 0}
-- {id: "nxpc3", expr: "nxpc3", width: 32 , val : 0}
+- {id: "pc_fetch", expr: "pc_fetch", width: 32 , val : 0}
+- {id: "pc_decode", expr: "pc_decode", width: 32 , val : 0}
+- {id: "pc_execute", expr: "pc_execute", width: 32 , val : 0}
+- {id: "pc_retire", expr: "pc_retire", width: 32 , val : 0}
 - {id: "register", expr: "register", width: 32 , val : 0}
 - {id: "retire", expr: "retire", width: 1 , val : 0}
-- {id: "decode_reg", expr: "decode_reg", width: 1 , val : 0}
-- {id: "register_old", expr: "register_old", width: 32 , val : 0}
-- {id: "rd_old", expr: "rd_old", width: 32 , val : 0}
+- {id: "execute", expr: "execute", width: 1 , val : 0}
+- {id: "decode", expr: "decode", width: 1 , val : 0}
+- {id: "counter", expr: "counter", width: 32 , val : 0}
+- {id: "counter_decode", expr: "counter_decode", width: 32 , val : 0}
+- {id: "counter_execute", expr: "counter_execute", width: 32 , val : 0}
+- {id: "counter_retire", expr: "counter_retire", width: 32 , val : 0}
+- {id: "instr_decode", expr: "instr_decode", width: 32 , val : 0}
+- {id: "instr_execute", expr: "instr_execute", width: 32 , val : 0}
+- {id: "instr_retire", expr: "instr_retire", width: 32 , val : 0}
+
 
 
 
@@ -86,7 +94,7 @@ inputs:
   - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
 
 expandArrays:
- - {filename: "pipeline_mul_fast.v", array: "Imem", i: "32", j: "32", var: "Imem_flat", flatten: "True", mult: "false"}
+ - {filename: "pipeline_mul.v", array: "Imem", i: "32", j: "32", var: "Imem_flat", flatten: "True", mult: "false"}
 
 
 auxiliaryVariables: 
