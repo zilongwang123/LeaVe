@@ -46,7 +46,7 @@ def runTestbed(testbed):
                 tbname = inv.split(" ")
                 if (tbname[-1] == "0" or tbname[-1] == "x") and len(tbname) == 2:
                     name = tbname[0].split("_trg")[0].split(".")[-1]
-                    if name == " ":
+                    if name == "MUL_execute" or name == "ready" or name == "MUL_IMM" :
                         logtimefile("Failed to prove " + name)
                         logtimefile("\nVerification failed!!!\n ")
                         logfile("\nVerification failed!!!\n ")
