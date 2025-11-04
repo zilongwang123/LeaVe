@@ -31,6 +31,8 @@ module pipeline_mul
     reg execute;
     reg retire;
 
+    reg execute_first_cycle;
+
     reg [31:0] counter;
     reg [31:0] counter_decode;
     reg [31:0] counter_execute;
@@ -90,6 +92,7 @@ Execute stage: compute results.
             instr_execute <= instr_decode;
             counter_execute <= counter_decode;
             execute <= 1;
+            execute_first_cycle <= 1;
             wb_we <= 1;
             mult <= 0;
             wb_res <=  rd + ex_imm;
@@ -101,6 +104,7 @@ Execute stage: compute results.
             instr_execute <= instr_decode;
             counter_execute <= counter_decode;
             execute <= 1;
+            execute_first_cycle <= 1;
             mult <= 1;
             wb_we <= 0; 
             mul_rd <= rd ;
@@ -113,12 +117,14 @@ Execute stage: compute results.
             instr_execute <= instr_decode;
             counter_execute <= counter_decode;
             execute <= 1;
+            execute_first_cycle <= 1;
             mult <= 0;
             wb_we <= 1; 
             wb_res <= 0;
         end
         // Start the multiplication. The number of cycles depends on mul_imm
         else if (mult) begin 
+            execute_first_cycle <= 0;
             if (mul_imm == 0 || mul_imm == 1)begin
             // do one round 
                 wb_we <= 1;
@@ -142,6 +148,7 @@ Execute stage: compute results.
             wb_we <= 0;
             mult <= 0;
             execute <= 0;
+            execute_first_cycle <= 0;
         end
     end
 

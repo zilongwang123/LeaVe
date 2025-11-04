@@ -42,8 +42,8 @@ predicateRetire:
 
 ### STATE INVARIANT
 stateInvariant: 
- - {id: "legal_instr", cond: "decode", attrs: [{value: " ( ex_op == 8'h1 || ex_op == 8'h2 || ex_op == 8'h3 )", width: 1}]}
- - {id: "decode_stage", cond: "decode", attrs: [{value: " ( ex_op == instr_decode[7:0] && ex_imm == instr_decode[31:8] )", width: 1}]}
+ - {id: "legal_instr", cond: "1", attrs: [{value: " ( ex_op == 8'h1 || ex_op == 8'h2 || ex_op == 8'h3 )", width: 1}]}
+ - {id: "decode_stage", cond: "1", attrs: [{value: " ( ex_op == instr_decode[7:0] && ex_imm == instr_decode[31:8] )", width: 1}]}
 
 
 ### INVARIANT
@@ -77,11 +77,13 @@ state:
 - {id: "register", expr: "register", width: 32 , val : 0}
 - {id: "retire", expr: "retire", width: 1 , val : 0}
 - {id: "execute", expr: "execute", width: 1 , val : 0}
+- {id: "execute_first_cycle", expr: "execute_first_cycle", width: 1 , val : 0}
 - {id: "decode", expr: "decode", width: 1 , val : 0}
 - {id: "counter", expr: "counter", width: 32 , val : 0}
 - {id: "counter_decode", expr: "counter_decode", width: 32 , val : 0}
 - {id: "counter_execute", expr: "counter_execute", width: 32 , val : 0}
 - {id: "counter_retire", expr: "counter_retire", width: 32 , val : 0}
+- {id: "instr_fetch", expr: "instr_fetch", width: 32 , val : 0}
 - {id: "instr_decode", expr: "instr_decode", width: 32 , val : 0}
 - {id: "instr_execute", expr: "instr_execute", width: 32 , val : 0}
 - {id: "instr_retire", expr: "instr_retire", width: 32 , val : 0}

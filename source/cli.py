@@ -222,8 +222,6 @@ def main():
     logfile("\n2. Start the delayed leakage ordering check...\n")
     logfile("\n\t2.1 Start the preprocessing...\n")
     logtimefile("1. Start the preprocessing...\n")    
-    # print(invariant)
-    # exit(1)
     preprocessing(toexpandArray, srcObservations, invariant, stateInvariant, auxVars, metaVars, "delayedcheck")
     time2 = datetime.now() 
     logtimefile("\n\n2. Start the verification...")
