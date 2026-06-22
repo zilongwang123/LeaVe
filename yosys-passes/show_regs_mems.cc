@@ -95,7 +95,7 @@ std::string id(RTLIL::IdString internal_id)
 std::string sig_phase(RTLIL::SigSpec signal)
 {
     std::string info = "";
-    for (auto chunk = signal.chunks().begin(); chunk != signal.chunks().end(); chunk++) {
+    for (auto chunk = signal.chunks().begin(); chunk != signal.chunks().end(); ++chunk) {
         if ((*chunk).wire == NULL) {
             info = info + "Const;";
         } else {
