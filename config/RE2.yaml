@@ -4,7 +4,7 @@ outFolder: "testOut/RE2" # target folder for intermediate data
 prodCircuitTemplate: "prod.v"
 clockInput: 'clk'
 initRegister: 'init'
-lookAhead: "33" # depend on the upper bound of the opread od Mult
+lookAhead: "25" # depend on the upper bound of the opread od Mult 25
 
 # main module under analysis
 module: "pipeline_mul" 
@@ -34,7 +34,9 @@ avrPath: "/mnt/c/Users/wzl08/Desktop/hwcontracts/avr/avr.py"
 srcObservations: 
 #  - {id: "ADD", cond: "(op_ctr == 8'h01)", attrs: []} # disclose whenever we are executing an ADD
  - {id: "MUL", cond: " instr_retire[7:0] == 8'h02 ", attrs: [ {value: " instr_retire[31:8] ", width: 24} ] } # disclose MUL operand whenever we are executing a MUL
-#  - {id: "MUL", cond: "(op_ctr == 8'h02)", attrs: [ {value: "register", width: 32}, {value: "imm_ctr", width: 24} ] }
+#  - {id: "MUL_PI", cond: " decode && ( instr_decode[7:0] == 8'h02 )", attrs: [ {value: " instr_decode[31:8] ", width: 24} ] }
+#  - {id: "MUL_PI", cond: " instr_decode[7:0] == 8'h02 ", attrs: [ {value: " instr_decode[31:8] ", width: 24} ] }
+#  - {id: "MUL_PI", cond: " execute_first_cycle && instr_execute[7:0] == 8'h02 ", attrs: [ {value: " instr_execute[31:8] ", width: 24} ] }
 
 # Retire predicates
 predicateRetire:

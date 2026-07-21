@@ -2,7 +2,8 @@ module prod
  (
    input XCLK,
    input XRES,
-   input UART_RXD
+   input UART_RXD,
+   output src_cand_equiv,
  );  
    wire       XRES;
    wire       UART_TXDLeft;

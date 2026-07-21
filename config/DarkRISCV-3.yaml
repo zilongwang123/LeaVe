@@ -13,7 +13,7 @@ moduleFile: "darksocv_3stages.v"
 memoryList: ["RAM","ROM"]
 
 # Verilog frontend
-yosysPath: "../yosys/yosys"
+yosysPath: "yosys"
 yosysBMCPath: "yosys-smtbmc"
 inductiveyosysBMCBound: "2"
 checkyosysBMCBound: "20"
@@ -38,15 +38,12 @@ srcObservations:
 # seq-arch
 ######################
   # program counter
-  - {id: "PC", cond: "1", attrs: [{value: "\\core0.PC_retire", width: 32}]}
-  # When the instruction is a load, we attach the data address
-  - {id: "LOAD", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
-  # When the instruction is a write, we attach the data address
-  - {id: "STORE", cond: "\\core0.SCC_CTR", attrs: [ {value: "\\core0.DADDR_CTR", width: 32}]} 
-  # When the instruction is a load, we need the data loaded to the registers are the same
-  - {id: "DATAI", cond: "\\core0.LCC_CTR", attrs: [ {value: "\\core0.LDATA_CTR", width: 32}]} 
+  - {id: "PC", cond: "1", attrs: [{value: "\\core0.rvfi_pc_rdata", width: 32}]}
   # Indicates that the instruction on fly of the two runs are the same
-  - {id: "INSTR", cond: "1", attrs: [ {value: "\\core0.INSTR_CTR", width: 32}]}
+  - {id: "INSTR", cond: "1", attrs: [ {value: "\\core0.rvfi_insn", width: 32}]}
+  # outcome of the branch instruction
+  - {id: "BRANCH", cond: "\\core0.is_branch", attrs: [ {value: "\\core0.branch_taken", width: 1} ]}
+
 
 
 ### Predicates
@@ -55,28 +52,30 @@ predicateRetire:
  - {id: "Retire", cond: "1", attrs: [{value: "\\core0.retire", width: 1}]}
 
 
+
 ### TARGET
 trgObservations: 
- - {id: "Retire", cond: "1", attrs: [{value: "\\core0.retire", width: 1}]}
+  - {id: "Retire", cond: "1", attrs: [{value: "\\core0.retire", width: 1}]}
 
 
-stateInvariant: # if init is "1", it will only be assumed in cycle 0 
+stateInvariant: 
+  - {id: "RV32I", cond: "1", attrs: [{value: " ( \\core0.legal == 1 ) ", width: 1}]} 
   - {id: "OprInvs", cond: "1", attrs: [ { value: "(((\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (\\core0.XRCC ) && (!\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (\\core0.XMAC ) ) || ((!\\core0.XLUI ) && (!\\core0.XAUIPC ) && (!\\core0.XJAL ) && (!\\core0.XJALR ) && (!\\core0.XBCC ) && (!\\core0.XLCC ) && (!\\core0.XSCC ) && (!\\core0.XMCC ) && (!\\core0.XRCC ) && (!\\core0.XMAC ) ) )", width: 1} ]} # (!XLUI ) && (!XAUIPC ) && (!XJAL ) && (!XJALR ) && (!XBCC ) && (!XLCC ) && (!XSCC ) && (!XMCC ) && (!XRCC ) && (!XMAC )
   - {id: "IRESInvs", cond: "1", attrs: [ { value: "IRES==0", width: 1}] }  
-  - {id: "IDATAInvs", cond: "1", attrs: [ { value: " ( \\core0.IDATA == 0 ) == 0 ", width: 1}] }  
-  - {id: "XRESInvs", cond: "1", attrs: [ { value: "\\core0.XRES == 0", width: 1}] }
-  - {id: "reg1Invs", cond: "1", attrs: [ { value: "\\core0.REG1_0 == 0", width: 1, init: "0"}] }
-  - {id: "reg2Invs", cond: "1", attrs: [ { value: "\\core0.REG2_0 == 0", width: 1, init: "0"}] }
-  - {id: "PC_NXPC", cond: "1", attrs: [ {value: " ( ! ( \\core0.decode_reg && ( ! \\core0.FLUSH ) && ( \\core0.JAL || \\core0.JALR ) ) ) || ( \\core0.NXPC == \\core0.PC + 4 ) ", width: 1}]}
-  - {id: "HLTInvs", cond: "1", attrs: [ { value: "DACK == 0 || IHITACK == 1", width: 1, init: "0"}] }
-  - {id: "INSTR_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || INSTR_PC == \\core0.XIDATA", width: 1}] }
-  - {id: "LDATA_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 && \\core0.writeback && \\core0.LCC ) ) || \\core0.LDATA_PC == \\core0.LDATA", width: 1}] }
-  - {id: "LCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.LCC_PC == \\core0.LCC", width: 1}] }
-  - {id: "MCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.MCC_PC == \\core0.MCC", width: 1}] }
-  - {id: "RCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.RCC_PC == \\core0.RCC", width: 1}] }
+  - {id: "HLTInvs", cond: "1", attrs: [ { value: " ( ( ! ( ( RD || WR) && IHITACK == 1 ) ) || DACK == 1 ) && ( ( ( RD || WR) && IHITACK == 1 ) || DACK == 0 ) ", width: 1}] }
+  - {id: "XRESInvs", cond: "1", attrs: [ { value: " \\core0.XRES == 0 && \\core0.resetted == 0 ", width: 1}] }
+  # - {id: "flushinvs", cond: "1", attrs: [ { value: " \\core0.FLUSH == \\core0.branch_taken ", width: 1}] }
+  # - {id: "PC_NXPC", cond: "1", attrs: [ {value: " ( ! ( \\core0.decode_reg && ( ! \\core0.FLUSH ) && ( \\core0.JAL || \\core0.JALR ) ) ) || ( \\core0.NXPC == \\core0.PC + 4 ) ", width: 1}]}
+  # - {id: "INSTR_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || INSTR_PC == \\core0.XIDATA", width: 1}] }
+  # - {id: "LDATA_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 && \\core0.writeback && \\core0.LCC ) ) || \\core0.LDATA_PC == \\core0.LDATA", width: 1}] }
+  # - {id: "LCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.LCC_PC == \\core0.LCC", width: 1}] }
+  # - {id: "MCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.MCC_PC == \\core0.MCC", width: 1}] }
+  # - {id: "RCC_PC", cond: "1", attrs: [ { value: " ( ! ( \\core0.FLUSH == 0 ) ) || \\core0.RCC_PC == \\core0.RCC", width: 1}] }
+  # - {id: "DECODE_STAGE", cond: "1", attrs: [ { value: " ( ! ( \\core0.decode_reg == 0 ) ) || ( \\core0.XIDATA == 0 && \\core0.XLUI == 0 && \\core0.XAUIPC == 0 && \\core0.XJAL == 0 && \\core0.XJALR == 0 && \\core0.XBCC == 0 && \\core0.XLCC == 0  && \\core0.XSCC == 0 && \\core0.XMCC == 0 && \\core0.XRCC == 0 && \\core0.XMAC == 0 && \\core0.XSIMM == 0 && \\core0.XUIMM == 0 ) ", width: 1}] }
+  # - {id: "IDATAInvs", cond: "1", attrs: [ { value: " ( \\core0.IDATA == 0 ) == 0 ", width: 1}] }  
 
 
-invariant: 
+invariant: #[] 
   - {id: "PCs_inv1_1", cond: " ! \\core0.FLUSH ", attrs: [ {value: "\\core0.PC", width: 32}]}
   - {id: "PCs_inv1_2", cond: " ! \\core0.FLUSH ", attrs: [ {value: "\\core0.NXPC", width: 32}]}
   - {id: "PCs_inv2_1", cond: " \\core0.decode_reg && ! \\core0.FLUSH ", attrs: [ {value: "\\core0.PC", width: 32}]}
@@ -84,42 +83,31 @@ invariant:
   - {id: "HLT_FLUSH_inv", cond: " \\core0.HLT ", attrs: [ {value: "\\core0.FLUSH", width: 32}]}
   - {id: "HLT_inv", cond: "\\core0.decode ", attrs: [ {value: "\\core0.HLT", width: 32}]}
   - {id: "FLUSH_inv", cond: "\\core0.decode ", attrs: [ {value: "\\core0.FLUSH", width: 32}]}
-  - {id: "BCC_EXECUTE", cond: "\\core0.BCC", attrs: [ {value: "\\core0.U1REG", width: 32},{value: "\\core0.U2REG", width: 32}]}
-  - {id: "JALR_EXECUTE", cond: "\\core0.JALR", attrs: [ {value: "\\core0.U1REG", width: 32}]}
-  - {id: "LCC_ADDR", cond: "\\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}
-  - {id: "LCC_EXECUTE5", cond: " (\\core0.MCC || \\core0.RCC )", attrs: [ {value: "\\core0.RMDATA", width: 32}]}
-  - {id: "LCC_EXECUTE4", cond: " \\core0.LCC ", attrs: [ {value: "\\core0.LDATA", width: 32}]}
-  - {id: "LCC_EXECUTE1", cond: " \\core0.AUIPC ", attrs: [ {value: "\\core0.PCSIMM", width: 32}]}
-  - {id: "LCC_EXECUTE2", cond: " (\\core0.JAL || \\core0.JALR )", attrs: [ {value: "\\core0.NXPC", width: 32}]}
-  - {id: "LCC_EXECUTE3", cond: " \\core0.LUI ", attrs: [ {value: "\\core0.SIMM", width: 32}]}
-  - {id: "LCC_EXECUTE5_1", cond: " \\core0.writeback && (\\core0.MCC || \\core0.RCC )", attrs: [ {value: "\\core0.RMDATA", width: 32}]}
-  - {id: "LCC_EXECUTE4_1", cond: " \\core0.writeback && \\core0.LCC ", attrs: [ {value: "\\core0.LDATA", width: 32}]}
-  - {id: "LCC_EXECUTE1_1", cond: " \\core0.writeback && \\core0.AUIPC ", attrs: [ {value: "\\core0.PCSIMM", width: 32}]}
-  - {id: "LCC_EXECUTE2_1", cond: " \\core0.writeback && (\\core0.JAL || \\core0.JALR )", attrs: [ {value: "\\core0.NXPC", width: 32}]}
-  - {id: "LCC_EXECUTE3_1", cond: " \\core0.writeback && \\core0.LUI ", attrs: [ {value: "\\core0.SIMM", width: 32}]}
-  - {id: "SCC_EXECUTE", cond: "\\core0.SCC", attrs: [ {value: "\\core0.U2REG", width: 32}]}
+  - {id: "BCC_EXECUTE_inv", cond: "\\core0.BCC", attrs: [ {value: "\\core0.U1REG", width: 32},{value: "\\core0.U2REG", width: 32}]}
+  - {id: "JALR_EXECUTE_inv", cond: "\\core0.JALR", attrs: [ {value: "\\core0.U1REG", width: 32}]}
+  - {id: "LCC_ADDR_inv", cond: "\\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]}
+  - {id: "SCC_EXECUTE_inv", cond: "\\core0.SCC", attrs: [ {value: "\\core0.U2REG", width: 32}]}
   # program counter
-  - {id: "PC", cond: "\\core0.decode", attrs: [{value: "\\core0.PC_flush", width: 32}]}
+  - {id: "PC_inv", cond: "\\core0.decode", attrs: [{value: "\\core0.PC_flush", width: 32}]}
   # When the instruction is a load, we attach the data address
-  - {id: "LOAD", cond: "\\core0.decode && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  - {id: "LOAD_inv", cond: "\\core0.decode && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
   # When the instruction is a write, we attach the data address
-  - {id: "STORE", cond: "\\core0.decode && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  - {id: "STORE_inv", cond: "\\core0.decode && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
   # When the instruction is a load, we need the data loaded to the registers are the same
-  - {id: "DATAIinv", cond: "\\core0.decode && \\core0.LCC", attrs: [ {value: "\\core0.LDATA", width: 32}]} 
+  - {id: "DATAI_inv", cond: "\\core0.decode && \\core0.LCC", attrs: [ {value: "\\core0.LDATA", width: 32}]} 
   # Indicates that the instruction on fly of the two runs are the same
-  - {id: "INSTRinv", cond: "\\core0.decode", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
-  - {id: "INSTRinv2", cond: "\\core0.decode", attrs: [ {value: "\\core0.XIDATA_wire", width: 32}]}
+  - {id: "INSTR_inv2", cond: "\\core0.decode", attrs: [ {value: "\\core0.XIDATA_wire", width: 32}]}
     # program counter
-  - {id: "PC1", cond: "\\core0.decode_reg", attrs: [{value: "\\core0.PC_flush", width: 32}]}
+  - {id: "PC_inv1", cond: "\\core0.decode_reg", attrs: [{value: "\\core0.PC_flush", width: 32}]}
   # When the instruction is a load, we attach the data address
-  - {id: "LOAD1", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  - {id: "LOAD1_inv", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
   # When the instruction is a write, we attach the data address
-  - {id: "STORE1", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
+  - {id: "STORE1_inv", cond: "\\core0.decode_reg && \\core0.SCC", attrs: [ {value: "\\core0.DADDR", width: 32}]} 
   # When the instruction is a load, we need the data loaded to the registers are the same
-  - {id: "DATAIinv1", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.LDATA", width: 32}]} 
-  # Indicates that the instruction on fly of the two runs are the same
-  - {id: "INSTRinv3", cond: "\\core0.decode_reg", attrs: [ {value: "\\core0.XIDATA_next", width: 32}]}
-
+  - {id: "DATAI_inv1", cond: "\\core0.decode_reg && \\core0.LCC", attrs: [ {value: "\\core0.LDATA", width: 32}]} 
+  - {id: "decode_branch_taken", cond: " \\core0.decode_BCC || \\core0.decode_JAL || \\core0.decode_JALR ", attrs: [ { value: " \\core0.decode_branch_taken ", width: 1 } ]}
+  - {id: "retire_branch_taken", cond: " \\core0.rvfi_bne_ctr || \\core0.rvfi_bge_ctr || \\core0.rvfi_beq_ctr || \\core0.rvfi_blt_ctr || \\core0.rvfi_bltu_ctr || \\core0.rvfi_bgeu_ctr || \\core0.rvfi_jal_ctr || \\core0.rvfi_jalr_ctr ", attrs: [ { value: " \\core0.branch_taken ", width: 1 } ]}
+  - {id: "retire_FLUSH", cond: " \\core0.rvfi_bne_ctr || \\core0.rvfi_bge_ctr || \\core0.rvfi_beq_ctr || \\core0.rvfi_blt_ctr || \\core0.rvfi_bltu_ctr || \\core0.rvfi_bgeu_ctr || \\core0.rvfi_jal_ctr || \\core0.rvfi_jalr_ctr ", attrs: [ { value: " \\core0.FLUSH ", width: 1 } ]}
 
 
 
@@ -127,14 +115,13 @@ invariant:
 state: 
   #- {id: "ROM_state", expr: "ROM", width: 32768} # instruction
   # - {id: "RAM_state", expr: "RAM", width: 32768 , val : 0} # data
-  - {id: "\\core0.REG1", expr: "\\core0.REG1", width: 512 , val : 0}
-  - {id: "\\core0.REG2", expr: "\\core0.REG2", width: 512 , val : 0}
+  - {id: "\\core0.REG1", expr: "\\core0.REG1", width: 1024 , val : 0}
+  # - {id: "\\core0.REG2", expr: "\\core0.REG2", width: 1024 , val : 0}
   #1 rst signals 
   - {id: "\\core0.XRES", expr: "\\core0.XRES", width: 1 , val : 0}
-  - {id: "\\core0.FLUSH", expr: "\\core0.FLUSH", width: 2 , val : 0} 
-  - {id: "\\core0.RESMODE", expr: "\\core0.RESMODE", width: 4 , val : 0}
+  - {id: "\\core0.FLUSH", expr: "\\core0.FLUSH", width: 1 , val : 0} 
+  - {id: "\\core0.RESMODE", expr: "\\core0.RESMODE", width: 5 , val : 0}
   # PCs signals
-  - {id: "\\core0.NXPC2", expr: "\\core0.NXPC2", width: 32, val : 0}
   - {id: "\\core0.NXPC", expr: "\\core0.NXPC", width: 32, val : 0}
   - {id: "\\core0.PC", expr: "\\core0.PC", width: 32, val : 0}
   # 3 Internal control signals
@@ -178,12 +165,24 @@ state:
   - {id: "RAMFF", expr: "RAMFF", width: 32, val : 0}
   - {id: "DACK", expr: "DACK", width: 1 , val : 0}
   - {id: "ROMFF", expr: "ROMFF", width: 32, val : 0}
-  - {id: "ROMFF2", expr: "ROMFF2", width: 32 , val : 0}
-  - {id: "HLT2", expr: "HLT2", width: 1 , val : 0}
-  - {id: "IHITACK", expr: "IHITACK", width: 1 , val : 0}
+  - {id: "ROMFF2", expr: "ROMFF2", width: 32, val : 0}
+  - {id: "HLT2", expr: "HLT2", width: 1, val : 0}
+  - {id: "IHITACK", expr: "IHITACK", width: 1 , val : 1}
   - {id: "IRES", expr: "IRES", width: 8 , val : 0}
   # For contract
-  - {id: "\\core0.retire", expr: "\\core0.retire", width: 1 , val : 0}
+  - {id: "\\core0.flushed", expr: "\\core0.flushed", width: 1 , val : 0}
+  - {id: "\\core0.resetted", expr: "\\core0.resetted", width: 3 , val : 0}
+  - {id: "\\core0.stalled_instruction", expr: "\\core0.stalled_instruction", width: 32 , val : 0}
+  - {id: "\\core0.old_regfile", expr: "\\core0.old_regfile", width: 1024 , val : 0}
+  - {id: "\\core0.old_pc", expr: "\\core0.old_pc", width: 32 , val : 0}
+  - {id: "\\core0.next_pc", expr: "\\core0.next_pc", width: 32 , val : 0}
+  - {id: "\\core0.mem_req", expr: "\\core0.mem_req", width: 1 , val : 0}
+  - {id: "\\core0.mem_addr1", expr: "\\core0.mem_addr1", width: 32 , val : 0}
+  - {id: "\\core0.mem_rdata", expr: "\\core0.mem_rdata", width: 32 , val : 0}
+  - {id: "\\core0.mem_wdata", expr: "\\core0.mem_wdata", width: 32 , val : 0}
+  - {id: "\\core0.mem_we", expr: "\\core0.mem_we", width: 1 , val : 0}
+  - {id: "\\core0.mem_be", expr: "\\core0.mem_be", width: 4 , val : 0}
+  # - {id: "\\core0.retire", expr: "\\core0.retire", width: 1 , val : 0}
   - {id: "\\core0.PC_retire", expr: "\\core0.PC_retire", width: 32 , val : 0}
   - {id: "\\core0.DelayLDATA", expr: "\\core0.DelayLDATA", width: 32 , val : 0}
   - {id: "\\core0.DelayLCC", expr: "\\core0.DelayLCC", width: 1 , val : 0}
@@ -198,8 +197,6 @@ state:
   - {id: "\\core0.writeback_reg", expr: "\\core0.writeback_reg", width: 1 , val : 0}
   - {id: "\\core0.decode_reg", expr: "\\core0.decode_reg", width: 1 , val : 0}
 
-
-
 inputs:
   - {id: "XCLK", valueLeft: "XCLK", valueRight: "XCLK"}
   - {id: "XRES", valueLeft: "1'h0", valueRight: "1'h0"}
@@ -210,12 +207,14 @@ inputs:
   - {id: "stuttering_signal", valueLeft: "stuttering_left", valueRight: "stuttering_right"}
   
 expandArrays:
+#  - {filename: "darksocv_2stages.v", array: "ROM", i: "32", j: "1024", var: "ROM_flat", flatten: "True"}
+#  - {filename: "darksocv_2stages.v", array: "RAM", i: "32", j: "1024", var: "RAM_flat", flatten: "True"}
+#  - {filename: "darksocv_2stages.v", array: "\\core0.REG1", i: "32", j: "16", var: "\\core0.REG1_flat", flatten: "True", mult: "True"}
+#  - {filename: "darksocv_2stages.v", array: "\\core0.REG2", i: "32", j: "16", var: "\\core0.REG2_flat", flatten: "True", mult: "True"}
  - {filename: "darksocv_3stages.v", array: "ROM", i: "32", j: "1024", var: "ROM_flat", flatten: "True"}
  - {filename: "darksocv_3stages.v", array: "RAM", i: "32", j: "1024", var: "RAM_flat", flatten: "True"}
- - {filename: "darkriscv_3stages.v", array: "REG1", i: "32", j: "16", var: "REG1_flat", flatten: "True"}
- - {filename: "darkriscv_3stages.v", array: "REG2", i: "32", j: "16", var: "REG2_flat", flatten: "True"}
-
-  
+#  - {filename: "darkriscv_2stage.v", array: "REG1", start: "0", i: "32", j: "16", var: "REG1_flat", flatten: "True", mult: "True"}
+#  - {filename: "core0.v", array: "REG2", start: "0", i: "32", j: "16", var: "REG2_flat", flatten: "True", mult: "True"}
 
 auxiliaryVariables:
   - {id: "\\core0.BE", value: "\\core0.BE", width: 4}
@@ -223,17 +222,16 @@ auxiliaryVariables:
   - {id: "\\core0.DATAI", value: "\\core0.DATAI", width: 32}
   - {id: "\\core0.DADDR", value: "\\core0.DADDR", width: 32}
   - {id: "\\core0.IADDR", value: "\\core0.IADDR", width: 32}
-#  - {id: "ROM", width: 32768, value: "ROM_flat"}
-#  - {id: "RAM", width: 32768, value: "RAM_flat"}
-  - {id: "\\core0.REG1", width: 512, value: "\\core0.REG1_flat"}
-  - {id: "\\core0.REG2", width: 512, value: "\\core0.REG2_flat"}
+  - {id: "ROM", width: 32768, value: "ROM_flat"}
+  - {id: "RAM", width: 32768, value: "RAM_flat"}
+  # - {id: "\\core0.REG1", width: 512, value: "\\core0.REG1_flat"}
+  # - {id: "\\core0.REG2", width: 512, value: "\\core0.REG2_flat"}
   - {id: "ROMFF", value: "ROMFF", width: 32}
   - {id: "RAMFF", value: "RAMFF", width: 32}
   - {id: "\\core0.XIDATA", value: "\\core0.XIDATA", width: 32}
   - {id: "\\core0.XSIMM", value: "\\core0.XSIMM", width: 32}
   - {id: "\\core0.XUIMM", value: "\\core0.XUIMM", width: 32}
   - {id: "\\core0.NXPC", value: "\\core0.NXPC", width: 32}
-  - {id: "\\core0.NXPC2", value: "\\core0.NXPC2", width: 32}
   - {id: "\\core0.PC", value: "\\core0.PC", width: 32}
   - {id: "\\core0.JAL", value: "\\core0.JAL", width: 1}
   - {id: "\\core0.JALR", value: "\\core0.JALR", width: 1}
@@ -282,10 +280,8 @@ auxiliaryVariables:
   - {id: "IOMUXFF", value: "IOMUXFF", width: 32 }
   - {id: "XADDR", value: "XADDR", width: 32 } 
   - {id: "RAMFF", value: "RAMFF", width: 32 }
-  - {id: "DACK", value: "DACK", width: 2 }
+  - {id: "DACK", value: "DACK", width: 1 }
   - {id: "ROMFF", value: "ROMFF", width: 32 }
-  - {id: "ROMFF2", value: "ROMFF2", width: 32 }
-  - {id: "HLT2", value: "HLT2", width: 1 }
-  - {id: "IHITACK", value: "IHITACK", width: 2 }
+  - {id: "IHITACK", value: "IHITACK", width: 1 }
   - {id: "XATAI", value: "XATAI", width: 32 }
   - {id: "XATAO", value: "XATAO", width: 32 }
